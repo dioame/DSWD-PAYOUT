@@ -18,7 +18,7 @@
 <script src="{{ asset('assets/js/slick/slick.min.js') }}"></script>
 <script src="{{ asset('assets/js/slick/slick.js') }}"></script>
 <script src="{{ asset('assets/js/header-slick.js') }}"></script>
-<script src="{{ asset('assets/custom/js/Camera.js') }}"></script>
+<!-- <script src="{{ asset('assets/custom/js/Camera.js') }}"></script> -->
 @yield('script')
 
 @if(Route::current()->getName() != 'popover') 
