@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Capture\CaptureController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return redirect()->route('index');
 })->name('/');
 
 Route::view('index', 'index')->name('index');
+
+
+Route::resource('capture', CaptureController::class);
