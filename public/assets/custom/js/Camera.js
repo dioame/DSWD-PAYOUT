@@ -3,7 +3,75 @@ export class Camera {
     this.videoElement = videoElement;
     this.opt = opt;
   }
+
+  addCaptureButton() {
+    const captureButton = document.createElement('button');
+    captureButton.textContent = 'Capture';
+    captureButton.addEventListener('click', () => this.captureAndSend());
+    document.body.appendChild(captureButton);
+  }
+
+  async captureAndSend() {
+    if (this.active) {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.width = this.videoElement.videoWidth;
+      canvas.height = this.videoElement.videoHeight;
+      context.drawImage(this.videoElement, 0, 0, canvas.width, canvas.height);
+
+      const imageData = canvas.toDataURL('image/jpeg'); // Convert captured frame to base64
+
+      // Send the captured image data to the server using AJAX
+      await this.sendImageToServer(imageData);
+    }
+  }
+
+
+
+  async sendImageToServer(imageData) {
+    const url = 'http://dswd-payout.test/api/v1/admin/capture';
+    const payrollNo = '2000';
+    
+    // Create FormData and append fields
+    const formData = new FormData();
+    formData.append('payroll_no', payrollNo);
+    formData.append('file', dataURItoBlob(imageData), 'image.jpg'); // Convert base64 data to Blob
+    
+    // Make the fetch request
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'accept': 'application/json',
+      },
+    });
+    
+    // Check the response
+    if (response.ok) {
+      const result = await response.json();
+      console.log('Response:', result);
+    } else {
+      console.error('Failed to send the request');
+    }
+    
+    // Function to convert data URI to Blob
+    function dataURItoBlob(dataURI) {
+      const byteString = atob(dataURI.split(',')[1]);
+      const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+    
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+    
+      return new Blob([ab], { type: mimeString });
+    }
+  }
+
   async start() {
+    this.addCaptureButton();
+
     const w = this.opt.width || 1280;
     const h = this.opt.height || 720;
     const video = {
