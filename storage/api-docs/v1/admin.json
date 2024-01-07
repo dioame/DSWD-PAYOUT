@@ -1,0 +1,120 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "DSWD Payout API Documentation",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://dswd-payout.test/api/v1/admin"
+        }
+    ],
+    "paths": {
+        "/capture": {
+            "post": {
+                "tags": [
+                    "Capture"
+                ],
+                "summary": "Get Transactions",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "payroll_no": {
+                                        "title": "payroll_no",
+                                        "type": "string",
+                                        "example": "2000"
+                                    },
+                                    "file": {
+                                        "title": "file",
+                                        "type": "file",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": "success",
+                                    "description": "OK",
+                                    "data": {
+                                        "path": "/storage/pictures/2000_1704634259.jpg"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": "error",
+                                    "description": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Payroll number required (and 1 more error)",
+                                    "errors": {
+                                        "payroll_no": [
+                                            "Payroll number required"
+                                        ],
+                                        "file": [
+                                            "File required"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": "error",
+                                    "description": "Not Found"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "customer": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Capture",
+            "description": "Capture endpoint"
+        }
+    ],
+    "security": [
+        {
+            "admin": ""
+        }
+    ]
+}

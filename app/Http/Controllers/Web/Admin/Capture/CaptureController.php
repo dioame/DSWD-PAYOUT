@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Capture;
+namespace App\Http\Controllers\Web\Admin\Capture;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
 
 class CaptureController extends Controller
 {
@@ -29,7 +31,7 @@ class CaptureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
