@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Capture\StoreCaptureRequest;
-use Intervention\Image\Facades\Image;
+use App\Services\Admin\Capture\StoreCaptureService;
+// use Intervention\Image\Facades\Image;
+use Intervention\Image\Facades\Image as Image;
 
 
 class CaptureController extends Controller
@@ -30,9 +32,10 @@ class CaptureController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCaptureRequest $request)
+    public function store(StoreCaptureRequest $request, StoreCaptureService $service) 
     {
         //
+        $idNumber = $request->input('id_number');
         $payrollNo = $request->input('payroll_no');
         $file = $request->file('file');
 
@@ -43,48 +46,21 @@ class CaptureController extends Controller
         
         $filePath = $file->storeAs('pictures', $filename, 'public');
         $fileUrl = Storage::url($filePath);
+        
+        $params = $request->all();
+        $params['path'] = $filePath;
+        $result = $service->execute($params);
 
         return response()->json([
             'status' => 'success',
             'description' => 'OK',
             'data'=>[
-                'path'=>$fileUrl
+                'encoded_payroll'=> $result
             ]
         ],200);
     }
 
-    // public function store(StoreCaptureRequest $request)
-    // {
-    //     //
-    //     $payrollNo = $request->input('payroll_no');
-    //     $file = $request->file('file');
-        
-    //     // Generate a unique filename
-    //     $filename = $payrollNo . '_' . time() . '.' . $file->getClientOriginalExtension();
 
-    //     // Ensure the "pictures" directory exists in the storage path
-    //     Storage::makeDirectory('public/pictures');
-
-    //     // Compress and save the image
-    //     $img = Image::make($file->path());
-    //     $img->encode($file->getClientOriginalExtension(), 80); // Adjust quality as needed
-
-    //     $compressedFilename = $payrollNo . '_compressed_' . time() . '.' . $file->getClientOriginalExtension();
-    //     $compressedFilePath = $img->storeAs('pictures', $compressedFilename, 'public');
-    //     $compressedFileUrl = Storage::url($compressedFilePath);
-
-    //     return response()->json([
-    //         'status' => 'success',
-    //         'description' => 'OK',
-    //         'data' => [
-    //             'original_path' => Storage::url($file->storeAs('pictures', $filename, 'public')),
-    //             'compressed_path' => $compressedFileUrl,
-    //         ]
-    //     ], 200);
-    // }
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //

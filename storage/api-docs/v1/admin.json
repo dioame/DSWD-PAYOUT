@@ -22,6 +22,10 @@
                         "multipart/form-data": {
                             "schema": {
                                 "properties": {
+                                    "id_number": {
+                                        "title": "id_number",
+                                        "type": "string"
+                                    },
                                     "payroll_no": {
                                         "title": "payroll_no",
                                         "type": "string",

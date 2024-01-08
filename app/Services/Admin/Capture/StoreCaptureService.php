@@ -2,20 +2,31 @@
 
 namespace App\Services\Admin\Capture;
 
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
 use App\Models\Admin\Capture;
 class StoreCaptureService
 {
     public function execute($params)
     {
-        $conn = MobileConnection::create([
-            'id_number' => $params['id_number'],
-            'status' => 1
+        Capture::create([
+            'payroll_no' => $params['payroll_no'],
+            'path' => $params['path'],
+            'captured_by' => $params['id_number'],
+            'captured_at' => now()
         ]);
 
-        return $conn;
+        $capture = Capture::where(['captured_by'=>$params['id_number']]) 
+        ->orderBy('created_at', 'desc')
+        ->get();
 
+        return [
+            'payroll_count' => count($capture),
+            'payroll' => $capture->map(function ($row) {
+                return [
+                    'payroll_no' => $row->payroll_no,
+                    'path' => $row->path,
+                    'created_at' => $row->created_at->toDateTimeString()
+                ];
+            })
+        ];
     }
 }

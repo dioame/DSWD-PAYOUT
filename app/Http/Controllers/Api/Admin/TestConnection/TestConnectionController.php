@@ -68,15 +68,11 @@ class TestConnectionController extends Controller
     }
 
     public function testConnection(TestConnectionRequest $request, PostConnectionService $services){
-        $conn = $services->execute($request->all());
+        $result = $services->execute($request->all());
         return response()->json([
             'status' => 'success',
             'description' => 'OK',
-            'data'=> [
-                'id_number'=>$conn->id_number,
-                'status'=>$conn->status,
-                'created_at'=>$conn->created_at->toDateTimeString(),
-            ]
+            'data'=> $result
         ],200);
     }
 

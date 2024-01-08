@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('payroll_no');
             $table->string('path');
-            $table->string('captured_by');
+            $table->string('captured_by')->nullable();
             $table->dateTime('captured_at');
             // You can add additional fields if needed
             $table->timestamps();

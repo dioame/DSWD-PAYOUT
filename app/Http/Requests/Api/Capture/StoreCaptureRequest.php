@@ -26,7 +26,8 @@ class StoreCaptureRequest extends BaseRequest
     {
         return [
             'payroll_no'=> ['required'],
-            'file' => ['required']
+            'file' => ['required'],
+            'id_number' => ['required']
         ];
     }
 
@@ -38,6 +39,7 @@ class StoreCaptureRequest extends BaseRequest
         return [
             'payroll_no.required' => 'Payroll number required',
             'file.required' =>'File required',
+            'id_number.required' =>'Id number required',
         ];
     }
 }

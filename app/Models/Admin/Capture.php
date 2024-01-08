@@ -12,6 +12,6 @@ class Capture extends Model
         'captured_by'
     ];
 
-    protected $table = "mobile_connection";
+    protected $table = "capture";
 
 }
