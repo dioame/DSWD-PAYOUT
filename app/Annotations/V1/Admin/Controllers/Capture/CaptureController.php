@@ -44,12 +44,21 @@ class CaptureController extends Controller
      *          description="OK",
      *          @OA\JsonContent(
                 example= {
-                "status": "success",
-                "description": "OK",
-                  "data": {
-                        "path": "/storage/pictures/2000_1704634259.jpg"
-                    }
-                },
+  "status": "success",
+  "description": "OK",
+  "data": {
+    "encoded_payroll": {
+      "payroll_count": 1,
+      "payroll": {
+        {
+          "payroll_no": "2",
+          "path": "pictures/2_1704699696.jpg",
+          "created_at": "2024-01-08 07:41:36"
+        },
+    }
+    }
+  }
+}
      *          )
      *      ),
      *     @OA\Response(
