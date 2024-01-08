@@ -19,6 +19,11 @@ class CaptureController extends Controller
      *          mediaType="multipart/form-data",
      *          @OA\Schema(
      *              type="object",     
+     *             @OA\Property(
+     *                  property="id_number",
+     *                  title="id_number",
+     *                  type="string",
+     *              ),  
      *              @OA\Property(
      *                  property="payroll_no",
      *                  title="payroll_no",
