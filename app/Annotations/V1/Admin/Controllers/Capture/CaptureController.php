@@ -7,7 +7,7 @@ use App\Annotations\V1\Admin\Controllers\Controller;
 class CaptureController extends Controller
 {
     /**
-     * Get Transactions
+     * Get Capture
      *
      * @OA\Post(
      *     path="/capture",
