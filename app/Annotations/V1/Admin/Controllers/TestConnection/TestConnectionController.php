@@ -35,9 +35,21 @@ class TestConnectionController extends Controller
   "status": "success",
   "description": "OK",
   "data": {
-    "id_number": "16-11570",
-    "status": 1,
-    "created_at": "2024-01-08 01:04:17"
+    "connection": {
+      "id_number": "16-11570",
+      "status": 1,
+      "created_at": "2024-01-08 07:46:32"
+    },
+    "encoded_payroll": {
+      "payroll_count": 1,
+      "payroll": {
+        {
+          "payroll_no": "2",
+          "path": "pictures/2_1704699696.jpg",
+          "created_at": "2024-01-08 07:41:36"
+        },
+      }
+    }
   }
 }
      *          )
