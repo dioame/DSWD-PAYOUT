@@ -11,6 +11,11 @@ class Controller
      *     name="Capture",
      *     description="Capture endpoint"
      * ),
+     * 
+     * @OA\Tag(
+     *     name="Test connection",
+     *     description="Test connection endpoint"
+     * ),
      *
      */
 }
