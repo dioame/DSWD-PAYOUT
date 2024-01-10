@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Api\Admin\Capture;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image as Image;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Capture\StoreCaptureRequest;
 use App\Services\Admin\Capture\StoreCaptureService;
-// use Intervention\Image\Facades\Image;
-use Intervention\Image\Facades\Image as Image;
+use App\Models\Admin\Capture;
+
 
 
 class CaptureController extends Controller
@@ -85,8 +86,22 @@ class CaptureController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         //
+        $capture = Capture::where('id', $id)->first();
+        if (!$capture) {
+            return response()->json([
+                'status' => 'error',
+                'description' => 'Not Found',
+            ], 404);
+        }
+        
+        $capture->delete();
+        return response()->json([
+            'status' => 'success',
+            'description' => 'OK',
+        ], 200);
+        
     }
 }

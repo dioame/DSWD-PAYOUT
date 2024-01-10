@@ -56,6 +56,7 @@
                                             "payroll_count": 1,
                                             "payroll": [
                                                 {
+                                                    "id": 5,
                                                     "payroll_no": "2",
                                                     "path": "pictures/2_1704699696.jpg",
                                                     "created_at": "2024-01-08 07:41:36"
@@ -113,7 +114,88 @@
                 },
                 "security": [
                     {
-                        "customer": []
+                        "admin": []
+                    }
+                ]
+            }
+        },
+        "/capture/{id}": {
+            "delete": {
+                "tags": [
+                    "Capture"
+                ],
+                "summary": "Delete Capture by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "schema": {
+                            "type": "string",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": "success",
+                                    "description": "OK"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": "error",
+                                    "description": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Payroll number required (and 1 more error)",
+                                    "errors": {
+                                        "payroll_no": [
+                                            "Payroll number required"
+                                        ],
+                                        "file": [
+                                            "File required"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": "error",
+                                    "description": "Not Found"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "admin": []
                     }
                 ]
             }
@@ -159,6 +241,7 @@
                                             "payroll_count": 1,
                                             "payroll": [
                                                 {
+                                                    "id": 5,
                                                     "payroll_no": "2",
                                                     "path": "pictures/2_1704699696.jpg",
                                                     "created_at": "2024-01-08 07:41:36"
