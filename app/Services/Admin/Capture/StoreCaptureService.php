@@ -2,8 +2,10 @@
 
 namespace App\Services\Admin\Capture;
 
+use App\Services\BaseService;
 use App\Models\Admin\Capture;
-class StoreCaptureService
+
+class StoreCaptureService extends BaseService
 {
     public function execute($params)
     {
@@ -20,14 +22,7 @@ class StoreCaptureService
 
         return [
             'payroll_count' => count($capture),
-            'payroll' => $capture->map(function ($row) {
-                return [
-                    'id' => $row->id,
-                    'payroll_no' => $row->payroll_no,
-                    'path' => $row->path,
-                    'created_at' => $row->created_at->toDateTimeString()
-                ];
-            })
+            'payroll' => $this->getCapture($params['id_number'])
         ];
     }
 }
