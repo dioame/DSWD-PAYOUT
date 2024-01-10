@@ -51,10 +51,11 @@ class CaptureController extends Controller
       "payroll_count": 1,
       "payroll": {
        {
-          "id": 5,
+          "id": 4,
           "payroll_no": "2",
-          "path": "pictures/2_1704699696.jpg",
-          "created_at": "2024-01-08 07:41:36"
+          "path": "pictures/2_1704699662.jpg",
+          "is_duplicate": true,
+          "created_at": "2024-01-08 07:41:02"
         },
     }
     }
