@@ -50,7 +50,7 @@
                     <td>{{ $row->captured_at }}</td>
                     <td>
                         <div style='width:30px;'>
-                        <img src="{{ asset('storage/pictures/' . basename($row->path)) }}" alt="" style='max-width:100%;max-height:100%;border-radius:50px;'>
+                        <a href="{{ asset('storage/pictures/' . basename($row->path)) }}" target=_blank><img src="{{ asset('storage/pictures/' . basename($row->path)) }}" alt="" style='max-width:100%;max-height:100%;border-radius:50px;'></a>
                         </div>
                     </td>
                 </tr>
@@ -88,7 +88,7 @@
                     <td>{{ $row->captured_at }}</td>
                     <td>
                         <div style='width:30px;'>
-                        <img src="{{ asset('storage/pictures/' . basename($row->path)) }}" alt="" style='max-width:100%;max-height:100%;border-radius:50px;'>
+                        <a href="{{ asset('storage/pictures/' . basename($row->path)) }}" target=_blank><img src="{{ asset('storage/pictures/' . basename($row->path)) }}" alt="" style='max-width:100%;max-height:100%;border-radius:50px;'></a>
                         </div>
                     </td>
                 </tr>
