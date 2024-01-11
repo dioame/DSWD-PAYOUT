@@ -21,10 +21,22 @@ class PrintController extends Controller
         // // $chunks = $this->formatArray($query->pluck(['path','created_at']));
         //    $chunks = $this->formatArray($query);
 
+
+        // $query = $service->execute();
+        // $chunks = $this->formatArray($query->toArray());
+
         // echo "<pre>";
-        // // var_dump($query->toArray());
         // var_dump($chunks);
         // echo "</pre>";
+        // die();
+
+
+
+        // $arr = [1,2,3,4,5,6,7,8,9,10,11,12,13];
+     
+
+        // print_r($data);
+        //  echo "</pre>";
         // die();
 
         return view('print.index');
@@ -92,54 +104,27 @@ class PrintController extends Controller
         // $pictures = glob($picturesPath . '/*.jpg');
 
         $query = $service->execute();
-        $chunks = $this->formatArray($query);
+        $chunks = $this->formatArray($query->toArray());
 
         $pdf = PDF::loadView('print.pdf-template', compact('chunks'))->setPaper('a4', 'portrait');
         return $pdf->download('pictures.pdf');
     }
 
-    public function formatArray($inputArray){
-        $groupSizeOuter = 2; // Groups by 2
-        $groupSizeInner = 2; // Groups by 4 (inside each outer group)
-    
-        $resultArray = [];
-    
-        $previousOuterIndices = []; // Keep track of indices used in the previous outer group
-    
-        for ($i = 0; $i < count($inputArray); $i += $groupSizeOuter) {
-            $outerGroup = [];
-    
-            $addedIndices = []; // Keep track of indices used in the current outer group
-    
-            for ($j = 0; $j < $groupSizeOuter; $j++) {
-                $innerGroup = [];
-    
-                for ($k = 0; $k < $groupSizeInner; $k++) {
-                    $currentIndex = $i + $j * $groupSizeInner + $k;
-    
-                    if (
-                        isset($inputArray[$currentIndex]) &&
-                        !in_array($currentIndex, $addedIndices) &&
-                        !in_array($currentIndex, $previousOuterIndices)
-                    ) {
-                        $innerGroup[] = $inputArray[$currentIndex];
-                        $addedIndices[] = $currentIndex; // Mark this index as used in the current outer group
-                    }
-                }
-    
-                if (!empty($innerGroup)) {
-                    $outerGroup[] = $innerGroup;
-                }
-            }
-    
-            if (!empty($outerGroup)) {
-                $resultArray[] = $outerGroup;
-            }
-    
-            $previousOuterIndices = $addedIndices; // Update the previous outer indices for the next iteration
+    public function formatArray($arr){
+        $chunk_4 = array_chunk($arr,4);
+        $data = [];
+        foreach($chunk_4 as $chunk){
+            $chunk_2 = array_chunk($chunk,2);
+            $data[] = $chunk_2;
         }
-    
-        return $resultArray;
+
+
+        // echo "<pre>";
+        // print_r($data);
+        //  echo "</pre>";
+
+        // die();
+        return $data;
     }
     
     
