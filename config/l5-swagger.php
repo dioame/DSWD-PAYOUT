@@ -1,6 +1,7 @@
 <?php
 
 $host = env('L5_SWAGGER_CONST_HOST', config('app.url'));
+$current_host = gethostbyname(gethostname());
 $sections = [
     [
         'versions' => [1],
@@ -26,7 +27,7 @@ foreach ($sections as $section) {
                 'api' => 'api/documentation',
             ],
             'paths' => [
-                'base' => "{$host}api/{$version}{$base}",
+                'base' => "http://{$current_host}:8000/api/{$version}{$base}",
                 'docs' => storage_path('api-docs')."/{$version}",
                 'docs_json' => "{$section['name']}.json",
                 'docs_yaml' => "{$section['name']}.yaml",
