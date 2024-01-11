@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
-// use App\Models\Admin\Capture;
+use App\Models\Admin\Capture;
 use App\Services\Admin\Capture\GetCaptureService;
 
 class PrintController extends Controller
@@ -15,31 +15,21 @@ class PrintController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(GetCaptureService $service)
+    public function index()
     {
-        // $query = $service->execute();
-        // // $chunks = $this->formatArray($query->pluck(['path','created_at']));
-        //    $chunks = $this->formatArray($query);
-
-
-        // $query = $service->execute();
-        // $chunks = $this->formatArray($query->toArray());
-
-        // echo "<pre>";
-        // var_dump($chunks);
-        // echo "</pre>";
-        // die();
-
-
-
-        // $arr = [1,2,3,4,5,6,7,8,9,10,11,12,13];
-     
-
-        // print_r($data);
-        //  echo "</pre>";
-        // die();
-
-        return view('print.index');
+        $latest = Capture::orderBy('captured_at', 'desc')->limit(10)->get();
+        // $duplicate = Capture::orderBy('payroll_no', 'asc')->get();
+        $duplicate = Capture::whereIn('payroll_no', function ($query) {
+            $query->select('payroll_no')
+                ->from('capture')
+                ->groupBy('payroll_no')
+                ->havingRaw('COUNT(*) > 1');
+        })
+        ->orderBy('payroll_no', 'asc')
+        ->get();
+    
+        
+        return view('print.index', compact('latest', 'duplicate'));
     }
 
     /**
