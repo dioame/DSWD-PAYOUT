@@ -18,7 +18,7 @@ class PrintController extends Controller
     public function index()
     {
         $latest = Capture::orderBy('captured_at', 'desc')->limit(10)->get();
-        // $duplicate = Capture::orderBy('payroll_no', 'asc')->get();
+        
         $duplicate = Capture::whereIn('payroll_no', function ($query) {
             $query->select('payroll_no')
                 ->from('capture')
