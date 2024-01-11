@@ -18,4 +18,6 @@ Route::get('/', function () {
     return redirect()->route('index');
 })->name('/');
 
+Route::view('index', 'index')->name('index');
+
 include('web-admin.php');
