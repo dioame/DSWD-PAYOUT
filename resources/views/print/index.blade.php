@@ -39,15 +39,8 @@
     </style>
 </head>
 <body>
-    @foreach (array_chunk($images, 4) as $imageGroup)
-        <div class="page">
-            @foreach ($imageGroup as $image)
-                <div class="image-group">
-                    <img src="{{ asset('storage/pictures/' . basename($image)) }}" alt="Image">
-                </div>
-            @endforeach
-        </div>
-        <div class="page-break"></div>
-    @endforeach
+    <a href="/print/generate-pdf" class="btn btn-primary">Generate PDF</a>
+  
 </body>
 </html>
+
