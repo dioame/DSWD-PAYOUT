@@ -201,6 +201,90 @@
                 ]
             }
         },
+        "/import/payroll": {
+            "post": {
+                "tags": [
+                    "Import"
+                ],
+                "summary": "Import payroll",
+                "description": "Download template [here](/storage/downloads/CFW_template.xlsx)",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "id_number": {
+                                        "title": "year",
+                                        "type": "string"
+                                    },
+                                    "modality": {
+                                        "title": "modality",
+                                        "type": "string",
+                                        "enum": [
+                                            "CFW"
+                                        ]
+                                    },
+                                    "year": {
+                                        "title": "year",
+                                        "type": "string"
+                                    },
+                                    "excel_file": {
+                                        "title": "excel_file",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": "success",
+                                    "description": "OK"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": "error",
+                                    "description": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": "error",
+                                    "description": "Not Found"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "admin": []
+                    }
+                ]
+            }
+        },
         "/test-connection/mobile": {
             "post": {
                 "tags": [
@@ -282,7 +366,7 @@
                 },
                 "security": [
                     {
-                        "customer": []
+                        "admin": []
                     }
                 ]
             }
@@ -354,22 +438,12 @@
                 },
                 "security": [
                     {
-                        "customer": []
+                        "admin": []
                     }
                 ]
             }
         }
     },
-    "tags": [
-        {
-            "name": "Capture",
-            "description": "Capture endpoint"
-        },
-        {
-            "name": "Test connection",
-            "description": "Test connection endpoint"
-        }
-    ],
     "security": [
         {
             "admin": ""

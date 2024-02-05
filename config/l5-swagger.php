@@ -1,7 +1,9 @@
 <?php
 
-$host = env('L5_SWAGGER_CONST_HOST', config('app.url'));
-$current_host = gethostbyname(gethostname());
+$host = gethostbyname(gethostname());
+$connection = @fsockopen($host, 8000, $errno, $errstr, $timeout);
+$current_host = ($connection) ? "http://{$host}:8000" : env('L5_SWAGGER_CONST_HOST', config('app.url'));
+
 $sections = [
     [
         'versions' => [1],
@@ -27,7 +29,7 @@ foreach ($sections as $section) {
                 'api' => 'api/documentation',
             ],
             'paths' => [
-                'base' => "http://{$current_host}:8000/api/{$version}{$base}",
+                'base' => $current_host."/api/{$version}{$base}",
                 'docs' => storage_path('api-docs')."/{$version}",
                 'docs_json' => "{$section['name']}.json",
                 'docs_yaml' => "{$section['name']}.yaml",
