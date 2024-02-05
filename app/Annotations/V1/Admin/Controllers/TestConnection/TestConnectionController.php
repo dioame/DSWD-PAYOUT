@@ -12,7 +12,7 @@ class TestConnectionController extends Controller
      * @OA\Post(
      *     path="/test-connection/mobile",
      *     tags={"Test connection"},
-     *     security={ {"customer": {} }},
+     *     security={ {"admin": {} }},
      *     @OA\RequestBody(
      *      required=true,
      *      @OA\MediaType(
@@ -85,7 +85,7 @@ class TestConnectionController extends Controller
      * @OA\Patch(
      *     path="/test-connection/mobile/disconnect",
      *     tags={"Test connection"},
-     *     security={ {"customer": {} }},
+     *     security={ {"admin": {} }},
      *     @OA\RequestBody(
      *      required=true,
      *      @OA\MediaType(
