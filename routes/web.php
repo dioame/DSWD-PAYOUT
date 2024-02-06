@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +18,10 @@ Route::get('/', function () {
     return redirect()->route('index');
 })->name('/');
 
-Route::view('index', 'index')->name('index');
+
+$host = gethostbyname(gethostname());
+$host = "http://".$host.":8000";
+$qrCode = QrCode::size(300)->generate($host);
+Route::view('index', 'index', ['qrCode' => $qrCode,'host'=>$host])->name('index');
 
 include('web-admin.php');
