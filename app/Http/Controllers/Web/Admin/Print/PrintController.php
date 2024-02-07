@@ -93,9 +93,9 @@ class PrintController extends Controller
         $query = $service->execute();
         $chunks = $this->formatArray($query->toArray());
 
-        // $pdf = PDF::loadView('print.pdf-template', compact('chunks'))->setPaper('a4', 'portrait');
-        // return $pdf->download('pictures.pdf');
-        return view('print.pdf-template',compact('chunks'));
+        $pdf = PDF::loadView('print.pdf-template', compact('chunks'))->setPaper('a4', 'portrait');
+        return $pdf->download('pictures.pdf');
+        // return view('print.pdf-template',compact('chunks'));
     }
 
     public function formatArray($arr){

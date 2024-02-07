@@ -24,27 +24,21 @@
     <a href="/print/generate-pdf" class="btn btn-primary">Generate PDF</a>
     <hr>
 
+   
     <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <!--  -->
-            <div class="card">
-                <div class="card-header">
-                    <h5>GridView</h5>
-                </div>
-                <div class="card-body">
-                    @livewire('capture-view')
-                </div>
-            </div>      
-            <!--  -->
-        </div>
 
-    <div class="col-lg-12 col-md-12">
+   
+
+
+        <div class="col-lg-6 col-md-6">
       <!--  -->
       <div class="card">
         <div class="card-header">
         <h5>Latest Capture</h5>
         </div>
         <div class="card-body">
+
+
         <div class="table-responsive">
             <table class="table">
             <thead>
@@ -78,7 +72,7 @@
       <!--  -->
  
 
-        <div class="col-lg-12 col-md-12">
+        <div class="col-lg-6 col-md-6">
             
         <div class="card">
         <div class="card-header">

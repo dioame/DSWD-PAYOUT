@@ -15,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
     @include('layouts.css')
     @yield('style')
-    @laravelViewsStyles
   </head>
   {{-- @dd(Route::current()->getName()); --}}
   <body @if(Route::current()->getName() == 'index') onload="startTime()" @elseif (Route::current()->getName() == 'button-builder') class="button-builder" @endif>
@@ -72,6 +71,7 @@
     </div>
     <!-- latest jquery-->
     @include('layouts.script')  
+  
     <!-- Plugin used-->
 
     {{-- <script type="text/javascript">
@@ -80,6 +80,6 @@
             $(".sidebar-submenu" ).css( "display", "block" );
       }
     </script> --}}
-    @laravelViewsScripts
+
   </body>
 </html>
