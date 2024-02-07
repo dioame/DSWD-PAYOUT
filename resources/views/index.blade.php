@@ -45,7 +45,7 @@
                     //    $current_host = ($connection) ? "http://{$host}:8000" : env('L5_SWAGGER_CONST_HOST', config('app.url'));
                         if($connection){
                             ?>
-                                {!! $qrCode !!} <br>
+                                {!! $qrCode !!} <br> {!! $host !!}
                             <?php
                         }else{
                             echo "Seems like php server/port not yet exist. Please run  `php artisan serve --host 0.0.0.0` on terminal.";

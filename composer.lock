@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb3bfbaa7379239bf96265d79bcda927",
+    "content-hash": "b0370ef7e6f918a182082efa6e36ab2b",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1687,16 +1687,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "3.2.2",
+            "version": "3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "71bb0e3449bbbfdf47a0d0f2860af7e5e90428e6"
+                "reference": "fd09f59b09b3f1ee9ad90a893230781f03d1e33d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/71bb0e3449bbbfdf47a0d0f2860af7e5e90428e6",
-                "reference": "71bb0e3449bbbfdf47a0d0f2860af7e5e90428e6",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/fd09f59b09b3f1ee9ad90a893230781f03d1e33d",
+                "reference": "fd09f59b09b3f1ee9ad90a893230781f03d1e33d",
                 "shasum": ""
             },
             "require": {
@@ -1707,7 +1707,11 @@
             "require-dev": {
                 "mockery/mockery": "^1.6",
                 "phpstan/phpstan": "^1",
-                "phpunit/phpunit": "^9"
+                "phpunit/phpunit": "^9",
+                "squizlabs/php_codesniffer": "^3.8"
+            },
+            "suggest": {
+                "ext-exif": "Recommended to be able to read EXIF data properly."
             },
             "type": "library",
             "autoload": {
@@ -1738,7 +1742,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Intervention/image/issues",
-                "source": "https://github.com/Intervention/image/tree/3.2.2"
+                "source": "https://github.com/Intervention/image/tree/3.3.1"
             },
             "funding": [
                 {
@@ -1750,7 +1754,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-07T09:11:20+00:00"
+            "time": "2024-01-22T17:56:18+00:00"
         },
         {
             "name": "laravel/framework",

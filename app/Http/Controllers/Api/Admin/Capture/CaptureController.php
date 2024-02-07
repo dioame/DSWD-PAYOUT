@@ -44,8 +44,13 @@ class CaptureController extends Controller
 
         // Ensure the "pictures" directory exists in the storage path
         Storage::makeDirectory('public/pictures');
+
+        $tempFilePath = $file->getRealPath();
+        $this->correctImageOrientation($tempFilePath);
         
         $filePath = $file->storeAs('pictures', $filename, 'public');
+        // $this->correctImageOrientation($filePath);
+
         $fileUrl = Storage::url($filePath);
         
         $params = $request->all();
@@ -61,6 +66,39 @@ class CaptureController extends Controller
         ],200);
     }
 
+    public function correctImageOrientation($filename) {
+        if (file_exists($filename)) {
+        if (function_exists('exif_read_data')) {
+          $exif = exif_read_data($filename);
+          if($exif && isset($exif['Orientation'])) {
+            $orientation = $exif['Orientation'];
+
+            // var_dump($orientation);
+            // die();
+            if($orientation != 1){
+              $img = imagecreatefromjpeg($filename);
+              $deg = 0;
+              switch ($orientation) {
+                case 3:
+                  $deg = 180;
+                  break;
+                case 6:
+                  $deg = 270;
+                  break;
+                case 8:
+                  $deg = 90;
+                  break;
+              }
+              if ($deg) {
+                $img = imagerotate($img, $deg, 0);        
+              }
+              // then rewrite the rotated image back to the disk as $filename 
+              imagejpeg($img, $filename, 95);
+            } // if there is some rotation necessary
+          } // if have the exif orientation info
+        } // if function exists      
+      }
+    }
 
     public function show(string $id)
     {

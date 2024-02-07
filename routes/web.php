@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 
 $host = gethostbyname(gethostname());
-$host = "http://".$host.":8000";
+// $host = "http://".$host.":8000";
 $qrCode = QrCode::size(300)->generate($host);
 Route::view('index', 'index', ['qrCode' => $qrCode,'host'=>$host])->name('index');
 

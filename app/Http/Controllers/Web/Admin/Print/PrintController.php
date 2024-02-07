@@ -98,6 +98,7 @@ class PrintController extends Controller
 
         $pdf = PDF::loadView('print.pdf-template', compact('chunks'))->setPaper('a4', 'portrait');
         return $pdf->download('pictures.pdf');
+        // return view('print.pdf-template',compact('chunks'));
     }
 
     public function formatArray($arr){
