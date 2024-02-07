@@ -7,7 +7,7 @@ class BaseService
 {
     protected function getCapture($id_number = null){
         if($id_number){
-            $capture = Capture::where(['captured_by'=>$id_number])->get();
+            $capture = Capture::where(['captured_by'=>$id_number])->orderBy('created_at', 'desc')->get();
         }else{
             $capture = Capture::all();
         }

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Capture;
 use App\Services\Admin\Capture\GetCaptureService;
+use App\Http\LiveWire\CaptureView;
 
 class PrintController extends Controller
 {
@@ -18,6 +19,7 @@ class PrintController extends Controller
     public function index()
     {
         $latest = Capture::orderBy('captured_at', 'desc')->limit(10)->get();
+
         
         $duplicate = Capture::whereIn('payroll_no', function ($query) {
             $query->select('payroll_no')
@@ -27,7 +29,6 @@ class PrintController extends Controller
         })
         ->orderBy('payroll_no', 'asc')
         ->get();
-    
         
         return view('print.index', compact('latest', 'duplicate'));
     }

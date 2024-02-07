@@ -10,6 +10,7 @@
         "darkaonline/l5-swagger": "8.1.*",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^3.3",
+        "laravel-views/laravel-views": "^2.4",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",

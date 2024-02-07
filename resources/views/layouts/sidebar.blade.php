@@ -35,7 +35,7 @@
                 </svg>
                 <svg class="fill-icon">
                   <use href="{{ asset('assets/svg/icon-sprite.svg#fill-form') }}"></use>
-                </svg><span>Documentation </span></a></li>
+                </svg><span>API Documentation </span></a></li>
           </ul>
         </div>
         <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
