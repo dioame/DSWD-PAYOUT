@@ -9,6 +9,7 @@ class GetCaptureService extends BaseService
 {
     public function execute($params = null)
     {
-        return Capture::orderBy('payroll_no')->get();
+        $capture =  Capture::orderByRaw("CAST(payroll_no AS UNSIGNED) ASC")->get();
+        return $capture;   
     }
 }
