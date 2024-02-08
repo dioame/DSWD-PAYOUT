@@ -29,13 +29,20 @@
                 <svg class="fill-icon">
                   <use href="{{ asset('assets/svg/icon-sprite.svg#fill-social') }}"></use>
                 </svg><span>Capture</span></a></li>
-            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="/api/documentation" target="_blank">
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{ route('payroll.index')}}">
                 <svg class="stroke-icon">
                   <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-form') }}"></use>
                 </svg>
                 <svg class="fill-icon">
                   <use href="{{ asset('assets/svg/icon-sprite.svg#fill-form') }}"></use>
-                </svg><span>API Documentation </span></a></li>
+                </svg><span>Payroll </span></a></li>
+              <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="/api/documentation" target="_blank">
+              <svg class="stroke-icon">
+                <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-form') }}"></use>
+              </svg>
+              <svg class="fill-icon">
+                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-form') }}"></use>
+              </svg><span>API Documentation </span></a></li>
           </ul>
         </div>
         <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

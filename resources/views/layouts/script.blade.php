@@ -19,6 +19,10 @@
 <script src="{{ asset('assets/js/slick/slick.js') }}"></script>
 <script src="{{ asset('assets/js/header-slick.js') }}"></script>
 <!-- <script src="{{ asset('assets/custom/js/Camera.js') }}"></script> -->
+
+<script src="{{ asset('assets/Datatables/DataTables-1.13.8/js/jquery.dataTables.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/header-slick.js') }}"></script>
 @yield('script')
 
 @if(Route::current()->getName() != 'popover') 
@@ -28,7 +32,7 @@
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{asset('assets/js/script.js')}}"></script>
-<script src="{{asset('assets/js/theme-customizer/customizer.js')}}"></script>
+
 
 
 {{-- @if(Route::current()->getName() == 'index') 

@@ -2,6 +2,7 @@
 use App\Http\Controllers\Api\Admin\Capture\CaptureController;
 use App\Http\Controllers\Api\Admin\TestConnection\TestConnectionController;
 use App\Http\Controllers\Api\Admin\Import\ImportController;
+use App\Http\Controllers\Api\Admin\Payroll\PayrollController;
 
 Route::group(['prefix' => 'admin', 'middleware' => ['json.response']], function () {
 
@@ -15,6 +16,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['json.response']], function 
 
     //Import
     Route::post('import/payroll', [ImportController::class,'importPayroll']); 
+
+    // Payroll
+    Route::apiResource('payroll', PayrollController::class);
 });
 
 
