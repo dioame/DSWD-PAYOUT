@@ -18,7 +18,7 @@ class PrintController extends Controller
      */
     public function index()
     {
-        $latest = Capture::orderBy('captured_at', 'desc')->limit(10)->get();
+        $latest = Capture::orderBy('captured_at', 'desc')->get();
 
         
         $duplicate = Capture::whereIn('payroll_no', function ($query) {
@@ -88,9 +88,12 @@ class PrintController extends Controller
         return array_values($sortedFiles->all());
     }
 
-    public function generatePdf(GetCaptureService $service)
+    public function generatePdf($range,GetCaptureService $service)
     {
-        $query = $service->execute();
+        $params = [
+            'range' => $range
+        ];
+        $query = $service->execute($params);
         $chunks = $this->formatArray($query->toArray());
 
         $pdf = PDF::loadView('print.pdf-template', compact('chunks'))->setPaper('a4', 'portrait');
