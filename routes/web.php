@@ -25,3 +25,6 @@ $qrCode = QrCode::size(300)->generate($host);
 Route::view('index', 'index', ['qrCode' => $qrCode,'host'=>$host])->name('index');
 
 include('web-admin.php');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();

@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Web\Admin\Payroll;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Capture;
-use App\DataTables\PayrollDataTable;
+use App\Models\Admin\Payroll;
+// use App\DataTables\PayrollDataTable;
 class PayrollController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(PayrollDataTable $dataTable)
+    public function index()
     {
-        
-        // return view('payroll.index');
-        return $dataTable->render('payroll.index');
+        $payroll = Payroll::paginate(10);   
+        return view('payroll.index', compact('payroll'));
     }
 
     /**

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4fdbc94a24d22223e0e293768d740d85",
+    "content-hash": "3d90e75f7f637ed871f437e8d3c58c2c",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1634,6 +1634,114 @@
             "time": "2023-12-03T19:50:20+00:00"
         },
         {
+            "name": "infyomlabs/laravel-generator-helpers",
+            "version": "v5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/InfyOmLabs/laravel-generator-helpers.git",
+                "reference": "e5e81d9276de0638425bd0e3fe52a056a452a6f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator-helpers/zipball/e5e81d9276de0638425bd0e3fe52a056a452a6f0",
+                "reference": "e5e81d9276de0638425bd0e3fe52a056a452a6f0",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.0",
+                "php": "^8.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "InfyOm\\GeneratorHelpers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mitul Golakiya",
+                    "email": "me@mitul.me"
+                }
+            ],
+            "description": "Helper functions for laravel generator packages",
+            "support": {
+                "issues": "https://github.com/InfyOmLabs/laravel-generator-helpers/issues",
+                "source": "https://github.com/InfyOmLabs/laravel-generator-helpers/tree/v5.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://opencollective.com/infyomlabs",
+                    "type": "opencollective"
+                }
+            ],
+            "time": "2023-03-18T04:21:27+00:00"
+        },
+        {
+            "name": "infyomlabs/laravel-ui-adminlte",
+            "version": "v5.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/InfyOmLabs/laravel-ui-adminlte.git",
+                "reference": "b762d62f429db0b71731bb916dcc8c5771d96dec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-ui-adminlte/zipball/b762d62f429db0b71731bb916dcc8c5771d96dec",
+                "reference": "b762d62f429db0b71731bb916dcc8c5771d96dec",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.0",
+                "infyomlabs/laravel-generator-helpers": "^5.0",
+                "laravel/ui": "^4.2",
+                "php": "^8.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "InfyOm\\AdminLTEPreset\\AdminLTEPresetServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "InfyOm\\AdminLTEPreset\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mitul Golakiya",
+                    "email": "me@mitul.me"
+                }
+            ],
+            "description": "Laravel frontend preset for AdminLTE Theme",
+            "keywords": [
+                "AdminLTE",
+                "laravel",
+                "preset"
+            ],
+            "support": {
+                "issues": "https://github.com/InfyOmLabs/laravel-ui-adminlte/issues",
+                "source": "https://github.com/InfyOmLabs/laravel-ui-adminlte/tree/v5.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://opencollective.com/infyomlabs",
+                    "type": "opencollective"
+                }
+            ],
+            "time": "2023-04-04T10:48:32+00:00"
+        },
+        {
             "name": "intervention/gif",
             "version": "4.0.0",
             "source": {
@@ -2271,6 +2379,68 @@
                 "source": "https://github.com/laravel/tinker/tree/v2.8.2"
             },
             "time": "2023-08-15T14:27:00+00:00"
+        },
+        {
+            "name": "laravel/ui",
+            "version": "v4.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/ui.git",
+                "reference": "7335d7049b2cde345c029e9d2de839b80af62bc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/7335d7049b2cde345c029e9d2de839b80af62bc0",
+                "reference": "7335d7049b2cde345c029e9d2de839b80af62bc0",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^9.21|^10.0|^11.0",
+                "illuminate/filesystem": "^9.21|^10.0|^11.0",
+                "illuminate/support": "^9.21|^10.0|^11.0",
+                "illuminate/validation": "^9.21|^10.0|^11.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^9.3|^10.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Ui\\UiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Ui\\": "src/",
+                    "Illuminate\\Foundation\\Auth\\": "auth-backend/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel UI utilities and presets.",
+            "keywords": [
+                "laravel",
+                "ui"
+            ],
+            "support": {
+                "source": "https://github.com/laravel/ui/tree/v4.4.0"
+            },
+            "time": "2024-01-12T15:56:45+00:00"
         },
         {
             "name": "league/commonmark",

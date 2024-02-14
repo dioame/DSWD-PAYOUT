@@ -1,23 +1,6 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
-@section('title', 'Generate PDF')
-
-@section('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/animate.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/prism.css') }}">
-@endsection
-
-@section('style')
-@endsection
-
-@section('breadcrumb-title')
-    <h3>Default</h3>
-@endsection
-
-@section('breadcrumb-items')
-    <li class="breadcrumb-item">Dashboard</li>
-    <li class="breadcrumb-item active">Default</li>
-@endsection
+@section('title', 'PDS')
 
 @section('content')
 <div class="container-fluid">
@@ -50,6 +33,7 @@
             <table class="table">
             <thead>
             <tr>
+            <th scope="col">#</th>
             <th scope="col">Payroll #</th>
             <th scope="col">Captured at</th>
             <th scope="col">Image</th>
@@ -57,9 +41,10 @@
             </thead>
             <tbody>
                 
-           
+            <?php $count = 0; ?>
             @foreach($latest as $row)
                 <tr>
+                    <th scope="row">{{++$count}}</th>
                     <th scope="row">{{ $row->payroll_no }}</th>
                     <td>{{ $row->captured_at }}</td>
                     <td>
@@ -68,9 +53,11 @@
                         </div>
                     </td>
                 </tr>
+                
             @endforeach
             </tbody>
             </table>
+            {!! $latest->links() !!}
             </div>
         </div>
     </div>
@@ -90,14 +77,17 @@
             <table class="table">
             <thead>
             <tr>
+            <th scope="col">#</th>
             <th scope="col">Payroll #</th>
             <th scope="col">Captured at</th>
             <th scope="col">Image</th>
             </tr>
             </thead>
             <tbody>
+            <?php $count = 0; ?>
             @foreach($duplicate as $row)
                 <tr>
+                    <th scope="row">{{++$count}}</th>
                     <th scope="row">{{ $row->payroll_no }}</th>
                     <td>{{ $row->captured_at }}</td>
                     <td>
@@ -109,6 +99,7 @@
             @endforeach
             </tbody>
             </table>
+            {!! $duplicate->links() !!}
             </div>
         </div>
     </div>

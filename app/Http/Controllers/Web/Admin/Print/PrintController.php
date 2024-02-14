@@ -18,7 +18,7 @@ class PrintController extends Controller
      */
     public function index()
     {
-        $latest = Capture::orderBy('captured_at', 'desc')->get();
+        $latest = Capture::orderBy('captured_at', 'desc')->paginate(10);
 
         
         $duplicate = Capture::whereIn('payroll_no', function ($query) {
@@ -28,7 +28,8 @@ class PrintController extends Controller
                 ->havingRaw('COUNT(*) > 1');
         })
         ->orderBy('payroll_no', 'asc')
-        ->get();
+        ->paginate(10);
+        
         
         return view('print.index', compact('latest', 'duplicate'));
     }
