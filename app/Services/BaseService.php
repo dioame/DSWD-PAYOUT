@@ -7,9 +7,9 @@ class BaseService
 {
     protected function getCapture($id_number = null){
         if($id_number){
-            $capture = Capture::where(['captured_by'=>$id_number])->orderBy('created_at', 'desc')->get();
+            $capture = Capture::where(['captured_by'=>$id_number])->orderBy('created_at', 'desc')->paginate(20);
         }else{
-            $capture = Capture::all();
+            $capture = Capture::paginate(20);
         }
 
         $counts = $capture->countBy('payroll_no');

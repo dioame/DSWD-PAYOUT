@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Api\Admin\Capture;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image as Image;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Capture\StoreCaptureRequest;
 use App\Services\Admin\Capture\StoreCaptureService;
 use App\Models\Admin\Capture;
-
+use Intervention\Image\Facades\Image as Image;
 
 
 class CaptureController extends Controller
@@ -47,11 +46,16 @@ class CaptureController extends Controller
 
         $tempFilePath = $file->getRealPath();
         $this->correctImageOrientation($tempFilePath);
-        
-        $filePath = $file->storeAs('pictures', $filename, 'public');
-        // $this->correctImageOrientation($filePath);
 
-        $fileUrl = Storage::url($filePath);
+        // adjust quality
+        $sourceImg = imagecreatefromstring(file_get_contents($tempFilePath));
+        imagejpeg($sourceImg, storage_path('app/public/pictures/' . $filename), 25);
+        imagedestroy($sourceImg);
+        $filePath = 'public/pictures/' . $filename;
+        // end adjustment
+        
+        // $filePath = $file->storeAs('pictures', $filename, 'public');
+        // Storage::url($filePath);
         
         $params = $request->all();
         $params['path'] = $filePath;

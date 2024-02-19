@@ -22,7 +22,7 @@
 
 <script src="{{ asset('assets/Datatables/DataTables-1.13.8/js/jquery.dataTables.min.js') }}"></script>
 
-<script src="{{ asset('assets/js/header-slick.js') }}"></script>
+
 @yield('script')
 
 @if(Route::current()->getName() != 'popover') 

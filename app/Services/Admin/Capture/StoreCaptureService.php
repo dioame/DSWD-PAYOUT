@@ -18,7 +18,7 @@ class StoreCaptureService extends BaseService
 
         $capture = Capture::where(['captured_by'=>$params['id_number']]) 
         ->orderBy('created_at', 'desc')
-        ->get();
+        ->paginate(20);
 
         return [
             'payroll_count' => count($capture),

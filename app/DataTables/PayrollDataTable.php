@@ -11,6 +11,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Carbon\Carbon;
 
 class PayrollDataTable extends DataTable
 {
@@ -22,6 +23,12 @@ class PayrollDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addColumn('created_at', function ($row) {
+                return Carbon::parse($row->created_at)->toDateTimeString();
+            })
+            ->addColumn('updated_at', function ($row) {
+                return Carbon::parse($row->updated_at)->toDateTimeString();
+            })
             ->addColumn('action', 'payroll.action')
             ->setRowId('id');
     }

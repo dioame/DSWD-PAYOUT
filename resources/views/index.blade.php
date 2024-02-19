@@ -1,3 +1,6 @@
+<?php 
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+?>
 @extends('layouts.master')
 
 @section('title', 'Default')
@@ -19,7 +22,29 @@
     <li class="breadcrumb-item active">Default</li>
 @endsection
 
+
 @section('content')
+
+<style>
+    pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+  }
+
+  .copy-button {
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 10px;
+  }
+</style>
+
+
 <div class="container-fluid">
     <div class="row starter-main">
         <div class="col-sm-12">
@@ -44,11 +69,21 @@
                        $connection = @fsockopen($host, 8000, $errno, $errstr, $timeout);
                     //    $current_host = ($connection) ? "http://{$host}:8000" : env('L5_SWAGGER_CONST_HOST', config('app.url'));
                         if($connection){
+
+                            $qrCode = QrCode::size(300)->generate($host);
                             ?>
                                 {!! $qrCode !!} <br> {!! $host !!}
                             <?php
                         }else{
-                            echo "Seems like php server/port not yet exist. Please run  `php artisan serve --host 0.0.0.0` on terminal.";
+                            ?>
+                            <p>Seems like PHP server/port not yet exist. Please run the following command in your terminal:</p>
+
+                            <pre id="command">
+                            php artisan serve --host 0.0.0.0
+                            </pre>
+
+                    
+                            <?php
                         }
                      ?>
                     </div>
