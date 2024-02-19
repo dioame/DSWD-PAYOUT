@@ -21,31 +21,23 @@
 
 @section('content')
 <div class="container-fluid">
-    
-    <div class="row">
-        <div class="col-lg-6 col-md-6">
-            <div class="input-group">
-                <input class="form-control" id="payroll-input" type="text" placeholder="1, 1-100"><span class="input-group-text btn btn-primary" onclick="generatePDF()">Generate PDF</span>
-            </div>
-        </div>
-    </div>
-    <hr>
 
    
     <div class="row">
 
    
 
+      
+      <!--  -->
+ 
 
         <div class="col-lg-12 col-md-12">
-      <!--  -->
-      <div class="card">
+            
+        <div class="card">
         <div class="card-header">
-        <h5>Latest Capture</h5>
+        <h5>Duplicate Capture</h5>
         </div>
         <div class="card-body">
-
-
         <div class="table-responsive">
             <table class="table">
             <thead>
@@ -56,9 +48,7 @@
             </tr>
             </thead>
             <tbody>
-                
-           
-            @foreach($latest as $row)
+            @foreach($duplicate as $row)
                 <tr>
                     <th scope="row">{{ $row->payroll_no }}</th>
                     <td>{{ $row->captured_at }}</td>
@@ -71,14 +61,12 @@
             @endforeach
             </tbody>
             </table>
-            {{$latest->links()}}
+            {{$duplicate->links()}}
             </div>
         </div>
     </div>
         </div>
-      
-      <!--  -->
- 
+
         </div>
 
     </div>

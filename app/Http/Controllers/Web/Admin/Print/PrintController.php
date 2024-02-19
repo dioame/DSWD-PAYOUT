@@ -18,19 +18,9 @@ class PrintController extends Controller
      */
     public function index()
     {
-        $latest = Capture::orderBy('captured_at', 'desc')->get();
-
+        $latest = Capture::orderBy('captured_at', 'desc')->paginate(10);
         
-        $duplicate = Capture::whereIn('payroll_no', function ($query) {
-            $query->select('payroll_no')
-                ->from('capture')
-                ->groupBy('payroll_no')
-                ->havingRaw('COUNT(*) > 1');
-        })
-        ->orderBy('payroll_no', 'asc')
-        ->get();
-        
-        return view('print.index', compact('latest', 'duplicate'));
+        return view('print.index', compact('latest'));
     }
 
     /**
@@ -116,6 +106,20 @@ class PrintController extends Controller
 
         // die();
         return $data;
+    }
+
+    public function duplicateCapture(){
+        $duplicate = Capture::whereIn('payroll_no', function ($query) {
+            $query->select('payroll_no')
+                ->from('capture')
+                ->groupBy('payroll_no')
+                ->havingRaw('COUNT(*) > 1');
+        })
+        ->orderBy('payroll_no', 'asc')
+        ->paginate(10);
+
+        return view('print.duplicate', compact('duplicate'));
+
     }
     
     

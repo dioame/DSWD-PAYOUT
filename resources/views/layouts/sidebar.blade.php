@@ -16,33 +16,25 @@
               <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
             </li>
             <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{ route('index')}}" >
-                <svg class="stroke-icon">
-                  <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-home') }}"></use>
-                </svg>
-                <svg class="fill-icon">
-                  <use href="{{ asset('assets/svg/icon-sprite.svg#fill-home') }}"></use>
-                </svg><span>Home</span></a></li>
+      
+                <i data-feather="home"></i>
+                <span>Home</span></a>
+            </li>
             <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{ route('print.index')}}" >
-                <svg class="stroke-icon">
-                  <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-social') }}"></use>
-                </svg>
-                <svg class="fill-icon">
-                  <use href="{{ asset('assets/svg/icon-sprite.svg#fill-social') }}"></use>
-                </svg><span>Capture</span></a></li>
+              <i data-feather="instagram"></i>
+              <span>Captures</span></a>
+            </li>
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{ route('print.duplicate-capture')}}" >
+              <i data-feather="instagram"></i>    
+              <span>Duplicate Captures</span></a>
+            </li>
             <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{ route('payroll.index')}}">
-                <svg class="stroke-icon">
-                  <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-form') }}"></use>
-                </svg>
-                <svg class="fill-icon">
-                  <use href="{{ asset('assets/svg/icon-sprite.svg#fill-form') }}"></use>
-                </svg><span>Payroll </span></a></li>
+            <i data-feather="file-minus"></i>
+              <span>Payroll </span></a>
+              </li>
               <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="/api/documentation" target="_blank">
-              <svg class="stroke-icon">
-                <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-form') }}"></use>
-              </svg>
-              <svg class="fill-icon">
-                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-form') }}"></use>
-              </svg><span>API Documentation </span></a></li>
+              <i data-feather="layers"></i>
+              <span>API Documentation </span></a></li>
           </ul>
         </div>
         <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
