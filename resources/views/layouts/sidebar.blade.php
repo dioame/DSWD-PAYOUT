@@ -15,24 +15,32 @@
             <li class="back-btn">
               <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
             </li>
-            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{ route('index')}}" >
+            <li class="sidebar"><a class="sidebar-link " href="{{ route('index')}}" >
       
                 <i data-feather="home"></i>
                 <span>Home</span></a>
             </li>
-            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{ route('print.index')}}" >
+            <li class="sidebar"><a class="sidebar-link " href="{{ route('print.index')}}" >
               <i data-feather="instagram"></i>
               <span>Captures</span></a>
             </li>
-            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{ route('print.duplicate-capture')}}" >
+            <li class="sidebar"><a class="sidebar-link " href="{{ route('print.duplicate-capture')}}" >
               <i data-feather="instagram"></i>    
               <span>Duplicate Captures</span></a>
             </li>
-            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="{{ route('payroll.index')}}">
+            <li class="sidebar"><a class="sidebar-link " href="{{ route('payroll.index')}}">
             <i data-feather="file-minus"></i>
               <span>Payroll </span></a>
               </li>
-              <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="/api/documentation" target="_blank">
+              <li class="sidebar"><a class="sidebar-link " href="{{ route('print.ny-capture')}}" >
+              <i data-feather="instagram"></i>    
+              <span>Not Yet Capture</span></a>
+            </li>
+            <li class="sidebar"><a class="sidebar-link " href="{{ route('print.trash')}}" >
+              <i data-feather="trash"></i>    
+              <span>Trash Capture</span></a>
+            </li>
+              <li class="sidebar"><a class="sidebar-link " href="/api/documentation" target="_blank">
               <i data-feather="layers"></i>
               <span>API Documentation </span></a></li>
           </ul>

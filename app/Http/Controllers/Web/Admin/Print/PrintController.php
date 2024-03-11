@@ -6,21 +6,25 @@ use PDF;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
+
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Capture;
+use App\Models\Admin\Payroll;
 use App\Services\Admin\Capture\GetCaptureService;
 use App\Http\LiveWire\CaptureView;
+use App\DataTables\CaptureDataTable;
 
 class PrintController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(CaptureDataTable $dataTable)
     {
-        $latest = Capture::orderBy('captured_at', 'desc')->paginate(10);
-        
-        return view('print.index', compact('latest'));
+        // $latest = Capture::orderBy('captured_at', 'desc')->paginate(10);
+        // return view('print.index', compact('latest'));
+        return $dataTable->render('print.index');
     }
 
     /**
@@ -102,19 +106,33 @@ class PrintController extends Controller
     }
 
     public function duplicateCapture(){
-        $duplicate = Capture::whereIn('payroll_no', function ($query) {
-            $query->select('payroll_no')
-                ->from('capture')
-                ->groupBy('payroll_no')
-                ->havingRaw('COUNT(*) > 1');
-        })
-        ->orderBy('payroll_no', 'asc')
+        $duplicate = Capture::join(
+            DB::raw('(SELECT payroll_no FROM capture GROUP BY payroll_no HAVING COUNT(*) > 1) as duplicates'),
+            'capture.payroll_no', '=', 'duplicates.payroll_no'
+        )
+        ->orderBy('capture.payroll_no', 'asc')
         ->paginate(10);
 
         return view('print.duplicate', compact('duplicate'));
 
     }
     
+    public function nyCapture(){
+        $nyCapture = Payroll::leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
+        ->select('payroll.*')
+        ->whereNull('capture.payroll_no')
+        ->orWhereNotNull('capture.deleted_at')
+        ->paginate(10);
+
+        return view('print.ny', compact('nyCapture'));
+
+    }
+    public function trash()
+    {
+        $trash = Capture::orderBy('captured_at', 'desc')->onlyTrashed()->paginate(10);
+    
+        return view('print.trash', compact('trash'));
+    }
     
     
     

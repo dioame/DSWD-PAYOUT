@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web\Admin\Capture;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\Admin\Capture;
 
 class CaptureController extends Controller
 {
@@ -61,8 +61,18 @@ class CaptureController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         //
+        $capture = Capture::where('id', $id)->first();
+        $capture->delete();
+        return redirect()->route('print.duplicate-capture');
+        
+    }
+
+    public function restore($id){
+        $capture = Capture::onlyTrashed()->where('id', $id)->first();
+        $capture->restore();
+        return redirect()->route('print.trash');
     }
 }

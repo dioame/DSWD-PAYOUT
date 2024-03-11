@@ -18,4 +18,9 @@ class Capture extends Model
 
     protected $table = "capture";
 
+    public function payroll()
+    {
+        return $this->belongsTo(Payroll::class,'payroll_no','payroll_no');
+    }
+
 }

@@ -21,4 +21,9 @@ class Payroll extends Model
 
     protected $table = "payroll";
 
+    public function captures()
+    {
+        return $this->hasMany(Capture::class,'payroll_no','payroll_no');
+    }
+
 }

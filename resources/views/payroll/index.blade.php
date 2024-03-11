@@ -11,12 +11,12 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>Default</h3>
+    <h3>Payroll</h3>
 @endsection
 
 @section('breadcrumb-items')
     <li class="breadcrumb-item">Dashboard</li>
-    <li class="breadcrumb-item active">Default</li>
+    <li class="breadcrumb-item active">Payroll</li>
 @endsection
 
 @section('content')
@@ -27,7 +27,7 @@
         
                 <div class="card">
                     <div class="card-header">
-                        <h5>Table</h5>
+                        <h5>Payroll List</h5>
                     </div>
                     <div class="card-body">
                 
