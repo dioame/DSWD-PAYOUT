@@ -20,6 +20,10 @@
 @endsection
 
 @section('content')
+
+
+
+
 <div class="container-fluid">
 
     <div class="row">
@@ -40,6 +44,8 @@
     </div>
 
 </div>
+
+
     <script type="text/javascript">
         var session_layout = '{{ session()->get('layout') }}';
 
@@ -53,6 +59,10 @@
 
 @section('script')
 <script>
+        function openEditCaptureModal(id){
+            $('#editModal').modal('show');
+
+        }
         function confirmDelete(id) {
             if (confirm('Are you sure you want to delete this item?')) {
                     $.ajax({
@@ -72,6 +82,8 @@
                     });
                 }
         }
+
+      
 
 </script>
 @endsection

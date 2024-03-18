@@ -151,8 +151,19 @@ class PrintController extends Controller
     
     //     return view('print.trash', compact('trash'));
     // }
+
+    public function editCaptureForm($id){
+        $capture = Capture::find($id);
+        return view('print.edit-capture-form', compact('capture'));
+    }
     
-    
+    public function editCapture($id,Request $request){
+        Capture::find($id)->update([
+            'payroll_no' => $request->payroll_no
+        ]);
+        
+        return redirect()->route('print.duplicate-capture');
+    }
     
 
 }
