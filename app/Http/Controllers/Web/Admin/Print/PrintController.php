@@ -14,6 +14,9 @@ use App\Models\Admin\Payroll;
 use App\Services\Admin\Capture\GetCaptureService;
 use App\Http\LiveWire\CaptureView;
 use App\DataTables\CaptureDataTable;
+use App\DataTables\DuplicateCaptureTable;
+use App\DataTables\NYCaptureDataTable;
+use App\DataTables\TrashCaptureTable;
 
 class PrintController extends Controller
 {
@@ -105,35 +108,49 @@ class PrintController extends Controller
         return $data;
     }
 
-    public function duplicateCapture(){
-        $duplicate = Capture::join(
-            DB::raw('(SELECT payroll_no FROM capture WHERE deleted_at IS NULL GROUP BY payroll_no HAVING COUNT(*) > 1) as duplicates'),
-            'capture.payroll_no', '=', 'duplicates.payroll_no'
-        )
-        ->orderBy('capture.payroll_no', 'asc')
-        ->paginate(10);
+    // public function duplicateCapture(){
+    //     $duplicate = Capture::join(
+    //         DB::raw('(SELECT payroll_no FROM capture WHERE deleted_at IS NULL GROUP BY payroll_no HAVING COUNT(*) > 1) as duplicates'),
+    //         'capture.payroll_no', '=', 'duplicates.payroll_no'
+    //     )
+    //     ->orderBy('capture.payroll_no', 'asc')
+    //     ->paginate(10);
 
-        return view('print.duplicate', compact('duplicate'));
+    //     return view('print.duplicate', compact('duplicate'));
 
+    // }
+
+    public function duplicateCapture(DuplicateCaptureTable $dataTable){
+        return $dataTable->render('print.duplicate');
     }
     
-    public function nyCapture(){
-        $nyCapture = Payroll::leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
-        ->select('payroll.*')
-        ->whereNull('capture.payroll_no')
-        // ->orWhereNotNull('capture.deleted_at')
-        ->whereNull('capture.deleted_at')
-        ->paginate(10);
+    // public function nyCapture(){
+    //     $nyCapture = Payroll::leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
+    //     ->select('payroll.*')
+    //     ->whereNull('capture.payroll_no')
+    //     // ->orWhereNotNull('capture.deleted_at')
+    //     ->whereNull('capture.deleted_at')
+    //     ->paginate(10);
 
-        return view('print.ny', compact('nyCapture'));
+    //     return view('print.ny', compact('nyCapture'));
 
+    // }
+
+    public function nyCapture(NYCaptureDataTable $dataTable){
+        return $dataTable->render('print.ny');
     }
-    public function trash()
-    {
-        $trash = Capture::orderBy('captured_at', 'desc')->onlyTrashed()->paginate(10);
+
+
+    public function trash(TrashCaptureTable $dataTable){
+        return $dataTable->render('print.trash');
+    }
+
+    // public function trash(TrashCaptureTable $dataTable)
+    // {
+    //     $trash = Capture::orderBy('captured_at', 'desc')->onlyTrashed()->paginate(10);
     
-        return view('print.trash', compact('trash'));
-    }
+    //     return view('print.trash', compact('trash'));
+    // }
     
     
     

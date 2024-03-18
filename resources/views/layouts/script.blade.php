@@ -20,8 +20,9 @@
 <script src="{{ asset('assets/js/header-slick.js') }}"></script>
 <!-- <script src="{{ asset('assets/custom/js/Camera.js') }}"></script> -->
 
-<script src="{{ asset('assets/Datatables/DataTables-1.13.8/js/jquery.dataTables.min.js') }}"></script>
-
+<script src="{{ asset('assets/Datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('assets/Datatables/Buttons-2.4.2/js/dataTables.buttons.min.js') }}"></script>
+<script src="/vendor/datatables/buttons.server-side.js"></script>
 
 @yield('script')
 

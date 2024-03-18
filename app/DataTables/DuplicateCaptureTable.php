@@ -12,8 +12,9 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
-class CaptureDataTable extends DataTable
+class DuplicateCaptureTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -30,16 +31,20 @@ class CaptureDataTable extends DataTable
                 return Carbon::parse($row->updated_at)->toDateTimeString();
             })
             ->addColumn('name', function ($row) {
-                return $row->payroll->name;
+                return $row->payroll->name ?? '';
             })
             ->addColumn('image', function ($row) {
                 return ' <div style="width:30px;"><a href="'.asset("storage/pictures/" . basename($row->path)).'" target=_blank>
                             <img src="'.asset("storage/pictures/" . basename($row->path)).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
                         </a></div>';
             })
-            ->addColumn('action', 'capture.action')
+            ->addColumn('action', function ($row) {
+                return '<button class="btn btn-danger btn-xs delete-item" onclick="confirmDelete('.$row->id.')">  <i class="fa fa-trash"></i>    </button>
+                <button class="btn btn-warning btn-xs delete-item" onclick="confirmDelete('.$row->id.')">  <i class="fa fa-edit"></i>    </button>';
+            })
+            // ->addColumn('action', 'capture.action')
             ->setRowId('id')
-            ->rawColumns(['image']);
+            ->rawColumns(['image','action']);
     }
 
     /**
@@ -47,7 +52,11 @@ class CaptureDataTable extends DataTable
      */
     public function query(Capture $model): QueryBuilder
     {
-        return $model->newQuery()->orderByDesc('created_at');
+        return $model->newQuery()->join(
+            DB::raw('(SELECT c.payroll_no as p_no FROM capture c WHERE deleted_at IS NULL GROUP BY c.payroll_no HAVING COUNT(*) > 1) as duplicates'),
+            'capture.payroll_no', '=', 'duplicates.p_no'
+        )
+        ->orderBy('capture.payroll_no', 'asc');
     }
 
     /**
@@ -95,6 +104,7 @@ class CaptureDataTable extends DataTable
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::make('image'),
+            Column::make('action'),
         ];
     }
 
