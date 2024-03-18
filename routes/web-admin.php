@@ -12,6 +12,7 @@ Route::get('print/ny-capture', [PrintController::class, 'nyCapture'])->name('pri
 Route::get('print/trash', [PrintController::class, 'trash'])->name('print.trash');
 Route::get('print/edit-capture-form/{id}', [PrintController::class, 'editCaptureForm'])->name('print.edit-capture-form');
 Route::put('print/edit-capture/{id}', [PrintController::class, 'editCapture'])->name('print.edit-capture');
+Route::get('print/ny-payroll', [PrintController::class, 'nyPayroll'])->name('print.ny-payroll');
 
 Route::put('capture/restore/{id}', [CaptureController::class, 'restore'])->name('capture.restore');
 

@@ -17,6 +17,7 @@ use App\DataTables\CaptureDataTable;
 use App\DataTables\DuplicateCaptureTable;
 use App\DataTables\NYCaptureDataTable;
 use App\DataTables\TrashCaptureTable;
+use App\DataTables\NYPayrollTable;
 
 class PrintController extends Controller
 {
@@ -163,6 +164,10 @@ class PrintController extends Controller
         ]);
         
         return redirect()->route('print.duplicate-capture');
+    }
+
+    public function nyPayroll(NYPayrollTable $dataTable){
+        return $dataTable->render('print.ny-payroll');
     }
     
 
