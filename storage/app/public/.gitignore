@@ -1,7 +1,8 @@
 *
 !.gitignore
+!assets
+!assets/unclaimed.png
 !downloads
 !downloads/CFW_Template.xlsx
 !downloads/server.bat
 !downloads/qrcode.png
-!assets/unclaimed.png
