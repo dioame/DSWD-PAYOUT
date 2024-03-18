@@ -36,6 +36,10 @@
               <i data-feather="instagram"></i>    
               <span>Not Yet Capture</span></a>
             </li>
+            <li class="sidebar"><a class="sidebar-link " href="{{ route('print.ny-payroll')}}" >
+              <i data-feather="instagram"></i>    
+              <span>Not in Payroll</span></a>
+            </li>
             <li class="sidebar"><a class="sidebar-link " href="{{ route('print.trash')}}" >
               <i data-feather="trash"></i>    
               <span>Trash Capture</span></a>

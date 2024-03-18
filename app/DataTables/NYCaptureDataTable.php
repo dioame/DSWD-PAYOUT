@@ -12,8 +12,9 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
-class PayrollDataTable extends DataTable
+class NYCaptureDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -29,8 +30,14 @@ class PayrollDataTable extends DataTable
             ->addColumn('updated_at', function ($row) {
                 return Carbon::parse($row->updated_at)->toDateTimeString();
             })
-            ->addColumn('action', 'payroll.action')
-            ->setRowId('id');
+            ->addColumn('image', function ($row) {
+                return ' <div style="width:30px;"><a href="'.asset("storage/pictures/" . basename($row->path)).'" target=_blank>
+                            <img src="'.asset("storage/pictures/" . basename($row->path)).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
+                        </a></div>';
+            })
+            ->addColumn('action', 'capture.action')
+            ->setRowId('id')
+            ->rawColumns(['image']);
     }
 
     /**
@@ -38,7 +45,10 @@ class PayrollDataTable extends DataTable
      */
     public function query(Payroll $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
+            ->select('payroll.*')
+            ->whereNull('capture.payroll_no')
+            ->whereNull('capture.deleted_at');
     }
 
     /**
@@ -49,16 +59,24 @@ class PayrollDataTable extends DataTable
         return $this->builder()
                     ->setTableId('payroll-table')
                     ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reload')
+                    ->serverSide(true)
+                    ->parameters([
+                        'dom'          => 'Bfrtip',
+                        'buttons'      => ['excel','pdf', 'print', 'reload'],
                     ]);
+                    // ->minifiedAjax()
+                    // ->dom('Bfrtip')
+                    // ->orderBy(1)
+                    // ->serverSide(true)
+                    // ->selectStyleSingle()
+                    // ->buttons([
+                    //     // Button::make('excel'),
+                    //     Button::make('csv'),
+                    //     // Button::make('pdf'),
+                    //     // Button::make('print'),
+                    //     // Button::make('reset'),
+                    //     // Button::make('reload')
+                    // ]);
     }
 
     /**
@@ -75,10 +93,9 @@ class PayrollDataTable extends DataTable
             Column::make('id'),
             Column::make('payroll_no'),
             Column::make('name'),
-            Column::make('barangay'),
-            Column::make('municipality'),
             Column::make('created_at'),
             Column::make('updated_at'),
+            // Column::make('image'),
         ];
     }
 
@@ -87,6 +104,6 @@ class PayrollDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Payroll_' . date('YmdHis');
+        return 'Capture_' . date('YmdHis');
     }
 }
