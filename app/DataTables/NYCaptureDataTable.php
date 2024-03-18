@@ -93,6 +93,8 @@ class NYCaptureDataTable extends DataTable
             Column::make('id'),
             Column::make('payroll_no'),
             Column::make('name'),
+            Column::make('barangay'),
+            Column::make('municipality'),
             Column::make('created_at'),
             Column::make('updated_at'),
             // Column::make('image'),

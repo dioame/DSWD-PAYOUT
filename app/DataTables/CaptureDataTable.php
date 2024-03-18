@@ -30,7 +30,13 @@ class CaptureDataTable extends DataTable
                 return Carbon::parse($row->updated_at)->toDateTimeString();
             })
             ->addColumn('name', function ($row) {
-                return $row->payroll->name;
+                return $row->payroll->name ?? '';
+            })
+            ->addColumn('barangay', function ($row) {
+                return $row->payroll->barangay ?? '';
+            })
+            ->addColumn('municipality', function ($row) {
+                return $row->payroll->municipality ?? '';
             })
             ->addColumn('image', function ($row) {
                 return ' <div style="width:30px;"><a href="'.asset("storage/pictures/" . basename($row->path)).'" target=_blank>
@@ -92,6 +98,8 @@ class CaptureDataTable extends DataTable
             Column::make('id'),
             Column::make('payroll_no'),
             Column::make('name'),
+            Column::make('barangay'),
+            Column::make('municipality'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::make('image'),
