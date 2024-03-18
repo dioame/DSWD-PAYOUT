@@ -2,3 +2,5 @@
 !.gitignore
 !downloads
 !downloads/CFW_Template.xlsx
+!downloads/server.bat
+!downloads/qrcode.png

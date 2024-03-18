@@ -22,6 +22,15 @@
 @section('content')
 <div class="container-fluid">
 
+<div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="input-group">
+                <input class="form-control" id="payroll-input" type="text" placeholder="1, 1-100"><span class="input-group-text btn btn-primary" onclick="generatePDF()">Generate PDF</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+
     <div class="row">
         <div class="col-lg-12 col-md-12">
         
@@ -42,6 +51,15 @@
 </div>
     <script type="text/javascript">
         var session_layout = '{{ session()->get('layout') }}';
+
+        function generatePDF(){
+            var input = $('#payroll-input').val();
+            if(input){
+                window.open('print/generate-pdf/'+input, '_blank');
+            }else{
+                alert("Please provide range. Thank you.");
+            }       
+        }
     </script>
 @endsection
 

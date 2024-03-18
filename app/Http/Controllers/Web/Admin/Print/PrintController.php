@@ -107,7 +107,7 @@ class PrintController extends Controller
 
     public function duplicateCapture(){
         $duplicate = Capture::join(
-            DB::raw('(SELECT payroll_no FROM capture GROUP BY payroll_no HAVING COUNT(*) > 1) as duplicates'),
+            DB::raw('(SELECT payroll_no FROM capture WHERE deleted_at IS NULL GROUP BY payroll_no HAVING COUNT(*) > 1) as duplicates'),
             'capture.payroll_no', '=', 'duplicates.payroll_no'
         )
         ->orderBy('capture.payroll_no', 'asc')
@@ -121,7 +121,8 @@ class PrintController extends Controller
         $nyCapture = Payroll::leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
         ->select('payroll.*')
         ->whereNull('capture.payroll_no')
-        ->orWhereNotNull('capture.deleted_at')
+        // ->orWhereNotNull('capture.deleted_at')
+        ->whereNull('capture.deleted_at')
         ->paginate(10);
 
         return view('print.ny', compact('nyCapture'));

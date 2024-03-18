@@ -51,7 +51,7 @@ class CaptureController extends Controller
         $sourceImg = imagecreatefromstring(file_get_contents($tempFilePath));
         imagejpeg($sourceImg, storage_path('app/public/pictures/' . $filename), 25);
         imagedestroy($sourceImg);
-        $filePath = 'public/pictures/' . $filename;
+        $filePath = 'pictures/' . $filename;
         // end adjustment
         
         // $filePath = $file->storeAs('pictures', $filename, 'public');

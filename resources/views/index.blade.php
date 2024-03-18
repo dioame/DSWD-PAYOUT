@@ -42,6 +42,16 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
     padding: 5px 10px;
     margin-left: 10px;
   }
+
+  .centered-content {
+    text-align: center; /* Center align text */
+    margin: auto; /* Center align block elements */
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Arrange children in a column */
+    align-items: center; /* Center align items horizontally */
+    justify-content: center; /* Center align items vertically */
+    height: 100%; /* Fill the height of parent */
+}
 </style>
 
 
@@ -63,33 +73,44 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="qrcode">
-                     <?php 
-                       $host = gethostbyname(gethostname());
-                       $connection = @fsockopen($host, 8000, $errno, $errstr, $timeout);
-                    //    $current_host = ($connection) ? "http://{$host}:8000" : env('L5_SWAGGER_CONST_HOST', config('app.url'));
-                        if($connection){
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="qrcode">
+                            <?php 
+                            $host = gethostbyname(gethostname());
+                            $connection = @fsockopen($host, 8000, $errno, $errstr, $timeout);
+                            //    $current_host = ($connection) ? "http://{$host}:8000" : env('L5_SWAGGER_CONST_HOST', config('app.url'));
+                                if($connection){
 
-                            $qrCode = QrCode::size(300)->generate($host);
+                                    $qrCode = QrCode::size(300)->generate($host);
+                                    ?>
+                                        {!! $qrCode !!} <br> {!! $host !!}
+                                    <?php
+                                }else{
+                                    ?>
+                                    <p>Seems like PHP server/port not yet exist. Please run the following command in your terminal:</p>
+
+                                    <pre id="command">
+                                    php artisan serve --host 0.0.0.0
+                                    </pre>
+
+                                    <a href="{{ asset('storage/downloads/server.bat') }}" class="btn btn-primary">Open Cmder</a>
+                            
+                                    <?php
+                                }
                             ?>
-                                {!! $qrCode !!} <br> {!! $host !!}
-                            <?php
-                        }else{
-                            ?>
-                            <p>Seems like PHP server/port not yet exist. Please run the following command in your terminal:</p>
-
-                            <pre id="command">
-                            php artisan serve --host 0.0.0.0
-                            </pre>
-
-                    
-                            <?php
-                        }
-                     ?>
-                    </div>
-                    <div class="code-box-copy">
-                        <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head" title="Copy"><i class="icofont icofont-copy-alt"></i></button>
-    
+                            </div>
+                            <div class="code-box-copy">
+                                <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head" title="Copy"><i class="icofont icofont-copy-alt"></i></button>
+            
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="centered-content">
+                                <h2>KC PDS Capture APP</h2>
+                                <img src="{{ asset('storage/downloads/qrcode.png') }}" alt="KC-PDS Capture QR Code">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
