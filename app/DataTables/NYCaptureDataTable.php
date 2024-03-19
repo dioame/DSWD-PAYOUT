@@ -51,6 +51,15 @@ class NYCaptureDataTable extends DataTable
             ->whereNull('capture.deleted_at');
     }
 
+    public function countRecords(): int
+    {
+        return Payroll::leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
+        ->select('payroll.*')
+        ->whereNull('capture.payroll_no')
+        ->whereNull('capture.deleted_at')->count();
+    }
+
+
     /**
      * Optional method if you want to use the html builder.
      */

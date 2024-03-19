@@ -56,6 +56,11 @@ class CaptureDataTable extends DataTable
         return $model->newQuery()->orderByDesc('created_at');
     }
 
+    public function countRecords(): int
+    {
+        return Capture::count();
+    }
+
     /**
      * Optional method if you want to use the html builder.
      */

@@ -2,8 +2,10 @@
 use App\Http\Controllers\Web\Admin\Capture\CaptureController;
 use App\Http\Controllers\Web\Admin\Print\PrintController;
 use App\Http\Controllers\Web\Admin\Payroll\PayrollController;
+use App\Http\Controllers\Web\Admin\Home\HomeController;
 
 
+Route::get('index', [HomeController::class, 'index'])->name('index');
 
 Route::get('print/generate-pdf/{range}', [PrintController::class, 'generatePdf']);
 Route::get('print/test', [PrintController::class, 'test']);

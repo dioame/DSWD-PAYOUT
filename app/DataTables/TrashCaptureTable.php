@@ -51,6 +51,11 @@ class TrashCaptureTable extends DataTable
         return $model->newQuery()->orderBy('captured_at', 'desc')->onlyTrashed();
     }
 
+    public function countRecords(): int
+    {
+        return Capture::orderBy('captured_at', 'desc')->onlyTrashed()->count();
+    }
+
     /**
      * Optional method if you want to use the html builder.
      */

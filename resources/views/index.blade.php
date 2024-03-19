@@ -55,12 +55,160 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 </style>
 
 
+
 <div class="container-fluid">
+
+<div class="row">
+    <div class="col-lg-3 col-md-3">
+            <div class="card widget-1">
+			  <div class="card-body"> 
+				<div class="widget-content">
+				  <div class="widget-round secondary">
+					<div class="bg-round">
+					  <!-- <svg class="svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#cart"> </use>
+					  </svg> -->
+                      <i data-feather="file-minus"></i>
+					  <!-- <svg class="half-circle svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#halfcircle"></use>
+					  </svg> -->
+					</div>
+				  </div>
+				  <div> 
+					<h4>{{$countPayroll}}</h4><span class="f-light">Payroll</span>
+				  </div>
+				</div>
+				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
+			  </div>
+			</div>
+    </div>
+    <div class="col-lg-3 col-md-3">
+            <div class="card widget-1">
+			  <div class="card-body"> 
+				<div class="widget-content">
+				  <div class="widget-round secondary">
+					<div class="bg-round">
+					  <!-- <svg class="svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#cart"> </use>
+					  </svg> -->
+                      <i data-feather="instagram"></i>    
+					  <!-- <svg class="half-circle svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#halfcircle"></use>
+					  </svg> -->
+					</div>
+				  </div>
+				  <div> 
+					<h4>{{$countCapture}}</h4><span class="f-light">Capture</span>
+				  </div>
+				</div>
+				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
+			  </div>
+			</div>
+    </div>
+
+    <div class="col-lg-3 col-md-3">
+            <div class="card widget-1">
+			  <div class="card-body"> 
+				<div class="widget-content">
+				  <div class="widget-round secondary">
+					<div class="bg-round">
+					  <!-- <svg class="svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#cart"> </use>
+					  </svg> -->
+                      <i data-feather="instagram"></i>    
+					  <!-- <svg class="half-circle svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#halfcircle"></use>
+					  </svg> -->
+					</div>
+				  </div>
+				  <div> 
+					<h4>{{$countDuplicate}}</h4><span class="f-light">Duplicate Capture</span>
+				  </div>
+				</div>
+				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
+			  </div>
+			</div>
+    </div>
+
+    <div class="col-lg-3 col-md-3">
+            <div class="card widget-1">
+			  <div class="card-body"> 
+				<div class="widget-content">
+				  <div class="widget-round secondary">
+					<div class="bg-round">
+					  <!-- <svg class="svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#cart"> </use>
+					  </svg> -->
+                      <i data-feather="instagram"></i>    
+					  <!-- <svg class="half-circle svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#halfcircle"></use>
+					  </svg> -->
+					</div>
+				  </div>
+				  <div> 
+					<h4>{{$countNYCapture}}</h4><span class="f-light">Not Yet Capture</span>
+				  </div>
+				</div>
+				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
+			  </div>
+			</div>
+    </div>
+    <div class="col-lg-3 col-md-3">
+            <div class="card widget-1">
+			  <div class="card-body"> 
+				<div class="widget-content">
+				  <div class="widget-round secondary">
+					<div class="bg-round">
+					  <!-- <svg class="svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#cart"> </use>
+					  </svg> -->
+                      <i data-feather="instagram"></i>    
+					  <!-- <svg class="half-circle svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#halfcircle"></use>
+					  </svg> -->
+					</div>
+				  </div>
+				  <div> 
+					<h4>{{$countNYPayroll}}</h4><span class="f-light">Not in Payroll</span>
+				  </div>
+				</div>
+				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
+			  </div>
+			</div>
+    </div>
+
+    <div class="col-lg-3 col-md-3">
+            <div class="card widget-1">
+			  <div class="card-body"> 
+				<div class="widget-content">
+				  <div class="widget-round secondary">
+					<div class="bg-round">
+					  <!-- <svg class="svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#cart"> </use>
+					  </svg> -->
+                      <i data-feather="trash"></i>    
+					  <!-- <svg class="half-circle svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#halfcircle"></use>
+					  </svg> -->
+					</div>
+				  </div>
+				  <div> 
+					<h4>{{$countTrash}}</h4><span class="f-light">Trash Capture</span>
+				  </div>
+				</div>
+				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
+			  </div>
+			</div>
+    </div>
+
+</div>
+
+
     <div class="row starter-main">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>DSWD CFW Payout System</h5>
+                    <h5>Configurations</h5>
                     <div class="card-header-right">
                         <ul class="list-unstyled card-option">
                             <li><i class="fa fa-spin fa-cog"></i></li>

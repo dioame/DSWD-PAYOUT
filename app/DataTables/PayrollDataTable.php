@@ -41,6 +41,11 @@ class PayrollDataTable extends DataTable
         return $model->newQuery();
     }
 
+    public function countRecords(): int
+    {
+        return Payroll::count();
+    }
+
     /**
      * Optional method if you want to use the html builder.
      */
