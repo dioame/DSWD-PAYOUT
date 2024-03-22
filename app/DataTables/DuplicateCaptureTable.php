@@ -39,7 +39,7 @@ class DuplicateCaptureTable extends DataTable
                         </a></div>';
             })
             ->addColumn('action', function ($row) {
-                return '<a class="btn btn-danger btn-xs delete-item" href="#" onclick="confirmDelete('.$row->id.')">  <i class="fa fa-trash"></i>    </a>
+                return '<a class="btn btn-danger btn-xs delete-item" href="#" onclick=" event.preventDefault(); confirmDelete('.$row->id.')">  <i class="fa fa-trash"></i>    </a>
                 <a class="btn btn-warning btn-xs delete-item" href="'.route('print.edit-capture-form', $row->id).'">  <i class="fa fa-edit"></i>    </a>';
             })
             // ->addColumn('action', 'capture.action')

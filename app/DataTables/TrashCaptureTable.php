@@ -38,9 +38,12 @@ class TrashCaptureTable extends DataTable
                             <img src="'.asset("storage/pictures/" . basename($row->path)).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
                         </a></div>';
             })
-            ->addColumn('action', 'capture.action')
+            ->addColumn('restore', function ($row) {
+                return '<a class="btn btn-success btn-xs restore-item" href="#" onclick=" event.preventDefault(); confirmRestore('.$row->id.')">  <i class="fa fa-check"></i>    </a>
+         ';
+            })
             ->setRowId('id')
-            ->rawColumns(['image']);
+            ->rawColumns(['image','restore']);
     }
 
     /**
@@ -100,7 +103,8 @@ class TrashCaptureTable extends DataTable
             Column::make('name'),
             Column::make('created_at'),
             Column::make('updated_at'),
-            // Column::make('image'),
+            Column::make('image'),
+            Column::make('restore'),
         ];
     }
 

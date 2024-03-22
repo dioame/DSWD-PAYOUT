@@ -44,7 +44,8 @@ class CaptureDataTable extends DataTable
                         </a></div>';
             })
             ->addColumn('action', function ($row) {
-                return '<a class="btn btn-warning btn-xs delete-item" href="'.route('capture.edit-form', $row->id).'">  <i class="fa fa-edit"></i> </a>';
+                return '<a class="btn btn-danger btn-xs delete-item" href="#" onclick=" event.preventDefault(); confirmDelete('.$row->id.')">  <i class="fa fa-trash"></i>    </a>
+                <a class="btn btn-warning btn-xs delete-item" href="'.route('capture.edit-form', $row->id).'">  <i class="fa fa-edit"></i> </a>';
             })
             ->setRowId('id')
             ->rawColumns(['image','action']);

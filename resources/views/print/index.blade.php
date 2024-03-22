@@ -67,7 +67,32 @@
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 @endpush
 
+
+
 @section('script')
+
+<script>
+       function confirmDelete(id) {
+            if (confirm('Are you sure you want to delete this item?')) {
+                    $.ajax({
+                        url: '/capture/' + id+'/delete',
+                        type: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            // handle success response
+                            // location.reload();
+                            $('#payroll-table').DataTable().ajax.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            // handle error response
+                        }
+                    });
+                }
+        }
+
+</script>
 
 @endsection
 

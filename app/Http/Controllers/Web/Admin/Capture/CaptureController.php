@@ -88,4 +88,10 @@ class CaptureController extends Controller
         $capture->restore();
         return redirect()->route('print.trash');
     }
+
+    public function deleteCapture($id){
+        $capture = Capture::where('id', $id)->first();
+        $capture->delete();
+        return redirect()->route('capture.print-index');
+    }
 }

@@ -71,7 +71,6 @@
 
 
 @section('script')
-
 @endsection
 
 

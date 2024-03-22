@@ -50,7 +50,27 @@
 @endpush
 
 @section('script')
-
+    <script>
+        function confirmRestore(id) {
+            if (confirm('Are you sure you want to restore this item?')) {
+                    $.ajax({
+                        url: '/capture/' + id+'/restore',
+                        type: 'PUT',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            // handle success response
+                            // location.reload();
+                            $('#payroll-table').DataTable().ajax.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            // handle error response
+                        }
+                    });
+                }
+        }
+    </script>
 @endsection
 
 
