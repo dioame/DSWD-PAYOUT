@@ -43,9 +43,11 @@ class CaptureDataTable extends DataTable
                             <img src="'.asset("storage/pictures/" . basename($row->path)).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
                         </a></div>';
             })
-            ->addColumn('action', 'capture.action')
+            ->addColumn('action', function ($row) {
+                return '<a class="btn btn-warning btn-xs delete-item" href="'.route('capture.edit-form', $row->id).'">  <i class="fa fa-edit"></i> </a>';
+            })
             ->setRowId('id')
-            ->rawColumns(['image']);
+            ->rawColumns(['image','action']);
     }
 
     /**
@@ -108,6 +110,7 @@ class CaptureDataTable extends DataTable
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::make('image'),
+            Column::make('action'),
         ];
     }
 

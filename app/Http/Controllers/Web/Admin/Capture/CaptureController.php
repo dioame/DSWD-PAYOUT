@@ -50,6 +50,19 @@ class CaptureController extends Controller
         //
     }
 
+    public function editForm($id){
+        $capture = Capture::find($id);
+        return view('capture.edit-form', compact('capture'));
+    }
+    
+    public function editCapture($id,Request $request){
+        Capture::find($id)->update([
+            'payroll_no' => $request->payroll_no
+        ]);
+        
+        return redirect()->route('print.index');
+    }
+
     /**
      * Update the specified resource in storage.
      */

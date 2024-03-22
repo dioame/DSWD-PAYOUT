@@ -18,6 +18,9 @@ Route::get('print/ny-payroll', [PrintController::class, 'nyPayroll'])->name('pri
 
 Route::put('capture/restore/{id}', [CaptureController::class, 'restore'])->name('capture.restore');
 
+Route::get('capture/edit-form/{id}', [CaptureController::class, 'editForm'])->name('capture.edit-form');
+Route::put('capture/edit-capture/{id}', [CaptureController::class, 'editCapture'])->name('capture.edit-capture');
+
 Route::resource('print', PrintController::class);
 Route::resource('payroll', PayrollController::class);
 Route::resource('capture', CaptureController::class);
