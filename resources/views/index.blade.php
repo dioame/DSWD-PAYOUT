@@ -203,6 +203,48 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 </div>
 
+<div class="card">
+		<div class="card-header">
+			<h5>Payroll Summary</h5>
+			<div class="card-header-right">
+				<ul class="list-unstyled card-option">
+					<li><i class="fa fa-spin fa-cog"></i></li>
+					<li><i class="view-html fa fa-code"></i></li>
+					<li><i class="icofont icofont-maximize full-card"></i></li>
+					<li><i class="icofont icofont-minus minimize-card"></i></li>
+					<li><i class="icofont icofont-refresh reload-card"></i></li>
+					<li><i class="icofont icofont-error close-card"></i></li>
+				</ul>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-lg-12 col-md-12">
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th>Municipality</th>
+								<th>Barangay</th>
+								<th>Payroll</th>
+								<th>Captured</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($payrollSummary as $payroll)
+								<tr>
+									<td>{{$payroll->municipality}}</td>
+									<td>{{$payroll->barangay}}</td>
+									<td>{{$payroll->payroll}}</td>
+									<td>{{$payroll->capture}}</td>
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
     <div class="row starter-main">
         <div class="col-sm-12">

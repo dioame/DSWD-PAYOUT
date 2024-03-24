@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Admin\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Capture;
+use App\Models\Admin\Payroll;
 
 use App\DataTables\CaptureDataTable;
 use App\DataTables\PayrollDataTable;
@@ -12,6 +13,7 @@ use App\DataTables\DuplicateCaptureTable;
 use App\DataTables\NYCaptureDataTable;
 use App\DataTables\NYPayrollTable;
 use App\DataTables\TrashCaptureTable;
+
 
 class HomeController extends Controller
 {
@@ -27,6 +29,14 @@ class HomeController extends Controller
         TrashCaptureTable $trashCapture
     )
     {
+        $payrollSummary = Payroll::leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
+            ->select('payroll.barangay', 'payroll.municipality', 
+                \DB::raw('COUNT(payroll.payroll_no) AS payroll'),
+                \DB::raw('COUNT(capture.payroll_no) AS capture')
+            )
+            ->whereNull('capture.deleted_at')
+            ->groupBy('payroll.barangay', 'payroll.municipality')
+            ->get();
 
         $countCapture = $capture->countRecords();
         $countPayroll = $payroll->countRecords();
@@ -42,7 +52,8 @@ class HomeController extends Controller
                         'countDuplicate',
                         'countNYCapture',
                         'countNYPayroll',
-                        'countTrash'
+                        'countTrash',
+                        'payrollSummary'
                     )
                 );
     }
