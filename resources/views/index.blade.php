@@ -55,6 +55,55 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 </style>
 
 
+<div class="row starter-main">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+				<?php 
+                            $host = gethostbyname(gethostname());
+                            $connection = @fsockopen($host, 8000, $errno, $errstr, $timeout);
+							$msg = "";
+                            //    $current_host = ($connection) ? "http://{$host}:8000" : env('L5_SWAGGER_CONST_HOST', config('app.url'));
+                                if($connection){
+									// Execute ipconfig command
+									exec("ipconfig", $output);
+
+									// Find the line containing IPv4 address
+									$ipv4Line = '';
+									foreach ($output as $line) {
+										if (strpos($line, 'IPv4 Address') !== false) {
+											$ipv4Line = $line;
+											break;
+										}
+									}
+
+									// Extract IPv4 address
+									if (!empty($ipv4Line)) {
+										preg_match('/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/', $ipv4Line, $matches);
+										$ipv4Address = isset($matches[0]) ? $matches[0] : 'IPv4 Address not found';
+									} else {
+										$ipv4Address = 'IPv4 Address not found';
+									}
+
+									// Display IPv4 address
+									$msg = "Server running  <a href='#' class='btn btn-primary'>". $ipv4Address."</a>";
+
+                                }else{
+									$msg = "Server not yet running. 
+									<a href='".asset('storage/downloads/server.bat')."' class='btn btn-primary'>Server Executable</a>
+									<a href='".asset('storage/downloads/update.bat')."' class='btn btn-success'>Update Executable</a>
+									<a href='".asset('storage/downloads/backup.bat')."' class='btn btn-warning'>Backup Executable</a>";
+                                    ?>
+                                    <?php
+                                }
+                            ?>
+                    <h5><?= $msg ?></h5>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+
 
 <div class="container-fluid">
 
@@ -264,37 +313,6 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="qrcode">
-                            <?php 
-                            $host = gethostbyname(gethostname());
-                            $connection = @fsockopen($host, 8000, $errno, $errstr, $timeout);
-                            //    $current_host = ($connection) ? "http://{$host}:8000" : env('L5_SWAGGER_CONST_HOST', config('app.url'));
-                                if($connection){
-
-                                    $qrCode = QrCode::size(300)->generate($host);
-                                    ?>
-                                        {!! $qrCode !!} <br> {!! $host !!}
-                                    <?php
-                                }else{
-                                    ?>
-                                    <p>Seems like PHP server/port not yet exist. Please run the following command in your terminal:</p>
-
-                                    <pre id="command">
-                                    php artisan serve --host 0.0.0.0
-                                    </pre>
-
-                                    <a href="{{ asset('storage/downloads/server.bat') }}" class="btn btn-primary">Open Cmder</a>
-                            
-                                    <?php
-                                }
-                            ?>
-                            </div>
-                            <div class="code-box-copy">
-                                <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head" title="Copy"><i class="icofont icofont-copy-alt"></i></button>
-            
-                            </div>
-                        </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="centered-content">
                                 <h2>KC PDS Capture APP</h2>
