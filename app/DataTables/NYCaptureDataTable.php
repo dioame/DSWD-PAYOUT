@@ -45,18 +45,19 @@ class NYCaptureDataTable extends DataTable
      */
     public function query(Payroll $model): QueryBuilder
     {
-        return $model->newQuery()->leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
+        return $model->newQuery()->leftJoin(DB::raw('(SELECT * FROM capture WHERE deleted_at IS NULL) c'), 'payroll.payroll_no', '=', 'c.payroll_no')
             ->select('payroll.*')
-            ->whereNull('capture.payroll_no')
-            ->whereNull('capture.deleted_at');
+            ->whereNull('c.payroll_no')
+            ->whereNull('c.deleted_at');
     }
 
     public function countRecords(): int
     {
-        return Payroll::leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
+        return Payroll::leftJoin(DB::raw('(SELECT * FROM capture WHERE deleted_at IS NULL) c'), 'payroll.payroll_no', '=', 'c.payroll_no')
         ->select('payroll.*')
-        ->whereNull('capture.payroll_no')
-        ->whereNull('capture.deleted_at')->count();
+        ->whereNull('c.payroll_no')
+        ->whereNull('c.deleted_at')
+        ->count();
     }
 
 
