@@ -67,7 +67,7 @@ class PayrollController extends Controller
     }
 
     public function editStatus($id,$status){
-        $payroll = Payroll::find($id)->update(['is_claimed_no_picture'=>$status]);
+        $payroll = Payroll::find($id)->update(['claimed_status'=>$status]);
 
     }
     

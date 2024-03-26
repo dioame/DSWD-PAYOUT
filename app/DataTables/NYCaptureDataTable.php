@@ -35,18 +35,23 @@ class NYCaptureDataTable extends DataTable
                             <img src="'.asset("storage/pictures/" . basename($row->path)).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
                         </a></div>';
             })
-            ->addColumn('is_claimed_no_picture', function ($row) {
-                return $row->is_claimed_no_picture 
-                ? 
-                '<div><a href="#" target=_blank class="btn btn-xs btn-success" onclick=" event.preventDefault(); isClaimed('.$row->id.',0)"> Yes
-                </a></div>' 
-                :
-                '<div><a href="#" target=_blank class="btn btn-xs btn-danger" onclick=" event.preventDefault(); isClaimed('.$row->id.',1)"> No
-                </a></div>';
+            ->addColumn('claimed_status', function ($row) {
+                $options = [
+                    'unclaimed' => 'Unclaimed / not yet claimed',
+                    'claimed_no_photo_docs' => 'Claimed but no photo docs',
+                    'will_not_claim' => 'Will not claim',
+                ];
+                $select = '<select class="form-control" onchange="claimedStatus('.$row->id.',this.value)">';
+                foreach ($options as $value => $label) {
+                    $selected = ($value == $row->claimed_status) ? 'selected' : '';
+                    $select .= "<option value='$value' $selected>$label</option>";
+                }
+                $select .= '</select>';
+                return $select;
             })
             ->addColumn('action', 'capture.action')
             ->setRowId('id')
-            ->rawColumns(['image','is_claimed_no_picture']);
+            ->rawColumns(['image','claimed_status']);
     }
 
     /**
@@ -114,9 +119,10 @@ class NYCaptureDataTable extends DataTable
             Column::make('name'),
             Column::make('barangay'),
             Column::make('municipality'),
-            Column::make('is_claimed_no_picture'),
+          
             Column::make('created_at'),
             Column::make('updated_at'),
+            Column::make('claimed_status'),
             // Column::make('image'),
         ];
     }

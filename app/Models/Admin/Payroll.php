@@ -17,7 +17,7 @@ class Payroll extends Model
         'modality',
         'year',
         'uploaded_by',
-        'is_claimed_no_picture'
+        'claimed_status'
     ];
 
     protected $table = "payroll";

@@ -51,8 +51,8 @@
 
 @section('script')
 <script>
-    function isClaimed(id,status){
-        var _c = confirm("Are you sure to change is claim no picture status?");
+    function claimedStatus(id,status){
+        var _c = confirm("Are you sure to change status?");
         if(_c){
             $.ajax({
                 url: '/payroll/' + id+'/status/'+status,

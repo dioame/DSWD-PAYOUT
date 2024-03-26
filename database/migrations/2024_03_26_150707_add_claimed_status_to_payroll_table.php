@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('payroll', function (Blueprint $table) {
-            $table->boolean('is_claimed_no_picture')->default(false);
+            $table->string('claimed_status')->default('unclaimed');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('payroll', function (Blueprint $table) {
-            $table->dropColumn('is_claimed_no_picture');
+            $table->dropColumn('claimed_status');
         });
     }
 };
