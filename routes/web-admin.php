@@ -22,6 +22,8 @@ Route::get('capture/edit-form/{id}', [CaptureController::class, 'editForm'])->na
 Route::put('capture/edit-capture/{id}', [CaptureController::class, 'editCapture'])->name('capture.edit-capture');
 Route::delete('capture/{id}/delete', [CaptureController::class, 'deleteCapture'])->name('capture.delete');
 
+Route::put('payroll/{id}/status/{status}', [PayrollController::class, 'editStatus'])->name('payroll.edit-status');
+
 Route::resource('print', PrintController::class);
 Route::resource('payroll', PayrollController::class);
 Route::resource('capture', CaptureController::class);

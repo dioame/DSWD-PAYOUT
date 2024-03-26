@@ -50,7 +50,29 @@
 @endpush
 
 @section('script')
-
+<script>
+    function isClaimed(id,status){
+        var _c = confirm("Are you sure to change is claim no picture status?");
+        if(_c){
+            $.ajax({
+                url: '/payroll/' + id+'/status/'+status,
+                type: 'PUT',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    console.log(response);
+                    // handle success response
+                    // location.reload();
+                    $('#payroll-table').DataTable().ajax.reload();
+                },
+                error: function(xhr, status, error) {
+                    // handle error response
+                }
+            });
+        }
+    }
+</script>
 @endsection
 
 

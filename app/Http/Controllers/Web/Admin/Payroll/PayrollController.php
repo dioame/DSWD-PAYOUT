@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web\Admin\Payroll;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Capture;
+use App\Models\Admin\Payroll;
 use App\DataTables\PayrollDataTable;
 class PayrollController extends Controller
 {
@@ -66,9 +66,10 @@ class PayrollController extends Controller
         //
     }
 
-    
-    
-    
+    public function editStatus($id,$status){
+        $payroll = Payroll::find($id)->update(['is_claimed_no_picture'=>$status]);
+
+    }
     
 
 }

@@ -16,7 +16,8 @@ class Payroll extends Model
         'municipality',
         'modality',
         'year',
-        'uploaded_by'
+        'uploaded_by',
+        'is_claimed_no_picture'
     ];
 
     protected $table = "payroll";
