@@ -70,6 +70,10 @@ class PayrollController extends Controller
         $payroll = Payroll::find($id)->update(['claimed_status'=>$status]);
 
     }
+
+    public function deletePayrollAll(){
+        Payroll::truncate();
+    }
     
 
 }

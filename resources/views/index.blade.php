@@ -280,9 +280,11 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 							</tr>
 						</thead>
 						<tbody>
-							{{$total_payroll = 0}}
-							{{$total_capture = 0}}
-							{{$total_balance = 0}}
+							@php
+								$total_payroll = 0;
+								$total_capture = 0;
+								$total_balance = 0;
+							@endphp
 							@foreach($payrollSummary as $payroll)
 								<tr>
 									<td>{{$payroll->municipality}}</td>
@@ -291,9 +293,11 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 									<td>{{$payroll->capture}}</td>
 									<td>{{$payroll->payroll - $payroll->capture}}</td>
 								</tr>
-								{{$total_payroll += $payroll->payroll}}
-								{{$total_capture += $payroll->capture}}
-								{{$total_balance += ($payroll->payroll - $payroll->capture)}}
+								@php
+									$total_payroll += $payroll->payroll;
+									$total_capture += $payroll->capture;
+									$total_balance += ($payroll->payroll - $payroll->capture);
+								@endphp
 							@endforeach
 						</tbody>
 						<tfoot>

@@ -27,7 +27,7 @@
         
                 <div class="card">
                     <div class="card-header">
-                        <h5>Payroll List</h5>
+                        <h5>Payroll List <button class="btn btn-primary" onclick="emptyPayroll()"><i class="fa fa-trash"></i> Empty Payroll</button></h5>
                     </div>
                     <div class="card-body">
                 
@@ -50,7 +50,27 @@
 @endpush
 
 @section('script')
-
+<script>
+    function emptyPayroll(){
+        if (confirm('Are you sure you want to empty payroll?')) {
+            $.ajax({
+                url: '/payroll/all',
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // handle success response
+                    // location.reload();
+                    $('#payroll-table').DataTable().ajax.reload();
+                },
+                error: function(xhr, status, error) {
+                    // handle error response
+                }
+            });
+        }
+    }
+</script>
 @endsection
 
 

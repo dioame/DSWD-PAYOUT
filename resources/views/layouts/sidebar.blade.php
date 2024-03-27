@@ -47,6 +47,15 @@
               <li class="sidebar"><a class="sidebar-link " href="/api/documentation" target="_blank">
               <i data-feather="layers"></i>
               <span>API Documentation </span></a></li>
+
+              <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+                  <i data-feather="settings"></i>    
+                    <span>Settings </span></a>
+                    <ul class="sidebar-submenu">
+                      <li><a href="#">Database Settings</a></li>
+                    </ul>
+              </li>
+
           </ul>
         </div>
         <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

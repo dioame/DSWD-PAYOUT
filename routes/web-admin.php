@@ -23,6 +23,7 @@ Route::put('capture/edit-capture/{id}', [CaptureController::class, 'editCapture'
 Route::delete('capture/{id}/delete', [CaptureController::class, 'deleteCapture'])->name('capture.delete');
 
 Route::put('payroll/{id}/status/{status}', [PayrollController::class, 'editStatus'])->name('payroll.edit-status');
+Route::delete('payroll/all', [PayrollController::class, 'deletePayrollAll'])->name('payroll.delete-all');
 
 Route::resource('print', PrintController::class);
 Route::resource('payroll', PayrollController::class);
