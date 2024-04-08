@@ -52,7 +52,7 @@
                   <i data-feather="settings"></i>    
                     <span>Settings </span></a>
                     <ul class="sidebar-submenu">
-                      <li><a href="#">Database Settings</a></li>
+                      <li><a href="{{route('database.index')}}">Database Settings</a></li>
                     </ul>
               </li>
 

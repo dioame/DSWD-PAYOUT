@@ -1,5 +1,7 @@
 <?php 
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Config;
+
 ?>
 @extends('layouts.master')
 
@@ -62,6 +64,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 				<?php 
                             $host = gethostbyname(gethostname());
                             $connection = @fsockopen($host, 8000, $errno, $errstr, $timeout);
+							$databaseName = Config::get('database.connections.mysql.database');
 							$msg = "";
                             //    $current_host = ($connection) ? "http://{$host}:8000" : env('L5_SWAGGER_CONST_HOST', config('app.url'));
                                 if($connection){
@@ -86,10 +89,10 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 									}
 
 									// Display IPv4 address
-									$msg = "Server running  <a href='#' class='btn btn-primary'>". $ipv4Address."</a>";
+									$msg = '<span class="badge badge-light-success">'."Database: ".strtolower($databaseName).'</span>'."<br> Server running  <a href='#' class='btn btn-primary'>". $ipv4Address."</a>";
 
                                 }else{
-									$msg = "Server not yet running. 
+									$msg = '<span class="badge badge-light-success">'."Database: ".strtolower($databaseName).'</span>'."<br> Server not yet running. 
 									<a href='".asset('storage/downloads/server.bat')."' class='btn btn-primary'>Server Executable</a>
 									<a href='".asset('storage/downloads/update.bat')."' class='btn btn-success'>Update Executable</a>
 									<a href='".asset('storage/downloads/backup.bat')."' class='btn btn-warning'>Backup Executable</a>";

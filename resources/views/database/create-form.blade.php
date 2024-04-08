@@ -12,12 +12,12 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3>Edit Capture Form</h3>
+    <h3>Store Database</h3>
 @endsection
 
 @section('breadcrumb-items')
     <li class="breadcrumb-item">Dashboard</li>
-    <li class="breadcrumb-item active">Edit Capture Form</li>
+    <li class="breadcrumb-item active">Store Database</li>
 @endsection
 
 @section('content')
@@ -33,16 +33,14 @@
         
                 <div class="card">
                     <div class="card-header">
-                        <h5>Upload Capture</h5>
+                        <h5>Add Database</h5>
                     </div>
                     <div class="card-body">
-                      <form action="{{ route('capture.upload-folder') }}" method="POST" enctype="multipart/form-data">
+                      <form action="{{ route('database.store') }}" method="POST" enctype="multipart/form-data">
                           @csrf
-                          <label for="">ID Number</label><br>
-                          <input class="form-control" type="text" name="id_number" placeholder="ID Number" required><br>
-                          <label>Select Folder</label><br>
-                          <input class="form-control" type="file" name="folder[]" directory webkitdirectory mozdirectory required><br>
-                          <button type="submit" class="btn btn-primary">Upload</button>
+                          <label for="">Database Name</label><br>
+                          <input class="form-control" type="text" name="database_name" placeholder="Database Name" required><br>
+                         <button type="submit" class="btn btn-primary">Save</button>
                       </form>
                     </div>
                 </div>

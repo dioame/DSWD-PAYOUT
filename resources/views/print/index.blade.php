@@ -36,7 +36,7 @@
         
                 <div class="card">
                     <div class="card-header">
-                        <h5>Captured List</h5>
+                        <h5>Captured List <a href="{{route('capture.index')}}" class="btn btn-success" target="_blank"><i class="fa fa-upload"></i> Upload Capture</a></h5>
                     </div>
                     <div class="card-body">
                 

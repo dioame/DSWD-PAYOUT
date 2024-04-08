@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Capture;
+use App\Services\Admin\Capture\StoreCaptureService;
 
 class CaptureController extends Controller
 {
@@ -93,5 +94,26 @@ class CaptureController extends Controller
         $capture = Capture::where('id', $id)->first();
         $capture->delete();
         return redirect()->route('capture.print-index');
+    }
+
+    public function uploadFolder(Request $request, StoreCaptureService $service){
+        $idNumber = $request->input('id_number');
+        $folder = $request->file('folder');
+
+        foreach ($folder as $file) {
+            $filename = $file->getClientOriginalName();
+            $file->storeAs('public/pictures', $filename);
+            $filePath = "pictures/".$filename;
+            $payrollNo = explode("_",$filename)[0];
+
+            $service->execute([
+                'payroll_no' => $payrollNo,
+                'path' => $filePath,
+                'id_number' => $idNumber,
+            ]);
+        }
+
+        return redirect()->route('capture.print-index');
+  
     }
 }
