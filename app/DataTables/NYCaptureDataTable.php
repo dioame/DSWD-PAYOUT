@@ -35,23 +35,34 @@ class NYCaptureDataTable extends DataTable
                             <img src="'.asset("storage/pictures/" . basename($row->path)).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
                         </a></div>';
             })
+            // ->addColumn('claimed_status', function ($row) {
+            //     $options = [
+            //         'unclaimed' => 'Unclaimed / not yet claimed',
+            //         'claimed_no_photo_docs' => 'Claimed but no photo docs',
+            //         'will_not_claim' => 'Will not claim',
+            //     ];
+            //     $select = '<select class="form-control" onchange="claimedStatus('.$row->id.',this.value)">';
+            //     foreach ($options as $value => $label) {
+            //         $selected = ($value == $row->claimed_status) ? 'selected' : '';
+            //         $select .= "<option value='$value' $selected>$label</option>";
+            //     }
+            //     $select .= '</select>';
+            //     return $select;
+            // })
             ->addColumn('claimed_status', function ($row) {
                 $options = [
                     'unclaimed' => 'Unclaimed / not yet claimed',
                     'claimed_no_photo_docs' => 'Claimed but no photo docs',
                     'will_not_claim' => 'Will not claim',
                 ];
-                $select = '<select class="form-control" onchange="claimedStatus('.$row->id.',this.value)">';
-                foreach ($options as $value => $label) {
-                    $selected = ($value == $row->claimed_status) ? 'selected' : '';
-                    $select .= "<option value='$value' $selected>$label</option>";
-                }
-                $select .= '</select>';
-                return $select;
+                return $options[$row['claimed_status']];
             })
-            ->addColumn('action', 'capture.action')
+            ->addColumn('action', function ($row) {
+                return "<button class='btn btn-success btn-xs' data-bs-toggle='modal' data-bs-target='#editModal' onclick='selectModal(`$row->id`)'><span class='fa fa-edit'></span></button>";
+            })
+            // ->addColumn('action', 'capture.action')
             ->setRowId('id')
-            ->rawColumns(['image','claimed_status']);
+            ->rawColumns(['image','claimed_status','action']);
     }
 
     /**
@@ -123,6 +134,7 @@ class NYCaptureDataTable extends DataTable
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::make('claimed_status'),
+            Column::make('action'),
             // Column::make('image'),
         ];
     }
