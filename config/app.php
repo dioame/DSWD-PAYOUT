@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
-    'kc-pds-version' => '1.3.61',
+    'kc-pds-version' => '1.3.63',
     /*
     |--------------------------------------------------------------------------
     | Application Name

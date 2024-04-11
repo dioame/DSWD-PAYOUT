@@ -117,6 +117,7 @@ $options = [
 
 <div class="row">
     <div class="col-lg-3 col-md-3">
+		<a href="payroll">
             <div class="card widget-1">
 			  <div class="card-body"> 
 				<div class="widget-content">
@@ -138,8 +139,10 @@ $options = [
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
 			  </div>
 			</div>
+		</a>
     </div>
     <div class="col-lg-3 col-md-3">
+	<a href="print">
             <div class="card widget-1">
 			  <div class="card-body"> 
 				<div class="widget-content">
@@ -161,9 +164,11 @@ $options = [
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
 			  </div>
 			</div>
+							</a>
     </div>
 
     <div class="col-lg-3 col-md-3">
+		<a href="print/duplicate-capture">
             <div class="card widget-1">
 			  <div class="card-body"> 
 				<div class="widget-content">
@@ -185,9 +190,11 @@ $options = [
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
 			  </div>
 			</div>
+		</a>
     </div>
 
     <div class="col-lg-3 col-md-3">
+		<a href="print/ny-capture">
             <div class="card widget-1">
 			  <div class="card-body"> 
 				<div class="widget-content">
@@ -209,8 +216,10 @@ $options = [
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
 			  </div>
 			</div>
+		</a>
     </div>
     <div class="col-lg-3 col-md-3">
+		<a href="print/ny-payroll">
             <div class="card widget-1">
 			  <div class="card-body"> 
 				<div class="widget-content">
@@ -232,9 +241,11 @@ $options = [
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
 			  </div>
 			</div>
+		</a>
     </div>
 
     <div class="col-lg-3 col-md-3">
+		<a href="print/trash">
             <div class="card widget-1">
 			  <div class="card-body"> 
 				<div class="widget-content">
@@ -256,6 +267,7 @@ $options = [
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
 			  </div>
 			</div>
+		</a>
     </div>
 
 </div>
