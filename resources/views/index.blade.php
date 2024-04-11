@@ -2,6 +2,11 @@
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Config;
 
+$options = [
+	'unclaimed' => 'Unclaimed / not yet claimed',
+	'claimed_no_photo_docs' => 'Claimed but no photo docs',
+	'will_not_claim' => 'Will not claim',
+];
 ?>
 @extends('layouts.master')
 
@@ -255,7 +260,10 @@ use Illuminate\Support\Facades\Config;
 
 </div>
 
-<div class="card">
+<div class="row">
+
+<div class="col col-lg-8 col-md-8">
+	<div class="card">
 		<div class="card-header">
 			<h5>Payroll Summary</h5>
 			<div class="card-header-right">
@@ -313,6 +321,48 @@ use Illuminate\Support\Facades\Config;
 				</div>
 			</div>
 		</div>
+	</div>
+
+	</div>
+
+	<div class="col col-lg-4 col-md-4">
+
+	<div class="card">
+		<div class="card-header">
+			<h5>Claimed Status</h5>
+			<div class="card-header-right">
+				<ul class="list-unstyled card-option">
+					<li><i class="fa fa-spin fa-cog"></i></li>
+					<li><i class="view-html fa fa-code"></i></li>
+					<li><i class="icofont icofont-maximize full-card"></i></li>
+					<li><i class="icofont icofont-minus minimize-card"></i></li>
+					<li><i class="icofont icofont-refresh reload-card"></i></li>
+					<li><i class="icofont icofont-error close-card"></i></li>
+				</ul>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-lg-12 col-md-12">
+						<table class="table">
+							<tr>
+								<th>Status</th>
+								<th>#</th>
+							</tr>
+							@foreach($claimStatus as $row)
+								<tr>
+									<td>{{$options[$row->claimed_status]}}</td>
+									<td>{{$row->count}}</td>
+								</tr>
+							@endforeach
+						</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</div>
+
 	</div>
 
 

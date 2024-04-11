@@ -3,6 +3,7 @@
       <div class="logo-wrapper">
         <a href="{{ route('/')}}">
          <h2> KC-PDS</h2>
+         <p>Version [{{config('app.kc-pds-version')}}]</p>
       </a>
         <div class="back-btn"><i class="fa fa-angle-left"></i></div>
         <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>

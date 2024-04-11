@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Admin\Home;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Capture;
 use App\Models\Admin\Payroll;
@@ -13,6 +14,7 @@ use App\DataTables\DuplicateCaptureTable;
 use App\DataTables\NYCaptureDataTable;
 use App\DataTables\NYPayrollTable;
 use App\DataTables\TrashCaptureTable;
+
 
 
 class HomeController extends Controller
@@ -38,6 +40,15 @@ class HomeController extends Controller
             ->groupBy('payroll.barangay', 'payroll.municipality')
             ->get();
 
+        $claimStatus = Payroll::leftJoin('capture', function ($join) {
+            $join->on('payroll.payroll_no', '=', 'capture.payroll_no')
+                    ->whereNull('capture.deleted_at');
+        })
+        ->whereNull('capture.payroll_no')
+        ->groupBy('payroll.claimed_status')
+        ->select('payroll.claimed_status', DB::raw('count(*) as count'))
+        ->get();
+
         $countCapture = $capture->countRecords();
         $countPayroll = $payroll->countRecords();
         $countDuplicate = $duplicate->countRecords();
@@ -53,7 +64,8 @@ class HomeController extends Controller
                         'countNYCapture',
                         'countNYPayroll',
                         'countTrash',
-                        'payrollSummary'
+                        'payrollSummary',
+                        'claimStatus'
                     )
                 );
     }
