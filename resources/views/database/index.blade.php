@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Config;
 $connection = DB::connection()->getPdo();
 
 // Fetch all database names using a raw SQL query
-$databases = $connection->query('SHOW DATABASES')->fetchAll(PDO::FETCH_COLUMN);
+$databases = $connection->query('SHOW DATABASES LIKE "%dswd%" ')->fetchAll(PDO::FETCH_COLUMN);
 $databaseName = Config::get('database.connections.mysql.database');
 // var_dump($databases);
 ?>
