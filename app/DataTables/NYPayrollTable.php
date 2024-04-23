@@ -35,6 +35,11 @@ class NYPayrollTable extends DataTable
                             <img src="'.asset("storage/pictures/" . basename($row->path)).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
                         </a></div>';
             })
+            ->addColumn('image', function ($row) {
+                return ' <div style="width:30px;"><a href="'.asset("storage/pictures/" . basename($row->path)).'" target=_blank>
+                            <img src="'.asset("storage/pictures/" . basename($row->path)).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
+                        </a></div>';
+            })
             ->addColumn('action', 'capture.action')
             ->setRowId('id')
             ->rawColumns(['image']);
@@ -100,6 +105,7 @@ class NYPayrollTable extends DataTable
             //       ->addClass('text-center'),
             Column::make('id'),
             Column::make('payroll_no'),
+            Column::make('image'),
             Column::make('created_at'),
             Column::make('updated_at'),
             // Column::make('image'),

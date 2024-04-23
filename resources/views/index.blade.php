@@ -363,7 +363,7 @@ $options = [
 							</tr>
 							@foreach($claimStatus as $row)
 								<tr>
-									<td>{{$options[$row->claimed_status]}}</td>
+									<td>{{$row->claimed_status ? $options[$row->claimed_status] : '-'}}</td>
 									<td>{{$row->count}}</td>
 								</tr>
 							@endforeach

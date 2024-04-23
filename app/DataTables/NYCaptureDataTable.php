@@ -56,7 +56,7 @@ class NYCaptureDataTable extends DataTable
                     'will_not_claim' => 'Will not claim',
                     'duplication' => 'Duplication',
                 ];
-                return $options[$row['claimed_status']];
+                return $row['claimed_status'] ? $options[$row['claimed_status']] : "-";
             })
             ->addColumn('action', function ($row) {
                 return "<button class='btn btn-success btn-xs' data-bs-toggle='modal' data-bs-target='#editModal' onclick='selectModal(`$row->id`)'><span class='fa fa-edit'></span></button>";
