@@ -6,6 +6,7 @@ $options = [
 	'unclaimed' => 'Unclaimed / not yet claimed',
 	'claimed_no_photo_docs' => 'Claimed but no photo docs',
 	'will_not_claim' => 'Will not claim',
+	'duplication' => 'Duplication',
 ];
 ?>
 @extends('layouts.master')
