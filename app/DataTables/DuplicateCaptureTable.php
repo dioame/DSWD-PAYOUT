@@ -34,8 +34,8 @@ class DuplicateCaptureTable extends DataTable
                 return $row->payroll->name ?? '';
             })
             ->addColumn('image', function ($row) {
-                return ' <div style="width:30px;"><a href="'.asset("storage/pictures/" . basename($row->path)).'" target=_blank>
-                            <img src="'.asset("storage/pictures/" . basename($row->path)).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
+                return ' <div style="width:30px;"><a href="'.asset("storage/" . $row->path).'" target=_blank>
+                            <img src="'.asset("storage/" . $row->path).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
                         </a></div>';
             })
             ->addColumn('action', function ($row) {

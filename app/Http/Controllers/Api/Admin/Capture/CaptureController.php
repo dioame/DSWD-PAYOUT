@@ -42,16 +42,19 @@ class CaptureController extends Controller
         $filename = $payrollNo . '_' . time() . '.' . $file->getClientOriginalExtension();
 
         // Ensure the "pictures" directory exists in the storage path
-        Storage::makeDirectory('public/pictures');
+        $databaseName = config('database.connections.mysql.database');
+        $fileDirectoryName = $databaseName;
+
+        Storage::makeDirectory('public/pictures/'.$fileDirectoryName);
 
         $tempFilePath = $file->getRealPath();
         $this->correctImageOrientation($tempFilePath);
 
         // adjust quality
         $sourceImg = imagecreatefromstring(file_get_contents($tempFilePath));
-        imagejpeg($sourceImg, storage_path('app/public/pictures/' . $filename), 25);
+        imagejpeg($sourceImg, storage_path('app/public/pictures/'.$fileDirectoryName.'/'. $filename), 25);
         imagedestroy($sourceImg);
-        $filePath = 'pictures/' . $filename;
+        $filePath = 'pictures/'.$fileDirectoryName.'/'. $filename;
         // end adjustment
         
         // $filePath = $file->storeAs('pictures', $filename, 'public');
