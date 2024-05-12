@@ -20,3 +20,6 @@
 <!-- Responsive css-->
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/responsive.css')}}">
 
+<link rel="stylesheet" type="text/css" href="{{asset('assets/Datatables/datatables.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/Datatables/Buttons-2.4.2/css/buttons.dataTables.min.css') }}">
+

@@ -1,2 +1,10 @@
 *
 !.gitignore
+!assets
+!assets/unclaimed.png
+!downloads
+!downloads/CFW_Template.xlsx
+!downloads/server.bat
+!downloads/update.bat
+!downloads/backup.bat
+!downloads/qrcode.png

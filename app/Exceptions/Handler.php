@@ -43,8 +43,21 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (\Exception $e, $request) {
+            return $this->handleException($e, $request);
         });
+    }
+
+    private function handleException($e, $request)
+    {
+        if( $request->expectsJson() ) {
+            if($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException ||
+                $e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+                return response()->json([
+                    'status' => __('messages.error'),
+                    'description' => __('messages.404_not_found'),
+                ],404);
+            }
+        }
     }
 }

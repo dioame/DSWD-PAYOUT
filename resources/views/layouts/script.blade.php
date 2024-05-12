@@ -1,6 +1,6 @@
 
  <!-- latest jquery-->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ <script src="{{asset('assets/jquery/dist/jquery.min.js')}}"></script>
  <!-- Bootstrap js-->
 <script src="{{asset('assets/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
 <!-- feather icon js-->
@@ -18,6 +18,12 @@
 <script src="{{ asset('assets/js/slick/slick.min.js') }}"></script>
 <script src="{{ asset('assets/js/slick/slick.js') }}"></script>
 <script src="{{ asset('assets/js/header-slick.js') }}"></script>
+<!-- <script src="{{ asset('assets/custom/js/Camera.js') }}"></script> -->
+
+<script src="{{ asset('assets/Datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('assets/Datatables/Buttons-2.4.2/js/dataTables.buttons.min.js') }}"></script>
+<script src="/vendor/datatables/buttons.server-side.js"></script>
+
 @yield('script')
 
 @if(Route::current()->getName() != 'popover') 
@@ -27,7 +33,7 @@
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{asset('assets/js/script.js')}}"></script>
-<script src="{{asset('assets/js/theme-customizer/customizer.js')}}"></script>
+
 
 
 {{-- @if(Route::current()->getName() == 'index') 
