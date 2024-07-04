@@ -67,6 +67,15 @@ $options = [
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
+				<label for="">Auto-refresh</label>
+				<select name="" id="autorefresh" onclick="changeValue(this.value)">
+					<option value="0">---</option>
+					<option value="5">5 Seconds</option>
+					<option value="10">10 Seconds</option>
+					<option value="15">15 Seconds</option>
+					<option value="30">30 Seconds</option>
+					<option value="60">60 Seconds</option>
+				</select>
 				<?php 
                             $host = gethostbyname(gethostname());
                             $connection = @fsockopen($host, 8000, $errno, $errstr, $timeout);
@@ -108,8 +117,14 @@ $options = [
                             ?>
                     <h5><?= $msg ?></h5>
                 </div>
+
+				
             </div>
+
+		
+
         </div>
+		
       
     </div>
 
@@ -118,6 +133,7 @@ $options = [
 
 <div class="row">
     <div class="col-lg-3 col-md-3">
+		
 		<a href="payroll">
             <div class="card widget-1">
 			  <div class="card-body"> 
@@ -412,6 +428,16 @@ $options = [
 </div>
     <script type="text/javascript">
         var session_layout = '{{ session()->get('layout') }}';
+
+
+		// function changeValue(val){
+		// 	var time = val*1000;
+		// }
+	
+
+		// setInterval(() => {
+		// 	location.reload();
+		// }, 10000);
     </script>
 @endsection
 

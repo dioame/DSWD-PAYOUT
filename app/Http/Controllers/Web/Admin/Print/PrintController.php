@@ -170,5 +170,8 @@ class PrintController extends Controller
         return $dataTable->render('print.ny-payroll');
     }
     
-
+    public function viewTashPhotos(){
+        $captures = Capture::onlyTrashed()->get();
+        return view('print.view-trash-photos', compact('captures'));
+    }
 }

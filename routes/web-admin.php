@@ -16,6 +16,7 @@ Route::get('print/trash', [PrintController::class, 'trash'])->name('print.trash'
 Route::get('print/edit-capture-form/{id}', [PrintController::class, 'editCaptureForm'])->name('print.edit-capture-form');
 Route::put('print/edit-capture/{id}', [PrintController::class, 'editCapture'])->name('print.edit-capture');
 Route::get('print/ny-payroll', [PrintController::class, 'nyPayroll'])->name('print.ny-payroll');
+Route::get('print/view-trash-photos', [PrintController::class, 'viewTashPhotos'])->name('print.view-trash-photos');
 
 Route::get('capture', [CaptureController::class, 'index'])->name('capture.index');
 Route::post('capture/upload-folder', [CaptureController::class, 'uploadFolder'])->name('capture.upload-folder');

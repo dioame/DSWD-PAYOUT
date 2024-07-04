@@ -27,7 +27,7 @@
         
                 <div class="card">
                     <div class="card-header">
-                        <h5>Trash Capture List</h5>
+                        <h5>Trash Capture List <button class='btn btn-primary'>View Photos</button></h5>
                     </div>
                     <div class="card-body">
                 

@@ -19,7 +19,7 @@
                 <?php
                 $path = asset('storage/assets/unclaimed.png');
                 if ($row['path']) {
-                    $path  = asset('storage/pictures/' . basename($row['path']));
+                    $path  = asset('storage/' . $row['path']);
                 }
 
                 ?>

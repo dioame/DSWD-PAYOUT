@@ -100,10 +100,14 @@ class CaptureController extends Controller
         $idNumber = $request->input('id_number');
         $folder = $request->file('folder');
 
+
+        $databaseName = config('database.connections.mysql.database');
+        $fileDirectoryName = $databaseName;
+
         foreach ($folder as $file) {
             $filename = $file->getClientOriginalName();
-            $file->storeAs('public/pictures', $filename);
-            $filePath = "pictures/".$filename;
+            $file->storeAs('public/pictures/'.$fileDirectoryName, $filename);
+            $filePath = "pictures/".$fileDirectoryName."/".$filename;
             $payrollNo = explode("_",$filename)[0];
 
             $service->execute([
