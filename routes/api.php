@@ -14,14 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::group([ 'prefix' => 'v1'], function() {
-    include('api-admin.php');
-});
-
-Route::any('{any}', function(){
-    return response()->json(['status' => 'error','description'=>'Not Found'], 404);
-})->where('any', '.*');
+    
+    Route::group([ 'prefix' => 'v1'], function() {
+        include('api-admin.php');
+    });
+    Route::any('{any}', function(){
+        return response()->json(['status' => 'error','description'=>'Not Found'], 404);
+    })->where('any', '.*');

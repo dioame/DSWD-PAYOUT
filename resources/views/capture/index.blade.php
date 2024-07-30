@@ -40,6 +40,24 @@
                           @csrf
                           <label for="">ID Number</label><br>
                           <input class="form-control" type="text" name="id_number" placeholder="ID Number" required><br>
+                        <label for="">Municipality</label>
+                          <select name="municipality" class="form-control">
+                                @foreach(array_unique(array_column($options, 'municipality')) as $municipality)
+                                    <option value="{{ $municipality }}">{{ $municipality }}</option>
+                                @endforeach
+                            </select><br>
+                            <label for="">Modality</label>
+                            <select name="modality" class="form-control">
+                                @foreach(array_unique(array_column($options, 'modality')) as $modality)
+                                    <option value="{{ $modality }}">{{ $modality }}</option>
+                                @endforeach
+                            </select><br>
+                            <label for="">Year</label>
+                            <select name="year" class="form-control">
+                                @foreach(array_unique(array_column($options, 'year')) as $year)
+                                    <option value="{{ $year }}">{{ $year }}</option>
+                                @endforeach
+                            </select><br>
                           <label>Select Folder</label><br>
                           <input class="form-control" type="file" name="folder[]" directory webkitdirectory mozdirectory required><br>
                           <button type="submit" class="btn btn-primary">Upload</button>

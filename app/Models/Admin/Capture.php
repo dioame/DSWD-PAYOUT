@@ -12,6 +12,9 @@ class Capture extends Model
     protected $fillable = [
         'payroll_no',
         'path',
+        'municipality',
+        'modality',
+        'year',
         'captured_at',
         'captured_by'
     ];

@@ -5,7 +5,12 @@ namespace App\Http\Controllers\Web\Admin\Payroll;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Payroll;
+use App\Models\LibModality;
 use App\DataTables\PayrollDataTable;
+use Illuminate\Support\Facades\Artisan;
+use App\Jobs\ImportPayrollJob;
+use Illuminate\Support\Facades\Storage;
+
 class PayrollController extends Controller
 {
     /**
@@ -73,6 +78,42 @@ class PayrollController extends Controller
 
     public function deletePayrollAll(){
         Payroll::truncate();
+    }
+
+    public function importForm(){
+        $modalities = LibModality::all();
+        return view('payroll.import-form',compact('modalities'));
+    }
+
+    public function import(Request $request){
+        
+        $file = $request->file('excel_file');
+        if ($file) {
+            Artisan::call('queue:work', ['--once' => true]);
+            
+            $directory = 'tmp';
+            if (!is_dir(storage_path("app/public/{$directory}"))) {
+                mkdir(storage_path("app/public/{$directory}"));
+            }
+        
+            $filename = uniqid() . '_' . $file->getClientOriginalName();
+            $file->storeAs($directory, $filename, 'public');
+            $filePath = storage_path("app/public/{$directory}/{$filename}"); // Corrected path
+            
+            $params = [
+                'modality' => $request->input('modality'),
+                'year' => $request->input('year'),
+                'id_number' => $request->input('id_number'),
+                'path' => $filePath
+            ];
+
+            ImportPayrollJob::dispatch($params);
+           
+
+            // Remove the temporary file
+            Storage::disk('public')->delete("{$directory}/{$filename}");
+            return redirect()->route('payroll.index');
+        }
     }
     
 

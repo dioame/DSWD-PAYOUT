@@ -19,12 +19,25 @@ class GetCaptureService extends BaseService
             $range_from = empty($range_from) ? $range_to : $range_from;
         }
         $total = $range_to - $range_from + 1;
+
+        // var_dump($total);
+        // die();
             
-        $capture = Payroll::leftJoinSub("SELECT * FROM capture WHERE ISNULL(deleted_at)", "c", "payroll.payroll_no", "=", "c.payroll_no")
+        $capture = Payroll::leftJoinSub("SELECT * FROM capture WHERE ISNULL(deleted_at)", "c",   function ($join) {
+                $join->on("payroll.payroll_no", "=", "c.payroll_no")
+                    ->whereColumn("payroll.municipality", "c.municipality")
+                    ->whereColumn("payroll.modality", "c.modality")
+                    ->whereColumn("payroll.year", "c.year");
+            })
             ->orderByRaw("CAST(payroll.payroll_no as UNSIGNED) ASC")
-            ->skip($range_from - 1)
-            ->take($total)
+            // ->skip($range_from - 1)
+            // ->take($total)
+            // ->whereBetween('payroll.payroll_no', [$range_from, $range_to])
+            ->whereRaw("CAST(payroll.payroll_no AS UNSIGNED) BETWEEN ? AND ?", [$range_from, $range_to])
             ->select('payroll.payroll_no', 'payroll.name', 'c.path', 'payroll.barangay', 'payroll.municipality', 'c.captured_by', 'c.captured_at')
+            ->where('c.municipality',$params['municipality'])
+            ->where('c.modality',$params['modality'])
+            ->where('c.year',$params['year'])
             ->get();
     
         return $capture;   

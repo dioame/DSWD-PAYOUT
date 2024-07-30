@@ -38,6 +38,9 @@ class CaptureDataTable extends DataTable
             ->addColumn('municipality', function ($row) {
                 return $row->payroll->municipality ?? '';
             })
+            ->addColumn('captured_by', function ($row) {
+                return $row->captured_by ?? '';
+            })
             ->addColumn('image', function ($row) {
                 return ' <div style="width:30px;"><a href="'.asset("storage/" . $row->path).'" target=_blank>
                             <img src="'.asset("storage/" . $row->path).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
@@ -108,6 +111,7 @@ class CaptureDataTable extends DataTable
             Column::make('name'),
             Column::make('barangay'),
             Column::make('municipality'),
+            Column::make('captured_by'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::make('image'),

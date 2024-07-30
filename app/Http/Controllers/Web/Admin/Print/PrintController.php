@@ -86,15 +86,22 @@ class PrintController extends Controller
         return array_values($sortedFiles->all());
     }
 
-    public function generatePdf($range,GetCaptureService $service)
+    public function generatePdf($range,$municipality,$modality,$year,GetCaptureService $service)
     {
         $params = [
-            'range' => $range
+            'range' => $range,
+            'municipality' => $municipality,
+            'modality' => $modality,
+            'year' => $year
         ];
+
         $query = $service->execute($params);
         $chunks = $this->formatArray($query->toArray());
 
-        $pdf = PDF::loadView('print.pdf-template', compact('chunks'))->setPaper('a4', 'portrait');
+        $barangays = $query->pluck('barangay')->unique();
+        $barangay_list = $barangays->implode(',');
+
+        $pdf = PDF::loadView('print.pdf-template', compact(['chunks','barangay_list']))->setPaper('a4', 'portrait');
         return $pdf->download('pictures.pdf');
     }
 

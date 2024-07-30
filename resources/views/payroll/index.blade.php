@@ -27,7 +27,10 @@
         
                 <div class="card">
                     <div class="card-header">
-                        <h5>Payroll List <button class="btn btn-primary" onclick="emptyPayroll()"><i class="fa fa-trash"></i> Empty Payroll</button></h5>
+                        <h5>Payroll List 
+                            <button class="btn btn-danger" onclick="emptyPayroll()"><i class="fa fa-trash"></i> Empty Payroll</button>
+                            <a class="btn btn-primary" href="{{route('payroll.importForm')}}"><i class="fa fa-upload"></i> Import Payroll</a>
+                        </h5>
                     </div>
                     <div class="card-body">
                 
