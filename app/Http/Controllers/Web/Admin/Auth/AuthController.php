@@ -67,7 +67,7 @@ class AuthController extends Controller
     }
 
     
-    public function AuthOtherSystem($id_number,$token){
+    public function AuthOtherSystem(Request $request){
         // var_dump($id_number);
         // var_dump($token);
         // echo 1;
