@@ -30,7 +30,14 @@
     <div class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 pull-right right-header p-0 ms-auto d-flex justify-content-end align-items-center">
   <div class="profile-nav">
     <ul class="nav nav-pills">
+    <li class="nav-item">
+    <a class="nav-link" href="#">
+    ( {{auth()->user()->username}}) 
+        </a>
+   
+     </li>
       <li class="nav-item">
+       
         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
           <i class="feather icon-log-out"></i> Logout
         </a>
