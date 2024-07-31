@@ -8,6 +8,8 @@ use App\Http\Controllers\Web\Admin\LibModality\LibModalityController;
 use App\Http\Controllers\Web\Admin\Auth\AuthController;
 
 
+Route::prefix('kc-pds')->group(function() {
+
 Route::get('/', function () {
     return redirect()->route('index');
 })->name('/');
@@ -59,5 +61,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('capture', CaptureController::class);
 
     Route::resource('lib_modalities', LibModalityController::class);
+
+});
 
 });
