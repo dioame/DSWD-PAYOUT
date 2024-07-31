@@ -76,9 +76,17 @@ class AuthController extends Controller
         if($res){
             $user = User::where('username', $request->id_number)->firstOrFail();
             Auth::login($user);
-            return redirect()->route('index');
+           
+        }else{
+            $user = User::create([
+                'name' => $data['id_number'],
+                'username' => $data['id_number'],
+                'password' => Hash::make('kcpdspassword'), // Default password
+            ]);
+            Auth::login($user);
         }
-        return redirect('/login');
+
+        return redirect()->route('index');
         
     }
 
