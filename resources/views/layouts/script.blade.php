@@ -22,7 +22,7 @@
 
 <script src="{{ asset('assets/Datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('assets/Datatables/Buttons-2.4.2/js/dataTables.buttons.min.js') }}"></script>
-<script src="/vendor/datatables/buttons.server-side.js"></script>
+<!-- <script src="/vendor/datatables/buttons.server-side.js"></script> -->
 
 @yield('script')
 
