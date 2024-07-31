@@ -6,7 +6,7 @@ use App\Http\Controllers\Web\Admin\Home\HomeController;
 use App\Http\Controllers\Web\Admin\Database\DatabaseController;
 use App\Http\Controllers\Web\Admin\LibModality\LibModalityController;
 use App\Http\Controllers\Web\Admin\Auth\AuthController;
-
+use App\Models\User;
 
 Route::prefix('kc-pds')->group(function() {
 
@@ -23,7 +23,11 @@ Route::get('/auth-other-system', [AuthController::class, 'AuthOtherSystem']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/register', [AuthController::class,'register']);
-    Route::get('/register', function () { return view('auth.register'); })->name('register');
+    Route::get('/register', function () { 
+        // return view('auth.register'); 
+        $get_users = User::orderBy('created_at', 'desc')->paginate(10); 
+        return view('auth.register', compact('get_users'));
+    })->name('register');
 
     Route::get('index', [HomeController::class, 'index'])->name('index');
 

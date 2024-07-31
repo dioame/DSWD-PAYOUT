@@ -45,6 +45,10 @@
               <i data-feather="trash"></i>    
               <span>Trash Capture</span></a>
             </li>
+            <li class="sidebar"><a class="sidebar-link " href="{{ route('register')}}" >
+              <i data-feather="user"></i>    
+              <span>Add User</span></a>
+            </li>
             <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
                   <i data-feather="list"></i>    
                     <span>Master Records </span></a>
