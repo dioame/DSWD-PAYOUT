@@ -52,7 +52,7 @@ class AuthController extends Controller
         // Optionally, log the user in after registration
         // Auth::login($user);
 
-        return redirect()->route('index');
+        return redirect()->route('register');
     }
 
     public function logout(Request $request)
