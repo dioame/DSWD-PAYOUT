@@ -52,18 +52,18 @@
                       <li><a href="{{route('lib_modalities.index')}}">Modality</a></li>
                     </ul>
               </li>
-
+<!-- 
               <li class="sidebar"><a class="sidebar-link " href="/api/documentation" target="_blank">
               <i data-feather="layers"></i>
-              <span>API Documentation </span></a></li>
+              <span>API Documentation </span></a></li> -->
 
-              <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
+              <!-- <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="#">
                   <i data-feather="settings"></i>    
                     <span>Settings </span></a>
                     <ul class="sidebar-submenu">
                       <li><a href="{{route('database.index')}}">Database Settings</a></li>
                     </ul>
-              </li>
+              </li> -->
 
           </ul>
         </div>
