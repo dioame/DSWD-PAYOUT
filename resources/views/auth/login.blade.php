@@ -112,14 +112,6 @@
       @enderror
     </div>
     <!-- latest jquery-->
-    @include('layouts.script')  
-    <!-- Plugin used-->
-    {{-- <script type="text/javascript">
-      if ($(".page-wrapper").hasClass("horizontal-wrapper")) {
-            $(".according-menu.other" ).css( "display", "none" );
-            $(".sidebar-submenu" ).css( "display", "block" );
-      }
-    </script> --}}
-    @stack('scripts')
+
   </body>
 </html>
