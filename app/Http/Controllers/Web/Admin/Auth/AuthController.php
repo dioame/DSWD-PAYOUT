@@ -68,9 +68,6 @@ class AuthController extends Controller
 
     
     public function AuthOtherSystem(Request $request){
-        // var_dump($id_number);
-        // var_dump($token);
-        // echo 1;
 
         $res = DB::connection('kalahi_req')->table('access_token')
             ->where('token', $request->token)
