@@ -79,8 +79,8 @@ class AuthController extends Controller
            
         }else{
             $user = User::create([
-                'name' => $data['id_number'],
-                'username' => $data['id_number'],
+                'name' =>  $request->id_number,
+                'username' =>  $request->id_number,
                 'password' => Hash::make('kcpdspassword'), // Default password
             ]);
             Auth::login($user);
