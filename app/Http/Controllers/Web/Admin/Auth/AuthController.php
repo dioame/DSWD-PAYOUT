@@ -51,7 +51,7 @@ class AuthController extends Controller
         // Optionally, log the user in after registration
         // Auth::login($user);
 
-        return redirect()->intended('index'); // Change to your intended route
+        return redirect()->route('index');
     }
 
     public function logout(Request $request)
