@@ -71,7 +71,7 @@
       </div>
     </div>
     <!-- latest jquery-->
-    @include('layouts.script')  
+    <!-- @include('layouts.script')   -->
   
     <!-- Plugin used-->
 
