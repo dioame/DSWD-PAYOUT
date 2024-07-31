@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -63,6 +64,25 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login');
+    }
+
+    
+    public function AuthOtherSystem($id_number,$token){
+        // var_dump($id_number);
+        // var_dump($token);
+        // echo 1;
+
+        $res = DB::connection('kalahi_req')->table('access_token')
+            ->where('token', $request->token)
+            ->where('id_number', $request->id_number)
+            ->delete();
+        if($res){
+            $user = User::where('username', $request->id_number)->firstOrFail();
+            Auth::login($user);
+            return redirect()->route('index');
+        }
+        return redirect('/login');
+        
     }
 
     
