@@ -132,7 +132,7 @@ class CaptureController extends Controller
         $folder = $request->file('folder');
 
 
-        $databaseName = $municipality.'_'.$modality.'_'.$year;
+        $databaseName = str_replace(" ", "_", $municipality.' '.$modality.' '.$year);
         $fileDirectoryName = $databaseName;
 
         foreach ($folder as $file) {
