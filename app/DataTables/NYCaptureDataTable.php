@@ -71,7 +71,12 @@ class NYCaptureDataTable extends DataTable
      */
     public function query(Payroll $model): QueryBuilder
     {
-        return $model->newQuery()->leftJoin(DB::raw('(SELECT * FROM capture WHERE deleted_at IS NULL) c'), 'payroll.payroll_no', '=', 'c.payroll_no')
+        return $model->newQuery()->leftJoin(DB::raw('(SELECT * FROM capture WHERE deleted_at IS NULL) c'),    function ($join) {
+            $join->on('payroll.payroll_no', '=', 'c.payroll_no')
+                 ->on('payroll.modality', '=', 'c.modality')
+                 ->on('payroll.municipality', '=', 'c.municipality')
+                 ->on('payroll.year', '=', 'c.year');
+        })
             ->select('payroll.*')
             ->whereNull('c.payroll_no')
             ->whereNull('c.deleted_at');
@@ -79,7 +84,12 @@ class NYCaptureDataTable extends DataTable
 
     public function countRecords(): int
     {
-        return Payroll::leftJoin(DB::raw('(SELECT * FROM capture WHERE deleted_at IS NULL) c'), 'payroll.payroll_no', '=', 'c.payroll_no')
+        return Payroll::leftJoin(DB::raw('(SELECT * FROM capture WHERE deleted_at IS NULL) c'),    function ($join) {
+                $join->on('payroll.payroll_no', '=', 'c.payroll_no')
+                     ->on('payroll.modality', '=', 'c.modality')
+                     ->on('payroll.municipality', '=', 'c.municipality')
+                     ->on('payroll.year', '=', 'c.year');
+            })
         ->select('payroll.*')
         ->whereNull('c.payroll_no')
         ->whereNull('c.deleted_at')

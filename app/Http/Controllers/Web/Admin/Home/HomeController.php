@@ -49,9 +49,13 @@ class HomeController extends Controller
             ->orderBy('payroll.municipality', 'asc')
             ->get();
 
-        $claimStatus = Payroll::leftJoin('capture', function ($join) {
+        $claimStatus = Payroll::
+        leftJoin('capture', function($join) {
             $join->on('payroll.payroll_no', '=', 'capture.payroll_no')
-                    ->whereNull('capture.deleted_at');
+                 ->on('payroll.municipality', '=', 'capture.municipality') 
+                 ->on('payroll.modality', '=', 'capture.modality')
+                 ->on('payroll.year', '=', 'capture.year')
+                 ->whereNull('capture.deleted_at');
         })
         ->whereNull('capture.payroll_no')
         ->groupBy('payroll.claimed_status')
