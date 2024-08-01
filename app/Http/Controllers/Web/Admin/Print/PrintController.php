@@ -101,7 +101,7 @@ class PrintController extends Controller
         $barangays = $query->pluck('barangay')->unique();
         $barangay_list = $barangays->implode(',');
 
-        $pdf = PDF::loadView('print.pdf-template', compact(['chunks','barangay_list']))->setPaper('a4', 'portrait');
+        $pdf = PDF::loadView('print.pdf-template', compact(['chunks','barangay_list','municipality']))->setPaper('a4', 'portrait');
         return $pdf->download('pictures.pdf');
     }
 
