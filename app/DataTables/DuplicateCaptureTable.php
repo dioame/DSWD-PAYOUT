@@ -52,7 +52,9 @@ class DuplicateCaptureTable extends DataTable
      */
     public function query(Capture $model): QueryBuilder
     {
-        return $model->newQuery()->join(
+        return $model->newQuery()
+        ->select('capture.*')
+        ->join(
             DB::raw('(SELECT c.payroll_no as p_no, c.modality, c.municipality, c.year 
                       FROM capture c 
                       WHERE c.deleted_at IS NULL 
@@ -69,9 +71,19 @@ class DuplicateCaptureTable extends DataTable
 
     public function countRecords(): int
     {
-        return Capture::join(
-            DB::raw('(SELECT c.payroll_no as p_no FROM capture c WHERE deleted_at IS NULL GROUP BY c.payroll_no HAVING COUNT(*) > 1) as duplicates'),
-            'capture.payroll_no', '=', 'duplicates.p_no'
+        return Capture::select('capture.*')
+        ->join(
+            DB::raw('(SELECT c.payroll_no as p_no, c.modality, c.municipality, c.year 
+                      FROM capture c 
+                      WHERE c.deleted_at IS NULL 
+                      GROUP BY c.payroll_no, c.modality, c.municipality, c.year 
+                      HAVING COUNT(*) > 1) as duplicates'),
+            function ($join) {
+                $join->on('capture.payroll_no', '=', 'duplicates.p_no')
+                     ->on('capture.modality', '=', 'duplicates.modality')
+                     ->on('capture.municipality', '=', 'duplicates.municipality')
+                     ->on('capture.year', '=', 'duplicates.year');
+            }
         )->count();
     }
 
