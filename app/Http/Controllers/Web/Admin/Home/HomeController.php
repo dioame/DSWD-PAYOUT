@@ -32,14 +32,14 @@ class HomeController extends Controller
     )
     {
         $payrollSummary = Payroll::leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
-            ->select('payroll.barangay', 'payroll.municipality', 
+            ->select( 'payroll.municipality', 
                 \DB::raw('COUNT(payroll.payroll_no) AS payroll'),
                 \DB::raw('COUNT(capture.payroll_no) AS capture')
             )
             ->whereNull('capture.deleted_at')
-            ->groupBy('payroll.barangay', 'payroll.municipality')
+            ->groupBy('payroll.municipality')
             ->orderBy('payroll.municipality','asc')
-            ->paginate(5); 
+            ->get();
 
         $claimStatus = Payroll::leftJoin('capture', function ($join) {
             $join->on('payroll.payroll_no', '=', 'capture.payroll_no')

@@ -309,11 +309,14 @@ $options = [
 		<div class="card-body">
 			<div class="row">
 				<div class="col-lg-12 col-md-12">
+
+
+
 					<table class="table table-striped table-bordered">
 						<thead>
 							<tr>
 								<th>Municipality</th>
-								<th>Barangay</th>
+								<!-- <th>Barangay</th> -->
 								<th>Payroll</th>
 								<th>Captured</th>
 								<th>Balance</th>
@@ -328,7 +331,7 @@ $options = [
 							@foreach($payrollSummary as $payroll)
 								<tr>
 									<td>{{$payroll->municipality}}</td>
-									<td>{{$payroll->barangay}}</td>
+									<!-- <td>{{$payroll->barangay}}</td> -->
 									<td>{{$payroll->payroll}}</td>
 									<td>{{$payroll->capture}}</td>
 									<td>{{$payroll->payroll - $payroll->capture}}</td>
@@ -341,14 +344,12 @@ $options = [
 							@endforeach
 						</tbody>
 						<tfoot>
-							<th colspan=2>Total</th>
+							<th colspan=1>Total</th>
 							<th>{{$total_payroll}}</th>
 							<th>{{$total_capture}}</th>
 							<th>{{$total_balance}}</th>
 						</tfoot>
 					</table>
-					<!-- Add pagination links -->
-					{{ $payrollSummary->links() }}
 				</div>
 			</div>
 		</div>
