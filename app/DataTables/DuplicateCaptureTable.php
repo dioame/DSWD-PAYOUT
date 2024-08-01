@@ -53,15 +53,18 @@ class DuplicateCaptureTable extends DataTable
     public function query(Capture $model): QueryBuilder
     {
         return $model->newQuery()->join(
-            DB::raw('(SELECT c.payroll_no as p_no,c.modality,c.municipality,c.year FROM capture c 
-            WHERE deleted_at IS NULL 
-            GROUP BY c.payroll_no HAVING COUNT(*) > 1) as duplicates'),
-            'capture.payroll_no', '=', 'duplicates.p_no',
-            'capture.modality', '=', 'duplicates.modality',
-            'capture.municipality', '=', 'duplicates.municipality',
-            'capture.year', '=', 'duplicates.year'
-        )
-        ->orderBy('capture.payroll_no', 'asc');
+            DB::raw('(SELECT c.payroll_no as p_no, c.modality, c.municipality, c.year 
+                      FROM capture c 
+                      WHERE c.deleted_at IS NULL 
+                      GROUP BY c.payroll_no, c.modality, c.municipality, c.year 
+                      HAVING COUNT(*) > 1) as duplicates'),
+            function ($join) {
+                $join->on('capture.payroll_no', '=', 'duplicates.p_no')
+                     ->on('capture.modality', '=', 'duplicates.modality')
+                     ->on('capture.municipality', '=', 'duplicates.municipality')
+                     ->on('capture.year', '=', 'duplicates.year');
+            }
+        )->orderBy('capture.payroll_no', 'asc');
     }
 
     public function countRecords(): int
