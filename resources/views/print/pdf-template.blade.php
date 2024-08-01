@@ -10,7 +10,7 @@
 <body>
     <center>
         @foreach($chunks as $chunk)
-        <span>DSWD Caraga <br>Photo Documentation<br>{{$municipality}})</span>
+        <span>DSWD Caraga <br>Photo Documentation<br>{{$municipality}}</span>
         <table style='width:100%;'>
 
             @foreach($chunk as $picture)
