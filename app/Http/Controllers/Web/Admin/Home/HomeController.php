@@ -33,9 +33,9 @@ class HomeController extends Controller
     {
         $payrollSummary = Payroll::leftJoin('capture', function($join) {
                 $join->on('payroll.payroll_no', '=', 'capture.payroll_no')
-                     ->where('payroll.municipality', '=', 'capture.municipality') 
-                     ->where('payroll.modality', '=', 'capture.modality')
-                     ->where('payroll.year', '=', 'capture.year');
+                     ->on('payroll.municipality', '=', 'capture.municipality') 
+                     ->on('payroll.modality', '=', 'capture.modality')
+                     ->on('payroll.year', '=', 'capture.year');
             })
             ->select( 
                 'payroll.municipality', 
