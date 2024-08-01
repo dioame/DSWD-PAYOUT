@@ -35,9 +35,9 @@ class GetCaptureService extends BaseService
             // ->whereBetween('payroll.payroll_no', [$range_from, $range_to])
             ->whereRaw("CAST(payroll.payroll_no AS UNSIGNED) BETWEEN ? AND ?", [$range_from, $range_to])
             ->select('payroll.payroll_no', 'payroll.name', 'c.path', 'payroll.barangay', 'payroll.municipality', 'c.captured_by', 'c.captured_at')
-            ->where('c.municipality',$params['municipality'])
-            ->where('c.modality',$params['modality'])
-            ->where('c.year',$params['year'])
+            ->where('payroll.municipality',$params['municipality'])
+            ->where('payroll.modality',$params['modality'])
+            ->where('payroll.year',$params['year'])
             ->get();
     
         return $capture;   
