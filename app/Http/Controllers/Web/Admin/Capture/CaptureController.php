@@ -138,22 +138,13 @@ class CaptureController extends Controller
         foreach ($folder as $file) {
             $filename = $file->getClientOriginalName();
             $file->storeAs('public/pictures/'.$fileDirectoryName, $filename);
-    
-            // Get the full path to the file
-            $filePath = storage_path('app/public/pictures/'.$fileDirectoryName.'/'.$filename);
-    
-            // Set the permissions to be readable
-            chmod($filePath, 0644);
-    
-            // Change the owner of the file to 'kalahi'
-            chown($filePath, 'kalahi');
-    
-            $publicFilePath = "pictures/".$fileDirectoryName."/".$filename;
-            $payrollNo = explode("_", $filename)[0];
-    
+            $filePath = "pictures/".$fileDirectoryName."/".$filename;
+            
+            $payrollNo = explode("_",$filename)[0];
+
             $service->execute([
                 'payroll_no' => $payrollNo,
-                'path' => $publicFilePath,
+                'path' => $filePath,
                 'id_number' => $idNumber,
                 'municipality' => $municipality,
                 'modality' => $modality,
