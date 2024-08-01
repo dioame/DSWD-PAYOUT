@@ -53,7 +53,7 @@ class DuplicateCaptureTable extends DataTable
     public function query(Capture $model): QueryBuilder
     {
         return $model->newQuery()->join(
-            DB::raw('(SELECT c.payroll_no as p_no FROM capture c 
+            DB::raw('(SELECT c.payroll_no as p_no,c.modality,c.municipality,c.year FROM capture c 
             WHERE deleted_at IS NULL 
             GROUP BY c.payroll_no HAVING COUNT(*) > 1) as duplicates'),
             'capture.payroll_no', '=', 'duplicates.p_no',
