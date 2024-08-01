@@ -347,6 +347,8 @@ $options = [
 							<th>{{$total_balance}}</th>
 						</tfoot>
 					</table>
+					<!-- Add pagination links -->
+					{{ $payrollSummary->links() }}
 				</div>
 			</div>
 		</div>

@@ -39,7 +39,7 @@ class HomeController extends Controller
             ->whereNull('capture.deleted_at')
             ->groupBy('payroll.barangay', 'payroll.municipality')
             ->orderBy('payroll.municipality','asc')
-            ->get();
+            ->paginate(5); 
 
         $claimStatus = Payroll::leftJoin('capture', function ($join) {
             $join->on('payroll.payroll_no', '=', 'capture.payroll_no')
