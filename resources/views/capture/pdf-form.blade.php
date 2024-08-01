@@ -37,7 +37,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
-                            <label for="">Payroll range to be printed (Not Payroll #)</label>
+                            <label for="">Payroll Nummber Range</label>
                             <input class="form-control" id="payroll-input" type="text" placeholder="1, 1-100"><br>
                             <label for="">Municipality</label>
                             <select name="municipality" class="form-control" id="municipality">
