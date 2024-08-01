@@ -59,7 +59,15 @@ class CaptureDataTable extends DataTable
      */
     public function query(Capture $model): QueryBuilder
     {
-        return $model->newQuery()->orderByDesc('created_at');
+        return $model->newQuery()
+        ->select('capture.*')
+        ->join('payroll', function ($join) {
+            $join->on('capture.payroll_no', '=', 'payroll.payroll_no')
+                 ->on('capture.municipality', '=', 'payroll.municipality')
+                 ->on('capture.modality', '=', 'payroll.modality')
+                 ->on('capture.year', '=', 'payroll.year');
+        })
+        ->orderByDesc('capture.created_at');
     }
 
     public function countRecords(): int
