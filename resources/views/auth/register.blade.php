@@ -39,6 +39,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Name</th>
                         <th>Created At</th>
                     </tr>
                 </thead>
@@ -46,6 +47,7 @@
                     @foreach ($get_users as $user)
                     <tr>
                         <td>{{ $user->username }}</td>
+                        <td>{{ $user->name }}</td>
                         <td>{{ $user->created_at }}</td>
                     </tr>
                     @endforeach
