@@ -30,7 +30,7 @@
                         <h5>Payroll List 
                         <a class="btn btn-warning" href="{{ asset('assets/template/CFW_TEMPLATE.xlsx') }}"><i class="fa fa-download"></i> CFW Payroll Template</a>
                             <a class="btn btn-primary" href="{{route('payroll.importForm')}}"><i class="fa fa-upload"></i> Import Payroll</a>
-                            <button class="btn btn-danger" onclick="emptyPayroll()"><i class="fa fa-trash"></i> Empty Payroll</button>
+                            <!-- <button class="btn btn-danger" onclick="emptyPayroll()"><i class="fa fa-trash"></i> Empty Payroll</button> -->
                         </h5>
                     </div>
                     <div class="card-body">
