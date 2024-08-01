@@ -39,6 +39,8 @@ class HomeController extends Controller
             })
             ->select( 
                 'payroll.municipality', 
+                'payroll.modality', 
+                'payroll.year', 
                 \DB::raw('COUNT(payroll.payroll_no) AS payroll'),
                 \DB::raw('COUNT(capture.payroll_no) AS capture')
             )

@@ -342,7 +342,8 @@ $options = [
 						<thead>
 							<tr>
 								<th>Municipality</th>
-								<!-- <th>Barangay</th> -->
+								<th>Modality</th>
+								<th>Year</th>
 								<th>Payroll</th>
 								<th>Captured</th>
 								<th>Balance</th>
@@ -357,6 +358,8 @@ $options = [
 							@foreach($payrollSummary as $payroll)
 								<tr>
 									<td>{{$payroll->municipality}}</td>
+									<td>{{$payroll->modality}}</td>
+									<td>{{$payroll->year}}</td>
 									<!-- <td>{{$payroll->barangay}}</td> -->
 									<td>{{$payroll->payroll}}</td>
 									<td>{{$payroll->capture}}</td>
@@ -370,7 +373,7 @@ $options = [
 							@endforeach
 						</tbody>
 						<tfoot>
-							<th colspan=1>Total</th>
+							<th colspan=3>Total</th>
 							<th>{{$total_payroll}}</th>
 							<th>{{$total_capture}}</th>
 							<th>{{$total_balance}}</th>
