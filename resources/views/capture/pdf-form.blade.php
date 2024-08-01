@@ -78,8 +78,8 @@
             var modality = $('#modality').val();
             var year = $('#year').val();
 
-            if(input){
-                window.open('/print/generate-pdf/'+input+'/'+municipality+'/'+modality+'/'+year, '_blank');
+            if(input){generate
+                window.open('/kc-pds/print/-pdf/'+input+'/'+municipality+'/'+modality+'/'+year, '_blank');
             }else{
                 alert("Please provide range. Thank you.");
             }       

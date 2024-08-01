@@ -54,7 +54,7 @@
         function confirmRestore(id) {
             if (confirm('Are you sure you want to restore this item?')) {
                     $.ajax({
-                        url: '/capture/' + id+'/restore',
+                        url: '/kc-pds/capture/' + id+'/restore',
                         type: 'PUT',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

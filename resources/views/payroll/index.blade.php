@@ -57,7 +57,7 @@
     function emptyPayroll(){
         if (confirm('Are you sure you want to empty payroll?')) {
             $.ajax({
-                url: '/payroll/all',
+                url: '/kc-pds/payroll/all',
                 type: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

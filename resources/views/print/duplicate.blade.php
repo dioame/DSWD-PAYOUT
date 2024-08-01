@@ -66,7 +66,7 @@
         function confirmDelete(id) {
             if (confirm('Are you sure you want to delete this item?')) {
                     $.ajax({
-                        url: '/capture/' + id,
+                        url: '/kc-pds/capture/' + id,
                         type: 'DELETE',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
