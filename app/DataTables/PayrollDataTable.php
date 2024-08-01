@@ -61,7 +61,7 @@ class PayrollDataTable extends DataTable
                     ->buttons([
                         Button::make('excel'),
                         Button::make('pdf'),
-                        Button::make('print'),
+                        // Button::make('print'),
                         Button::make('reload'),
                     ]);
     }
