@@ -31,14 +31,20 @@ class HomeController extends Controller
         TrashCaptureTable $trashCapture
     )
     {
-        $payrollSummary = Payroll::leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
-            ->select( 'payroll.municipality', 
+        $payrollSummary = Payroll::leftJoin('capture', function($join) {
+                $join->on('payroll.payroll_no', '=', 'capture.payroll_no')
+                     ->where('payroll.municipality', '=', 'capture.municipality') 
+                     ->where('payroll.modality', '=', 'capture.modality')
+                     ->where('payroll.year', '=', 'capture.year');
+            })
+            ->select( 
+                'payroll.municipality', 
                 \DB::raw('COUNT(payroll.payroll_no) AS payroll'),
                 \DB::raw('COUNT(capture.payroll_no) AS capture')
             )
             ->whereNull('capture.deleted_at')
-            ->groupBy('payroll.municipality')
-            ->orderBy('payroll.municipality','asc')
+            ->groupBy('payroll.municipality', 'payroll.modality', 'payroll.year') // Ensure all selected fields are in the group by
+            ->orderBy('payroll.municipality', 'asc')
             ->get();
 
         $claimStatus = Payroll::leftJoin('capture', function ($join) {
