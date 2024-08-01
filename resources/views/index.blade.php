@@ -184,6 +184,32 @@ $options = [
 							</a>
     </div>
 
+	<div class="col-lg-3 col-md-3">
+	<a href="print">
+            <div class="card widget-1">
+			  <div class="card-body"> 
+				<div class="widget-content">
+				  <div class="widget-round secondary">
+					<div class="bg-round">
+					  <!-- <svg class="svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#cart"> </use>
+					  </svg> -->
+                      <i data-feather="instagram"></i>    
+					  <!-- <svg class="half-circle svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#halfcircle"></use>
+					  </svg> -->
+					</div>
+				  </div>
+				  <div> 
+					<h4>{{$countCapture - $countNYPayroll }}</h4><span class="f-light">Capture based on Payroll</span>
+				  </div>
+				</div>
+				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
+			  </div>
+			</div>
+							</a>
+    </div>
+
     <div class="col-lg-3 col-md-3">
 		<a href="print/duplicate-capture">
             <div class="card widget-1">
