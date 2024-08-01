@@ -139,6 +139,10 @@ class CaptureController extends Controller
             $filename = $file->getClientOriginalName();
             $file->storeAs('public/pictures/'.$fileDirectoryName, $filename);
             $filePath = "pictures/".$fileDirectoryName."/".$filename;
+
+            chmod($filePath, 0644);
+            chown($filePath, 'kalahi');
+
             $payrollNo = explode("_",$filename)[0];
 
             $service->execute([
