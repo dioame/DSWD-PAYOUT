@@ -50,7 +50,12 @@ class NYPayrollTable extends DataTable
      */
     public function query(Capture $model): QueryBuilder
     {
-        return $model->newQuery()->leftJoin('payroll', 'payroll.payroll_no', '=', 'capture.payroll_no')
+        return $model->newQuery()->leftJoin('payroll', function ($join) {
+            $join->on('payroll.payroll_no', '=', 'capture.payroll_no')
+                 ->on('payroll.modality', '=', 'capture.modality')
+                 ->on('payroll.municipality', '=', 'capture.municipality')
+                 ->on('payroll.year', '=', 'capture.year');
+        })
             ->select('capture.*')
             ->whereNull('payroll.payroll_no')
             ->whereNull('capture.deleted_at');
@@ -58,7 +63,12 @@ class NYPayrollTable extends DataTable
 
     public function countRecords(): int
     {
-        return Capture::leftJoin('payroll', 'payroll.payroll_no', '=', 'capture.payroll_no')
+        return Capture::leftJoin('payroll', function ($join) {
+            $join->on('payroll.payroll_no', '=', 'capture.payroll_no')
+                 ->on('payroll.modality', '=', 'capture.modality')
+                 ->on('payroll.municipality', '=', 'capture.municipality')
+                 ->on('payroll.year', '=', 'capture.year');
+        })
         ->select('capture.*')
         ->whereNull('payroll.payroll_no')
         ->whereNull('capture.deleted_at')->count();
@@ -105,6 +115,9 @@ class NYPayrollTable extends DataTable
             //       ->addClass('text-center'),
             Column::make('id'),
             Column::make('payroll_no'),
+            Column::make('municipality'),
+            Column::make('modality'),
+            Column::make('year'),
             Column::make('image'),
             Column::make('created_at'),
             Column::make('updated_at'),

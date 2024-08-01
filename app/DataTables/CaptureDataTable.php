@@ -119,6 +119,8 @@ class CaptureDataTable extends DataTable
             Column::make('name'),
             Column::make('barangay'),
             Column::make('municipality'),
+            Column::make('modality'),
+            Column::make('year'),
             Column::make('captured_by'),
             Column::make('created_at'),
             Column::make('updated_at'),
