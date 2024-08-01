@@ -132,7 +132,7 @@ class CaptureController extends Controller
         $folder = $request->file('folder');
 
 
-        $databaseName = config('database.connections.mysql.database');
+        $databaseName = $municipality.' '.$modality.' '.$year;
         $fileDirectoryName = $databaseName;
 
         foreach ($folder as $file) {
