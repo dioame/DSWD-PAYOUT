@@ -60,13 +60,13 @@ class CaptureDataTable extends DataTable
     public function query(Capture $model): QueryBuilder
     {
         return $model->newQuery()
-        ->select('*')
         ->join('payroll', function ($join) {
             $join->on('capture.payroll_no', '=', 'payroll.payroll_no')
                 ->on('capture.municipality', '=', 'payroll.municipality')
                 ->on('capture.modality', '=', 'payroll.modality')
                 ->on('capture.year', '=', 'payroll.year');
         })
+        ->select('capture.*', 'payroll.barangay')
         ->orderByDesc('capture.created_at');
     }
 
@@ -117,7 +117,7 @@ class CaptureDataTable extends DataTable
             Column::make('id'),
             Column::make('payroll_no'),
             Column::make('name'),
-            // Column::make('barangay'),
+            Column::make('barangay'),
             Column::make('municipality'),
             Column::make('modality'),
             Column::make('year'),
