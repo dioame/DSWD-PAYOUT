@@ -29,9 +29,9 @@ class CaptureDataTable extends DataTable
             ->addColumn('updated_at', function ($row) {
                 return Carbon::parse($row->updated_at)->toDateTimeString();
             })
-            ->addColumn('name', function ($row) {
-                return $row->payroll->name ?? '';
-            })
+            // ->addColumn('name', function ($row) {
+            //     return $row->payroll->name ?? '';
+            // })
             // ->addColumn('barangay', function ($row) {
             //     return $row->payroll->barangay ?? '';
             // })
@@ -66,7 +66,7 @@ class CaptureDataTable extends DataTable
                 ->on('capture.modality', '=', 'payroll.modality')
                 ->on('capture.year', '=', 'payroll.year');
         })
-        ->select('capture.*', 'payroll.barangay')
+        ->select('capture.*', 'payroll.barangay', 'payroll.name')
         ->orderByDesc('capture.created_at');
     }
 
@@ -116,8 +116,8 @@ class CaptureDataTable extends DataTable
             //       ->addClass('text-center'),
             Column::make('id'),
             Column::make('payroll_no'),
-            Column::make('name'),
-            Column::make('barangay'),
+            Column::make('name')->searchable(false),
+            Column::make('barangay')->searchable(false), //theres a bug if set to true ongoing fix
             Column::make('municipality'),
             Column::make('modality'),
             Column::make('year'),
@@ -129,6 +129,7 @@ class CaptureDataTable extends DataTable
         ];
     }
 
+    
     /**
      * Get the filename for export.
      */
