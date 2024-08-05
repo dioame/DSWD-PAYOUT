@@ -23,7 +23,10 @@ class Capture extends Model
 
     public function payroll()
     {
-        return $this->belongsTo(Payroll::class,'payroll_no','payroll_no');
+        return $this->belongsTo(Payroll::class, 'payroll_no', 'payroll_no')
+        ->whereColumn('municipality', 'municipality')
+        ->whereColumn('modality', 'modality')
+        ->whereColumn('year', 'year');
     }
 
 }

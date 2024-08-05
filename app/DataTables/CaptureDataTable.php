@@ -32,12 +32,12 @@ class CaptureDataTable extends DataTable
             ->addColumn('name', function ($row) {
                 return $row->payroll->name ?? '';
             })
-            ->addColumn('barangay', function ($row) {
-                return $row->payroll->barangay ?? '';
-            })
-            ->addColumn('municipality', function ($row) {
-                return $row->payroll->municipality ?? '';
-            })
+            // ->addColumn('barangay', function ($row) {
+            //     return $row->payroll->barangay ?? '';
+            // })
+            // ->addColumn('municipality', function ($row) {
+            //     return $row->payroll->municipality ?? '';
+            // })
             ->addColumn('captured_by', function ($row) {
                 return $row->captured_by ?? '';
             })
@@ -60,14 +60,14 @@ class CaptureDataTable extends DataTable
     public function query(Capture $model): QueryBuilder
     {
         return $model->newQuery()
-            ->select('capture.*')
-            ->join('payroll', function ($join) {
-                $join->on('capture.payroll_no', '=', 'payroll.payroll_no')
-                     ->where('capture.municipality', '=', 'payroll.municipality')
-                     ->where('capture.modality', '=', 'payroll.modality')
-                     ->where('capture.year', '=', 'payroll.year');
-            })
-            ->orderByDesc('capture.created_at');
+        ->join('payroll', function ($join) {
+            $join->on('capture.payroll_no', '=', 'payroll.payroll_no')
+                ->on('capture.municipality', '=', 'payroll.municipality')
+                ->on('capture.modality', '=', 'payroll.modality')
+                ->on('capture.year', '=', 'payroll.year');
+        })
+        ->select('capture.*')
+        ->orderByDesc('capture.created_at');
     }
 
     public function countRecords(): int

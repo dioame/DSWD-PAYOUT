@@ -26,6 +26,9 @@ class PrintController extends Controller
      */
     public function index(CaptureDataTable $dataTable)
     {
+
+
+        
         // $latest = Capture::orderBy('captured_at', 'desc')->paginate(10);
         // return view('print.index', compact('latest'));
         return $dataTable->render('print.index');
