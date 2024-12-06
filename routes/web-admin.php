@@ -5,6 +5,8 @@ use App\Http\Controllers\Web\Admin\Payroll\PayrollController;
 use App\Http\Controllers\Web\Admin\Home\HomeController;
 use App\Http\Controllers\Web\Admin\Database\DatabaseController;
 
+use App\Http\Controllers\LiveUpdateController;
+
 
 Route::get('index', [HomeController::class, 'index'])->name('index');
 
@@ -39,3 +41,6 @@ Route::get('database/migrate', [DatabaseController::class, 'performMigration'])-
 Route::resource('print', PrintController::class);
 Route::resource('payroll', PayrollController::class);
 Route::resource('capture', CaptureController::class);
+
+Route::get('live', [LiveUpdateController::class, 'index'])->name('live');
+Route::get('live-data', [LiveUpdateController::class, 'getCapture'])->name('live-data');
