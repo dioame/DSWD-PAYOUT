@@ -39,12 +39,16 @@ $options = [
            
         <div class="row">
                 <div class="col-lg-3 col-md-3">
-                    <div style="width: 100%; border: 1px dashed black; height: 600px; position: relative; overflow: hidden;" id="latest">
+                    <h5>Payroll# <span id="latest_payroll"></span></h5>
+                    <div style="width: 100%; border: 1px dashed black; height: 63vh; position: relative; overflow: hidden;" id="latest">
 
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
-                    
+                    <h5>List of Captured</h5>
+                    <div class="row" id="captures">
+                        
+                    </div>
                 </div>
         </div>
     </div>
@@ -56,9 +60,31 @@ $options = [
     <script type="text/javascript">
         var session_layout = '{{ session()->get('layout') }}';
 
-        $.get('live-data', function(data){
-            $('#latest').html('<img src="storage/'+data.latest_capture.path+'" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">')
-        })
+        setInterval(() => {
+            console.log(1);
+            $.get('live-data', function(data){
+                // console.log(data);
+                $('#latest').html('<img src="storage/'+data.latest_capture.path+'" style="max-width:100%;">');
+                $('#latest_payroll').text(data.latest_capture.payroll_no);
+
+                // Loop through the captures and add them to the captures HTML container
+                let capturesHtml = '';
+                data.captures.forEach(function(capture) {
+                    capturesHtml += '<div class="col-lg-2">';
+                        capturesHtml += '<div style="border: 1px dashed black; height: 30vh;margin-top:10px;overflow:hidden;padding:5px;">';
+                            capturesHtml += '<span>Payroll# '+capture.payroll_no+'</span>';
+                            capturesHtml += '<img src="storage/' + capture.path + '" style="max-width:100%;">';
+                        capturesHtml += '</div>';
+                    capturesHtml += '</div>';
+                });
+
+                // Append the generated HTML to the captures container
+                $('#captures').html(capturesHtml);
+               
+            })   
+        }, 1000);
+
+        
     </script>
 @endsection
 

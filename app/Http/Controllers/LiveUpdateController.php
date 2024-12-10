@@ -13,10 +13,12 @@ class LiveUpdateController extends Controller
     }
    
     public function getCapture(){
-        $capture = Capture::orderBy('created_at','desc')->limit(20)->get();
+        $capture = Capture::orderBy('created_at', 'desc')->limit(13)->get();
+        $capturesWithoutFirst = $capture->skip(1)->values();
+        
         return response()->json([
-            'captures' =>  $capture,
-            'latest_capture' =>  $capture[0]
+            'captures' => $capturesWithoutFirst,
+            'latest_capture' => $capture->first(),
         ]);
     }
 

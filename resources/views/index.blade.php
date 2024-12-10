@@ -150,7 +150,7 @@ $options = [
 					</div>
 				  </div>
 				  <div> 
-					<h4>{{$countPayroll}}</h4><span class="f-light">Payroll</span>
+					<h4 id="countPayroll">{{$countPayroll}}</h4><span class="f-light">Payroll</span>
 				  </div>
 				</div>
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
@@ -175,7 +175,7 @@ $options = [
 					</div>
 				  </div>
 				  <div> 
-					<h4>{{$countCapture}}</h4><span class="f-light">Capture</span>
+					<h4 id="countCapture">{{$countCapture}}</h4><span class="f-light">Capture</span>
 				  </div>
 				</div>
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
@@ -201,7 +201,7 @@ $options = [
 					</div>
 				  </div>
 				  <div> 
-					<h4>{{$countDuplicate}}</h4><span class="f-light">Duplicate Capture</span>
+					<h4 id="countDuplicate">{{$countDuplicate}}</h4><span class="f-light">Duplicate Capture</span>
 				  </div>
 				</div>
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
@@ -227,7 +227,7 @@ $options = [
 					</div>
 				  </div>
 				  <div> 
-					<h4>{{$countNYCapture}}</h4><span class="f-light">Not Yet Capture</span>
+					<h4 id="countNYCapture">{{$countNYCapture}}</h4><span class="f-light">Not Yet Capture</span>
 				  </div>
 				</div>
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
@@ -252,7 +252,7 @@ $options = [
 					</div>
 				  </div>
 				  <div> 
-					<h4>{{$countNYPayroll}}</h4><span class="f-light">Not in Payroll</span>
+					<h4 id="countNYPayroll">{{$countNYPayroll}}</h4><span class="f-light">Not in Payroll</span>
 				  </div>
 				</div>
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
@@ -278,7 +278,7 @@ $options = [
 					</div>
 				  </div>
 				  <div> 
-					<h4>{{$countTrash}}</h4><span class="f-light">Trash Capture</span>
+					<h4 id="countTrash">{{$countTrash}}</h4><span class="f-light">Trash Capture</span>
 				  </div>
 				</div>
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
@@ -319,7 +319,7 @@ $options = [
 								<th>Balance</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="payrollSummaryTable">
 							@php
 								$total_payroll = 0;
 								$total_capture = 0;
@@ -340,7 +340,7 @@ $options = [
 								@endphp
 							@endforeach
 						</tbody>
-						<tfoot>
+						<tfoot id="payrollSummaryFoot">
 							<th colspan=2>Total</th>
 							<th>{{$total_payroll}}</th>
 							<th>{{$total_capture}}</th>
@@ -378,12 +378,14 @@ $options = [
 								<th>Status</th>
 								<th>#</th>
 							</tr>
+							<tbody id="claimTable">
 							@foreach($claimStatus as $row)
 								<tr>
 									<td>{{$row->claimed_status ? $options[$row->claimed_status] : '-'}}</td>
 									<td>{{$row->count}}</td>
 								</tr>
 							@endforeach
+							</tbody>
 						</table>
 				</div>
 			</div>
@@ -442,4 +444,62 @@ $options = [
 @endsection
 
 @section('script')
+
+
+<script type="text/javascript">
+        var session_layout = '{{ session()->get('layout') }}';
+
+        setInterval(() => {
+            $.get('get-dashboard', function(data){
+				console.log(data)
+				$('#countCapture').html(data.countCapture);
+				$('#countDuplicate').html(data.countDuplicate);
+				$('#countNYCapture').html(data.countNYCapture);
+				$('#countNYPayroll').html(data.countNYPayroll);
+				$('#countTrash').html(data.countTrash);
+
+
+				let total_payroll = 0;
+				let total_capture = 0;
+				let total_balance = 0;
+
+				let payrollSummaryHtml = "";
+				data.payrollSummary.forEach(function(value) {
+					total_payroll += value.payroll;
+					total_capture += value.capture;
+					total_balance += (value.payroll - value.capture);
+
+					payrollSummaryHtml += "<tr>";
+						payrollSummaryHtml += "<td>"+(value.municipality)+"</td>";
+						payrollSummaryHtml += "<td>"+(value.barangay)+"</td>";
+						payrollSummaryHtml += "<td>"+(value.payroll)+"</td>";
+						payrollSummaryHtml += "<td>"+(value.capture)+"</td>";
+						payrollSummaryHtml += "<td>"+(value.payroll - value.capture)+"</td>";
+						
+					payrollSummaryHtml += "</tr>";
+				});
+				
+
+				$('#payrollSummaryTable').html(payrollSummaryHtml);
+				$('#payrollSummaryFoot').html('<th colspan=2>Total</th><th>'+total_payroll+'</th><th>'+total_capture+'</th><th>'+total_balance+'</th>')
+
+				// claimTable
+				claimTableHtml = "";
+				data.claimStatus.forEach(function(value) {
+					claimTableHtml += "<tr>";
+						claimTableHtml += "<td>"+value.claimed_status+"</td>";
+						claimTableHtml += "<td>"+value.count+"</td>";
+					claimTableHtml += "</tr>";
+				});
+
+
+
+            });
+
+			
+        }, 1000);
+
+        
+    </script>
+
 @endsection

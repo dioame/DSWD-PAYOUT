@@ -44,3 +44,4 @@ Route::resource('capture', CaptureController::class);
 
 Route::get('live', [LiveUpdateController::class, 'index'])->name('live');
 Route::get('live-data', [LiveUpdateController::class, 'getCapture'])->name('live-data');
+Route::get('get-dashboard', [HomeController::class, 'getDashboard'])->name('get-dashboard');

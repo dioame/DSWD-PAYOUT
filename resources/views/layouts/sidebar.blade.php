@@ -2,7 +2,7 @@
     <div>
       <div class="logo-wrapper">
         <a href="{{ route('/')}}">
-         <h2> KC-PDS</h2>
+         <h2> PAID</h2>
          <p>Version [{{config('app.kc-pds-version')}}]</p>
       </a>
         <div class="back-btn"><i class="fa fa-angle-left"></i></div>

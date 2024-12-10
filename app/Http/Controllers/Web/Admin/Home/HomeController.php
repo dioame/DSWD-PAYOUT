@@ -118,6 +118,53 @@ class HomeController extends Controller
         //
     }
 
+    public function getDashboard(
+        CaptureDataTable $capture,
+        PayrollDataTable $payroll,
+        DuplicateCaptureTable $duplicate,
+        NYCaptureDataTable $nyCapture,
+        NYPayrollTable $nyPayroll,
+        TrashCaptureTable $trashCapture
+    ){
+        $payrollSummary = Payroll::leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
+        ->select('payroll.barangay', 'payroll.municipality', 
+            \DB::raw('COUNT(DISTINCT(payroll.payroll_no)) AS payroll'),
+            \DB::raw('COUNT(capture.payroll_no) AS capture')
+        )
+        ->whereNull('capture.deleted_at')
+        ->groupBy('payroll.barangay', 'payroll.municipality')
+        ->get();
+
+        $claimStatus = Payroll::leftJoin('capture', function ($join) {
+            $join->on('payroll.payroll_no', '=', 'capture.payroll_no')
+                    ->whereNull('capture.deleted_at');
+        })
+        ->whereNull('capture.payroll_no')
+        ->groupBy('payroll.claimed_status')
+        ->select('payroll.claimed_status', DB::raw('count(*) as count'))
+        ->get();
+
+        $countCapture = $capture->countRecords();
+        $countPayroll = $payroll->countRecords();
+        $countDuplicate = $duplicate->countRecords();
+        $countNYCapture = $nyCapture->countRecords();
+        $countNYPayroll = $nyPayroll->countRecords();
+        $countTrash = $trashCapture->countRecords();
+
+
+        
+        return response()->json([
+                'countCapture' => $countCapture,
+                'countPayroll' => $countPayroll,
+                'countDuplicate' => $countDuplicate,
+                'countNYCapture' => $countNYCapture,
+                'countNYPayroll' => $countNYPayroll,
+                'countTrash' => $countTrash,
+                'payrollSummary' => $payrollSummary,
+                'claimStatus' => $claimStatus,
+            ]);
+    }
+
     
     
     
