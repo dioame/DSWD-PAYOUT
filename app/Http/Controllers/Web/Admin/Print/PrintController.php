@@ -94,10 +94,11 @@ class PrintController extends Controller
         $query = $service->execute($params);
 
         foreach($query as $res){
-            $filename = storage_path('app/public/' . $res->path);
+            // $filename = storage_path('app/public/' . $res->path);
+            $filename = storage_path('app/public/' . ltrim($res->path, '/'));
             $this->correctImageOrientation($filename);
         }
-        
+
         $chunks = $this->formatArray($query->toArray());
 
         $pdf = PDF::loadView('print.pdf-template', compact('chunks'))->setPaper('a4', 'portrait');
@@ -115,39 +116,67 @@ class PrintController extends Controller
         return $data;
     }
 
-    public function correctImageOrientation($filename) {
-        if (file_exists($filename)) {
-        if (function_exists('exif_read_data')) {
-          $exif = exif_read_data($filename);
-          if($exif && isset($exif['Orientation'])) {
-            $orientation = $exif['Orientation'];
-
-            // var_dump($orientation);
-            // die();
-            if($orientation != 1){
-              $img = imagecreatefromjpeg($filename);
-              $deg = 0;
-              switch ($orientation) {
-                case 3:
-                  $deg = 180;
-                  break;
-                case 6:
-                  $deg = 270;
-                  break;
-                case 8:
-                  $deg = 90;
-                  break;
-              }
-              if ($deg) {
-                $img = imagerotate($img, $deg, 0);        
-              }
-              // then rewrite the rotated image back to the disk as $filename 
-              imagejpeg($img, $filename, 95);
-            } // if there is some rotation necessary
-          } // if have the exif orientation info
-        } // if function exists      
-      }
+    public function correctImageOrientation($filename)
+{
+    // Check if the file exists
+    if (!file_exists($filename)) {
+        // Log::warning("File does not exist: " . $filename);
+        return;
     }
+
+    // Check if the `exif_read_data` function is available
+    if (!function_exists('exif_read_data')) {
+        // Log::warning("Exif extension is not available. Cannot adjust image orientation.");
+        return;
+    }
+
+    // Attempt to read EXIF data
+    $exif = @exif_read_data($filename);
+    if ($exif && isset($exif['Orientation'])) {
+        $orientation = $exif['Orientation'];
+
+        // Only proceed if orientation is not normal (1)
+        if ($orientation != 1) {
+            // Load the image
+            $img = @imagecreatefromjpeg($filename);
+            if (!$img) {
+                // Log::error("Failed to create image from file: " . $filename);
+                return;
+            }
+
+            // Determine the rotation angle
+            $deg = 0;
+            switch ($orientation) {
+                case 3:
+                    $deg = 180;
+                    break;
+                case 6:
+                    $deg = 270;
+                    break;
+                case 8:
+                    $deg = 90;
+                    break;
+            }
+
+            // Rotate the image if necessary
+            if ($deg) {
+                $rotatedImg = @imagerotate($img, $deg, 0);
+                if ($rotatedImg) {
+                    // Save the rotated image back to the file
+                    imagejpeg($rotatedImg, $filename, 95);
+                    imagedestroy($rotatedImg); // Free memory
+                } else {
+                    // Log::error("Failed to rotate image: " . $filename);
+                }
+            }
+
+            imagedestroy($img); // Free memory
+        }
+    } else {
+        // Log::info("No EXIF orientation data found for: " . $filename);
+    }
+}
+
 
     // public function duplicateCapture(){
     //     $duplicate = Capture::join(
@@ -164,7 +193,7 @@ class PrintController extends Controller
     public function duplicateCapture(DuplicateCaptureTable $dataTable){
         return $dataTable->render('print.duplicate');
     }
-    
+
     // public function nyCapture(){
     //     $nyCapture = Payroll::leftJoin('capture', 'payroll.payroll_no', '=', 'capture.payroll_no')
     //     ->select('payroll.*')
@@ -189,7 +218,7 @@ class PrintController extends Controller
     // public function trash(TrashCaptureTable $dataTable)
     // {
     //     $trash = Capture::orderBy('captured_at', 'desc')->onlyTrashed()->paginate(10);
-    
+
     //     return view('print.trash', compact('trash'));
     // }
 
@@ -197,19 +226,19 @@ class PrintController extends Controller
         $capture = Capture::find($id);
         return view('print.edit-capture-form', compact('capture'));
     }
-    
+
     public function editCapture($id,Request $request){
         Capture::find($id)->update([
             'payroll_no' => $request->payroll_no
         ]);
-        
+
         return redirect()->route('print.duplicate-capture');
     }
 
     public function nyPayroll(NYPayrollTable $dataTable){
         return $dataTable->render('print.ny-payroll');
     }
-    
+
     public function viewTashPhotos(){
         $captures = Capture::onlyTrashed()->get();
         return view('print.view-trash-photos', compact('captures'));
