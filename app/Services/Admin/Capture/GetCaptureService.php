@@ -35,7 +35,7 @@ class GetCaptureService extends BaseService
                     ->whereColumn("payroll.modality", "c.modality")
                     ->whereColumn("payroll.year", "c.year");
             })
-            ->orderByRaw("
+            ->orderByRaw(" 
                 (payroll.payroll_no LIKE '%-%') DESC,
                 CAST(SUBSTRING_INDEX(payroll.payroll_no, '-', 1) AS UNSIGNED) ASC, 
                 CAST(SUBSTRING_INDEX(payroll.payroll_no, '-', -1) AS UNSIGNED) ASC
