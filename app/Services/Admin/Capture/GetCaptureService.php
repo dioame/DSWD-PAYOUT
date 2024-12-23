@@ -33,7 +33,7 @@ class GetCaptureService extends BaseService
                 $join->on("payroll.payroll_no", "=", "c.payroll_no")
                     ->whereColumn("payroll.municipality", "c.municipality")
                     ->whereColumn("payroll.modality", "c.modality")
-                    ->whereColumn("payroll.year", "c.year");
+                    ->whereColumn("payroll.year", "c.year"); 
             }) 
             ->orderByRaw("  
                 (payroll.payroll_no LIKE '%-%') DESC,
