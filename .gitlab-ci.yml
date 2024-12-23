@@ -45,7 +45,7 @@ deploy-job:      # This job runs in the deploy stage.
     - echo "Application successfully deployed."
 
 push-to-github:  # User-defined job name
-  stage: deploy    # Stage name defined in the pipeline
+  stage: build    # Stage name defined in the pipeline
   only:
     - main       # Runs only when changes are pushed to the 'main' branch
   script:
