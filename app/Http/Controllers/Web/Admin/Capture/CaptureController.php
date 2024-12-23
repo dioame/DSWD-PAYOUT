@@ -6,7 +6,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Capture;
+use App\Models\Admin\Payroll;
 use App\Services\Admin\Capture\StoreCaptureService;
+use Illuminate\Support\Facades\DB;
+
 
 class CaptureController extends Controller
 {
@@ -16,7 +19,29 @@ class CaptureController extends Controller
     public function index()
     {
         //
-        return view('capture.index');
+        $modalities = Payroll::select(
+            'municipality',
+            'modality',
+            'year',
+            DB::raw('count(*) as count')
+        )
+        ->groupBy('municipality', 'modality', 'year')
+        ->orderBy('municipality', 'asc')
+        ->orderBy('modality', 'asc')
+        ->orderBy('year', 'asc')
+        ->get();
+
+        // Prepare the data for select forms
+        $options = [];
+        foreach ($modalities as $modality) {
+        $options[] = [
+        'municipality' => $modality->municipality,
+        'barangay' => $modality->barangay,
+        'modality' => $modality->modality,
+        'year' => $modality->year,
+        ];
+        }
+        return view('capture.index', compact('options'));
     }
 
     /**
@@ -98,22 +123,66 @@ class CaptureController extends Controller
 
     public function uploadFolder(Request $request, StoreCaptureService $service){
         $idNumber = $request->input('id_number');
+        
+        $municipality = $request->input('municipality');
+        $modality = $request->input('modality');
+        $year = $request->input('year');
+        
+
         $folder = $request->file('folder');
+
+
+        $databaseName = 'documentation';
+        $fileDirectoryName = $databaseName;
 
         foreach ($folder as $file) {
             $filename = $file->getClientOriginalName();
-            $file->storeAs('public/pictures', $filename);
-            $filePath = "pictures/".$filename;
+            $file->storeAs('public/pictures/'.$fileDirectoryName, $filename);
+            $filePath = "pictures/".$fileDirectoryName."/".$filename;
+            
             $payrollNo = explode("_",$filename)[0];
 
             $service->execute([
                 'payroll_no' => $payrollNo,
                 'path' => $filePath,
                 'id_number' => $idNumber,
+                'municipality' => $municipality,
+                'modality' => $modality,
+                'year' => $year,
             ]);
         }
 
         return redirect()->route('capture.print-index');
   
+    }
+
+    public function generatePDFForm(){
+        return redirect()->route('capture.pdf-form');
+    }
+
+    public function pdfForm(){
+        $modalities = Payroll::select(
+            'municipality',
+            'modality',
+            'year',
+            DB::raw('count(*) as count')
+        )
+        ->groupBy('municipality', 'modality', 'year')
+        ->orderBy('municipality', 'asc')
+        ->orderBy('modality', 'asc')
+        ->orderBy('year', 'asc')
+        ->get();
+
+        // Prepare the data for select forms
+        $options = [];
+        foreach ($modalities as $modality) {
+        $options[] = [
+        'municipality' => $modality->municipality,
+        'barangay' => $modality->barangay,
+        'modality' => $modality->modality,
+        'year' => $modality->year,
+        ];
+        }
+        return view('capture.pdf-form', compact('options'));
     }
 }

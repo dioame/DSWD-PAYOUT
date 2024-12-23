@@ -22,21 +22,17 @@
 @section('content')
 <div class="container-fluid">
 
-<div class="row">
-        <div class="col-lg-6 col-md-6">
-            <div class="input-group">
-                <input class="form-control" id="payroll-input" type="text" placeholder="1, 1-100"><span class="input-group-text btn btn-primary" onclick="generatePDF()">Generate PDF</span>
-            </div>
-        </div>
-    </div>
-    <hr>
+
 
     <div class="row">
         <div class="col-lg-12 col-md-12">
         
                 <div class="card">
                     <div class="card-header">
-                        <h5>Captured List <a href="{{route('capture.index')}}" class="btn btn-success" target="_blank"><i class="fa fa-upload"></i> Upload Capture</a></h5>
+                        <h5>Captured List 
+                            <a href="{{route('capture.index')}}" class="btn btn-success" target="_blank"><i class="fa fa-upload"></i> Upload Capture</a>
+                            <a href="{{route('capture.pdf-form')}}" class="btn btn-primary" target="_blank"><i class="fa fa-file"></i> Generate PDF</a>
+                        </h5>
                     </div>
                     <div class="card-body">
                 
@@ -52,14 +48,7 @@
     <script type="text/javascript">
         var session_layout = '{{ session()->get('layout') }}';
 
-        function generatePDF(){
-            var input = $('#payroll-input').val();
-            if(input){
-                window.open('print/generate-pdf/'+input, '_blank');
-            }else{
-                alert("Please provide range. Thank you.");
-            }       
-        }
+    
     </script>
 @endsection
 
@@ -75,7 +64,7 @@
        function confirmDelete(id) {
             if (confirm('Are you sure you want to delete this item?')) {
                     $.ajax({
-                        url: '/capture/' + id+'/delete',
+                        url: '/kc-pds/capture/' + id+'/delete',
                         type: 'DELETE',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

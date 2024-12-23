@@ -12,6 +12,9 @@ class Capture extends Model
     protected $fillable = [
         'payroll_no',
         'path',
+        'municipality',
+        'modality',
+        'year',
         'captured_at',
         'captured_by'
     ];
@@ -20,7 +23,10 @@ class Capture extends Model
 
     public function payroll()
     {
-        return $this->belongsTo(Payroll::class,'payroll_no','payroll_no');
+        return $this->belongsTo(Payroll::class, 'payroll_no', 'payroll_no')
+        ->whereColumn('municipality', 'municipality')
+        ->whereColumn('modality', 'modality')
+        ->whereColumn('year', 'year');
     }
 
 }

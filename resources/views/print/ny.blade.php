@@ -89,7 +89,7 @@
         var _c = confirm("Are you sure to change status?");
         if(_c){
             $.ajax({
-                url: '/payroll/' + id+'/status/'+status,
+                url: '/kc-pds/payroll/' + id+'/status/'+status,
                 type: 'PUT',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -118,7 +118,7 @@
         var status = $('#selectInput').val();
 
         $.ajax({
-            url: '/payroll/' + id+'/status/'+status,
+            url: '/kc-pds/payroll/' + id+'/status/'+status,
             type: 'PUT',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

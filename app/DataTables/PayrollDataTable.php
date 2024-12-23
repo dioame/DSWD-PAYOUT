@@ -60,9 +60,9 @@ class PayrollDataTable extends DataTable
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reload'),
+                        // Button::make('pdf'),
+                        // Button::make('print'),
+                        // Button::make('reload'),
                     ]);
     }
 
@@ -82,6 +82,8 @@ class PayrollDataTable extends DataTable
             Column::make('name'),
             Column::make('barangay'),
             Column::make('municipality'),
+            Column::make('modality'),
+            Column::make('year'),
             Column::make('created_at'),
             Column::make('updated_at'),
         ];

@@ -67,6 +67,15 @@ $options = [
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
+				<label for="">Auto-refresh</label>
+				<select name="" id="autorefresh" onclick="changeValue(this.value)">
+					<option value="0">---</option>
+					<option value="5">5 Seconds</option>
+					<option value="10">10 Seconds</option>
+					<option value="15">15 Seconds</option>
+					<option value="30">30 Seconds</option>
+					<option value="60">60 Seconds</option>
+				</select>
 				<?php 
                             $host = gethostbyname(gethostname());
                             $connection = @fsockopen($host, 8000, $errno, $errstr, $timeout);
@@ -108,8 +117,14 @@ $options = [
                             ?>
                     <h5><?= $msg ?></h5>
                 </div>
+
+				
             </div>
+
+		
+
         </div>
+		
       
     </div>
 
@@ -118,6 +133,7 @@ $options = [
 
 <div class="row">
     <div class="col-lg-3 col-md-3">
+		
 		<a href="payroll">
             <div class="card widget-1">
 			  <div class="card-body"> 
@@ -160,6 +176,32 @@ $options = [
 				  </div>
 				  <div> 
 					<h4>{{$countCapture}}</h4><span class="f-light">Capture</span>
+				  </div>
+				</div>
+				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
+			  </div>
+			</div>
+							</a>
+    </div>
+
+	<div class="col-lg-3 col-md-3">
+	<a href="print">
+            <div class="card widget-1">
+			  <div class="card-body"> 
+				<div class="widget-content">
+				  <div class="widget-round secondary">
+					<div class="bg-round">
+					  <!-- <svg class="svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#cart"> </use>
+					  </svg> -->
+                      <i data-feather="instagram"></i>    
+					  <!-- <svg class="half-circle svg-fill">
+						<use href="https://laravel.pixelstrap.com/cuba/assets/svg/icon-sprite.svg#halfcircle"></use>
+					  </svg> -->
+					</div>
+				  </div>
+				  <div> 
+					<h4>{{$countCapture - $countNYPayroll }}</h4><span class="f-light">Capture based on Payroll</span>
 				  </div>
 				</div>
 				<div class="font-secondary f-w-500"><i class="icon-arrow-up icon-rotate me-1"></i><span>+100%</span></div>
@@ -293,11 +335,15 @@ $options = [
 		<div class="card-body">
 			<div class="row">
 				<div class="col-lg-12 col-md-12">
+
+
+
 					<table class="table table-striped table-bordered">
 						<thead>
 							<tr>
 								<th>Municipality</th>
-								<th>Barangay</th>
+								<th>Modality</th>
+								<th>Year</th>
 								<th>Payroll</th>
 								<th>Captured</th>
 								<th>Balance</th>
@@ -312,7 +358,9 @@ $options = [
 							@foreach($payrollSummary as $payroll)
 								<tr>
 									<td>{{$payroll->municipality}}</td>
-									<td>{{$payroll->barangay}}</td>
+									<td>{{$payroll->modality}}</td>
+									<td>{{$payroll->year}}</td>
+									<!-- <td>{{$payroll->barangay}}</td> -->
 									<td>{{$payroll->payroll}}</td>
 									<td>{{$payroll->capture}}</td>
 									<td>{{$payroll->payroll - $payroll->capture}}</td>
@@ -325,7 +373,7 @@ $options = [
 							@endforeach
 						</tbody>
 						<tfoot>
-							<th colspan=2>Total</th>
+							<th colspan=3>Total</th>
 							<th>{{$total_payroll}}</th>
 							<th>{{$total_capture}}</th>
 							<th>{{$total_balance}}</th>
@@ -412,6 +460,16 @@ $options = [
 </div>
     <script type="text/javascript">
         var session_layout = '{{ session()->get('layout') }}';
+
+
+		// function changeValue(val){
+		// 	var time = val*1000;
+		// }
+	
+
+		// setInterval(() => {
+		// 	location.reload();
+		// }, 10000);
     </script>
 @endsection
 

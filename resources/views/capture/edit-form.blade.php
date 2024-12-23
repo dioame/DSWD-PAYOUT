@@ -37,7 +37,7 @@
                         <div class="row">
                             <div class="col-lg-3 col-md-3">
                                 <div style='width:200px;'>
-                                    <img src="{{ asset("storage/pictures/" . basename($capture->path)) }}" alt="" style="max-width:100%;">
+                                    <img src="{{ asset("storage/" .$capture->path) }}" alt="" style="max-width:100%;">
                                 </div>
                             </div>
                             <div class="col-lg-9 col-md-9">

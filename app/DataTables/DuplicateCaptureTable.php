@@ -34,8 +34,8 @@ class DuplicateCaptureTable extends DataTable
                 return $row->payroll->name ?? '';
             })
             ->addColumn('image', function ($row) {
-                return ' <div style="width:30px;"><a href="'.asset("storage/pictures/" . basename($row->path)).'" target=_blank>
-                            <img src="'.asset("storage/pictures/" . basename($row->path)).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
+                return ' <div style="width:30px;"><a href="'.asset("storage/" . $row->path).'" target=_blank>
+                            <img src="'.asset("storage/" . $row->path).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
                         </a></div>';
             })
             ->addColumn('action', function ($row) {
@@ -52,18 +52,38 @@ class DuplicateCaptureTable extends DataTable
      */
     public function query(Capture $model): QueryBuilder
     {
-        return $model->newQuery()->join(
-            DB::raw('(SELECT c.payroll_no as p_no FROM capture c WHERE deleted_at IS NULL GROUP BY c.payroll_no HAVING COUNT(*) > 1) as duplicates'),
-            'capture.payroll_no', '=', 'duplicates.p_no'
-        )
-        ->orderBy('capture.payroll_no', 'asc');
+        return $model->newQuery()
+        ->select('capture.*')
+        ->join(
+            DB::raw('(SELECT c.payroll_no as p_no, c.modality, c.municipality, c.year 
+                      FROM capture c 
+                      WHERE c.deleted_at IS NULL 
+                      GROUP BY c.payroll_no, c.modality, c.municipality, c.year 
+                      HAVING COUNT(*) > 1) as duplicates'),
+            function ($join) {
+                $join->on('capture.payroll_no', '=', 'duplicates.p_no')
+                     ->on('capture.modality', '=', 'duplicates.modality')
+                     ->on('capture.municipality', '=', 'duplicates.municipality')
+                     ->on('capture.year', '=', 'duplicates.year');
+            }
+        )->orderBy('capture.payroll_no', 'asc');
     }
 
     public function countRecords(): int
     {
-        return Capture::join(
-            DB::raw('(SELECT c.payroll_no as p_no FROM capture c WHERE deleted_at IS NULL GROUP BY c.payroll_no HAVING COUNT(*) > 1) as duplicates'),
-            'capture.payroll_no', '=', 'duplicates.p_no'
+        return Capture::select('capture.*')
+        ->join(
+            DB::raw('(SELECT c.payroll_no as p_no, c.modality, c.municipality, c.year 
+                      FROM capture c 
+                      WHERE c.deleted_at IS NULL 
+                      GROUP BY c.payroll_no, c.modality, c.municipality, c.year 
+                      HAVING COUNT(*) > 1) as duplicates'),
+            function ($join) {
+                $join->on('capture.payroll_no', '=', 'duplicates.p_no')
+                     ->on('capture.modality', '=', 'duplicates.modality')
+                     ->on('capture.municipality', '=', 'duplicates.municipality')
+                     ->on('capture.year', '=', 'duplicates.year');
+            }
         )->count();
     }
 
@@ -109,6 +129,9 @@ class DuplicateCaptureTable extends DataTable
             Column::make('id'),
             Column::make('payroll_no'),
             Column::make('name'),
+            Column::make('municipality'),
+            Column::make('modality'),
+            Column::make('year'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::make('image'),

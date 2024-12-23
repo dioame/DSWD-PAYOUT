@@ -29,18 +29,21 @@ class CaptureDataTable extends DataTable
             ->addColumn('updated_at', function ($row) {
                 return Carbon::parse($row->updated_at)->toDateTimeString();
             })
-            ->addColumn('name', function ($row) {
-                return $row->payroll->name ?? '';
-            })
-            ->addColumn('barangay', function ($row) {
-                return $row->payroll->barangay ?? '';
-            })
-            ->addColumn('municipality', function ($row) {
-                return $row->payroll->municipality ?? '';
+            // ->addColumn('name', function ($row) {
+            //     return $row->payroll->name ?? '';
+            // })
+            // ->addColumn('barangay', function ($row) {
+            //     return $row->payroll->barangay ?? '';
+            // })
+            // ->addColumn('municipality', function ($row) {
+            //     return $row->payroll->municipality ?? '';
+            // })
+            ->addColumn('captured_by', function ($row) {
+                return $row->captured_by ?? '';
             })
             ->addColumn('image', function ($row) {
-                return ' <div style="width:30px;"><a href="'.asset("storage/pictures/" . basename($row->path)).'" target=_blank>
-                            <img src="'.asset("storage/pictures/" . basename($row->path)).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
+                return ' <div style="width:30px;"><a href="'.asset("storage/" . $row->path).'" target=_blank>
+                            <img src="'.asset("storage/" . $row->path).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
                         </a></div>';
             })
             ->addColumn('action', function ($row) {
@@ -56,7 +59,15 @@ class CaptureDataTable extends DataTable
      */
     public function query(Capture $model): QueryBuilder
     {
-        return $model->newQuery()->orderByDesc('created_at');
+        return $model->newQuery()
+        ->join('payroll', function ($join) {
+            $join->on('capture.payroll_no', '=', 'payroll.payroll_no')
+                ->on('capture.municipality', '=', 'payroll.municipality')
+                ->on('capture.modality', '=', 'payroll.modality')
+                ->on('capture.year', '=', 'payroll.year');
+        })
+        ->select('capture.*', 'payroll.barangay', 'payroll.name')
+        ->orderByDesc('capture.created_at');
     }
 
     public function countRecords(): int
@@ -105,9 +116,12 @@ class CaptureDataTable extends DataTable
             //       ->addClass('text-center'),
             Column::make('id'),
             Column::make('payroll_no'),
-            Column::make('name'),
-            Column::make('barangay'),
+            Column::make('name')->searchable(false),
+            Column::make('barangay')->searchable(false), //theres a bug if set to true ongoing fix
             Column::make('municipality'),
+            Column::make('modality'),
+            Column::make('year'),
+            Column::make('captured_by'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::make('image'),
@@ -115,6 +129,7 @@ class CaptureDataTable extends DataTable
         ];
     }
 
+    
     /**
      * Get the filename for export.
      */

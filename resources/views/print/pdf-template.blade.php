@@ -10,7 +10,7 @@
 <body>
     <center>
         @foreach($chunks as $chunk)
-        <span>DSWD Caraga <br>Photo Documentation</span>
+        <span>DSWD Caraga <br>Photo Documentation<br>{{$municipality}}</span>
         <table style='width:100%;'>
 
             @foreach($chunk as $picture)
@@ -19,7 +19,7 @@
                 <?php
                 $path = asset('storage/assets/unclaimed.png');
                 if ($row['path']) {
-                    $path  = asset('storage/pictures/' . basename($row['path']));
+                    $path  = asset('storage/' . $row['path']);
                 }
 
                 ?>

@@ -18,7 +18,7 @@
     @yield('style')
   </head>
   {{-- @dd(Route::current()->getName()); --}}
-  <body @if(Route::current()->getName() == 'index') onload="startTime()" @elseif (Route::current()->getName() == 'button-builder') class="button-builder" @endif>
+  <body>
     <div class="loader-wrapper">
       <div class="loader-index"><span></span></div>
       <svg>
@@ -71,7 +71,7 @@
       </div>
     </div>
     <!-- latest jquery-->
-    @include('layouts.script')  
+    <!-- @include('layouts.script')   -->
   
     <!-- Plugin used-->
 
@@ -81,6 +81,7 @@
             $(".sidebar-submenu" ).css( "display", "block" );
       }
     </script> --}}
-      @stack('scripts')
+   
+   @stack('scripts')
   </body>
 </html>

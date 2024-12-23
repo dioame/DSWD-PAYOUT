@@ -26,6 +26,9 @@ class PrintController extends Controller
      */
     public function index(CaptureDataTable $dataTable)
     {
+
+
+        
         // $latest = Capture::orderBy('captured_at', 'desc')->paginate(10);
         // return view('print.index', compact('latest'));
         return $dataTable->render('print.index');
@@ -86,15 +89,19 @@ class PrintController extends Controller
         return array_values($sortedFiles->all());
     }
 
-    public function generatePdf($range,GetCaptureService $service)
+    public function generatePdf($range,$municipality,$modality,$year,GetCaptureService $service)
     {
         $params = [
-            'range' => $range
+            'range' => $range,
+            'municipality' => $municipality,
+            'modality' => $modality,
+            'year' => $year
         ];
+
         $query = $service->execute($params);
         $chunks = $this->formatArray($query->toArray());
 
-        $pdf = PDF::loadView('print.pdf-template', compact('chunks'))->setPaper('a4', 'portrait');
+        $pdf = PDF::loadView('print.pdf-template', compact(['chunks','municipality']))->setPaper('a4', 'portrait');
         return $pdf->download('pictures.pdf');
     }
 
@@ -170,5 +177,8 @@ class PrintController extends Controller
         return $dataTable->render('print.ny-payroll');
     }
     
-
+    public function viewTashPhotos(){
+        $captures = Capture::onlyTrashed()->get();
+        return view('print.view-trash-photos', compact('captures'));
+    }
 }

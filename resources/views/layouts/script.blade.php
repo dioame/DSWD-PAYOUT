@@ -22,7 +22,7 @@
 
 <script src="{{ asset('assets/Datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('assets/Datatables/Buttons-2.4.2/js/dataTables.buttons.min.js') }}"></script>
-<script src="/vendor/datatables/buttons.server-side.js"></script>
+<!-- <script src="/vendor/datatables/buttons.server-side.js"></script> -->
 
 @yield('script')
 
@@ -34,14 +34,3 @@
 <!-- Theme js-->
 <script src="{{asset('assets/js/script.js')}}"></script>
 
-
-
-{{-- @if(Route::current()->getName() == 'index') 
-	<script src="{{asset('assets/js/layout-change.js')}}"></script>
-@endif --}}
-
-@if(Route::currentRouteName() == 'index')
-<script>
-	new WOW().init();
-</script>
-@endif

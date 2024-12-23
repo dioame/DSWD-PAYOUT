@@ -31,8 +31,8 @@ class NYCaptureDataTable extends DataTable
                 return Carbon::parse($row->updated_at)->toDateTimeString();
             })
             ->addColumn('image', function ($row) {
-                return ' <div style="width:30px;"><a href="'.asset("storage/pictures/" . basename($row->path)).'" target=_blank>
-                            <img src="'.asset("storage/pictures/" . basename($row->path)).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
+                return ' <div style="width:30px;"><a href="'.asset("storage/" . $row->path).'" target=_blank>
+                            <img src="'.asset("storage/" . $row->path).'" alt="" style="max-width:100%;max-height:100%;border-radius:50px;">
                         </a></div>';
             })
             // ->addColumn('claimed_status', function ($row) {
@@ -71,7 +71,12 @@ class NYCaptureDataTable extends DataTable
      */
     public function query(Payroll $model): QueryBuilder
     {
-        return $model->newQuery()->leftJoin(DB::raw('(SELECT * FROM capture WHERE deleted_at IS NULL) c'), 'payroll.payroll_no', '=', 'c.payroll_no')
+        return $model->newQuery()->leftJoin(DB::raw('(SELECT * FROM capture WHERE deleted_at IS NULL) c'),    function ($join) {
+            $join->on('payroll.payroll_no', '=', 'c.payroll_no')
+                 ->on('payroll.modality', '=', 'c.modality')
+                 ->on('payroll.municipality', '=', 'c.municipality')
+                 ->on('payroll.year', '=', 'c.year');
+        })
             ->select('payroll.*')
             ->whereNull('c.payroll_no')
             ->whereNull('c.deleted_at');
@@ -79,7 +84,12 @@ class NYCaptureDataTable extends DataTable
 
     public function countRecords(): int
     {
-        return Payroll::leftJoin(DB::raw('(SELECT * FROM capture WHERE deleted_at IS NULL) c'), 'payroll.payroll_no', '=', 'c.payroll_no')
+        return Payroll::leftJoin(DB::raw('(SELECT * FROM capture WHERE deleted_at IS NULL) c'),    function ($join) {
+                $join->on('payroll.payroll_no', '=', 'c.payroll_no')
+                     ->on('payroll.modality', '=', 'c.modality')
+                     ->on('payroll.municipality', '=', 'c.municipality')
+                     ->on('payroll.year', '=', 'c.year');
+            })
         ->select('payroll.*')
         ->whereNull('c.payroll_no')
         ->whereNull('c.deleted_at')
@@ -131,6 +141,8 @@ class NYCaptureDataTable extends DataTable
             Column::make('name'),
             Column::make('barangay'),
             Column::make('municipality'),
+            Column::make('modality'),
+            Column::make('year'),
           
             Column::make('created_at'),
             Column::make('updated_at'),

@@ -13,6 +13,9 @@ class StoreCaptureService extends BaseService
             'payroll_no' => $params['payroll_no'],
             'path' => $params['path'],
             'captured_by' => $params['id_number'],
+            'modality' => $params['modality'],
+            'municipality' => $params['municipality'],
+            'year' => $params['year'],
             'captured_at' => now()
         ]);
 
