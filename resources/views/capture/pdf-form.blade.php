@@ -38,7 +38,7 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                             <label for="">Payroll Number Range</label>
-                            <input class="form-control" id="payroll-input" type="text" placeholder="1, 1-100"><br>
+                            <input class="form-control" id="payroll-input" type="text" placeholder="1:100"><br>
                             <label for="">Municipality</label>
                             <select name="municipality" class="form-control" id="municipality">
                                     @foreach(array_unique(array_column($options, 'municipality')) as $municipality)
